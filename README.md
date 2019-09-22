@@ -1,5 +1,1 @@
-# MusicEmoRegInRumination
-
-A [workflowr][] project.
-
-[workflowr]: https://github.com/jdblischak/workflowr
+# The Influence of Rumination in Musical Emotion Regulation
