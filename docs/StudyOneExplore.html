@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Joel Larwood" />
+
+<meta name="date" content="2019-09-23" />
+
+<title>Study One: Exploratorty Data Analysis</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">MusicEmoRegInRumination</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Study One: Exploratorty Data Analysis</h1>
+<h4 class="author">Joel Larwood</h4>
+<h4 class="date">2019-09-23</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-09-23
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>MusicEmoRegInRumination/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190920code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190920)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190920code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190920)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtreef182b4376d4b88393a9134688f34707fc2a2b6abtargetblankf182b43a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellarwood/MusicEmoRegInRumination/tree/f182b4376d4b88393a9134688f34707fc2a2b6ab" target="_blank">f182b43</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtreef182b4376d4b88393a9134688f34707fc2a2b6abtargetblankf182b43a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  analysis/StudyOneConfirm.Rmd
+    Untracked:  analysis/StudyOneExplore.Rmd
+    Untracked:  data/s1.csv
+    Untracked:  data/s1Processed.csv
+    Untracked:  docs/figure/
+    Untracked:  s1MARScor.txt
+
+Unstaged changes:
+    Modified:   analysis/about.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>── Attaching packages ───────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>✔ ggplot2 3.2.0     ✔ purrr   0.3.2
+✔ tibble  2.1.3     ✔ dplyr   0.8.3
+✔ tidyr   0.8.3     ✔ stringr 1.4.0
+✔ readr   1.3.1     ✔ forcats 0.4.0</code></pre>
+<pre><code>── Conflicts ──────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(ggridges)</code></pre>
+<pre><code>
+Attaching package: &#39;ggridges&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
+
+    scale_discrete_manual</code></pre>
+<pre class="r"><code>library(psych)</code></pre>
+<pre><code>
+Attaching package: &#39;psych&#39;</code></pre>
+<pre><code>The following objects are masked from &#39;package:ggplot2&#39;:
+
+    %+%, alpha</code></pre>
+<p>Here I provide descriptive statistics for the songs listened to by participants who selected their own music.</p>
+<div id="describe" class="section level1">
+<h1>Describe</h1>
+<pre class="r"><code>s1Proc &lt;- read_csv(&quot;data/s1Processed.csv&quot;)</code></pre>
+<pre><code>Parsed with column specification:
+cols(
+  .default = col_double(),
+  MusicAccessNo = col_logical(),
+  Nationality = col_character(),
+  Condition = col_character(),
+  SelfSelected_Song1 = col_character(),
+  SelfSelected_Song2 = col_character(),
+  track_name = col_character(),
+  artist_name = col_character(),
+  album_name = col_character(),
+  key = col_character(),
+  mode = col_character(),
+  key_mode = col_character(),
+  RumSplit = col_character()
+)</code></pre>
+<pre><code>See spec(...) for full column specifications.</code></pre>
+<p>Here we can see descriptive statistics for the songs self selected</p>
+<pre class="r"><code>s1Proc %&gt;% 
+dplyr::select(contains(&quot;track&quot;),
+              contains(&quot;ness&quot;),
+              energy,
+              mode,
+              valence,
+              duration_ms,
+              tempo,
+              time_signature,
+              artist_name) %&gt;% 
+  psych::describe()</code></pre>
+<pre><code>Warning in psych::describe(.): NAs introduced by coercion
+
+Warning in psych::describe(.): NAs introduced by coercion
+
+Warning in psych::describe(.): NAs introduced by coercion</code></pre>
+<pre><code>Warning in FUN(newX[, i], ...): no non-missing arguments to min; returning
+Inf
+
+Warning in FUN(newX[, i], ...): no non-missing arguments to min; returning
+Inf
+
+Warning in FUN(newX[, i], ...): no non-missing arguments to min; returning
+Inf</code></pre>
+<pre><code>Warning in FUN(newX[, i], ...): no non-missing arguments to max; returning
+-Inf
+
+Warning in FUN(newX[, i], ...): no non-missing arguments to max; returning
+-Inf
+
+Warning in FUN(newX[, i], ...): no non-missing arguments to max; returning
+-Inf</code></pre>
+<pre><code>                 vars   n      mean       sd    median   trimmed      mad
+track_name*         1  38       NaN       NA        NA       NaN       NA
+track_popularity    2  38     50.92    19.17     53.00     51.84    25.20
+Sadness_MIP         3 128      1.00     0.00      1.00      1.00     0.00
+loudness            4  38     -8.79     4.78     -6.88     -8.18     2.29
+speechiness         5  38      0.07     0.07      0.04      0.05     0.01
+acousticness        6  38      0.37     0.34      0.30      0.35     0.42
+instrumentalness    7  38      0.06     0.20      0.00      0.00     0.00
+liveness            8  38      0.16     0.11      0.12      0.15     0.06
+energy              9  38      0.52     0.22      0.49      0.51     0.28
+mode*              10  38       NaN       NA        NA       NaN       NA
+valence            11  38      0.38     0.22      0.36      0.36     0.24
+duration_ms        12  38 248908.13 68660.79 241772.00 247376.97 69118.07
+tempo              13  38    119.91    29.90    120.03    119.60    33.30
+time_signature     14  38      3.89     0.31      4.00      3.97     0.00
+artist_name*       15  38       NaN       NA        NA       NaN       NA
+                       min       max     range  skew kurtosis       se
+track_name*            Inf      -Inf      -Inf    NA       NA       NA
+track_popularity      0.00     80.00     80.00 -0.45    -0.51     3.11
+Sadness_MIP           1.00      1.00      0.00   NaN      NaN     0.00
+loudness            -22.32     -1.99     20.33 -1.31     1.09     0.77
+speechiness           0.03      0.32      0.29  2.18     4.03     0.01
+acousticness          0.00      0.97      0.97  0.43    -1.37     0.05
+instrumentalness      0.00      0.89      0.89  3.54    11.32     0.03
+liveness              0.03      0.61      0.58  1.86     3.93     0.02
+energy                0.16      0.98      0.82  0.31    -0.89     0.04
+mode*                  Inf      -Inf      -Inf    NA       NA       NA
+valence               0.09      0.91      0.82  0.68    -0.54     0.04
+duration_ms      103306.00 393120.00 289814.00  0.15    -0.68 11138.25
+tempo                64.83    180.30    115.47  0.06    -1.03     4.85
+time_signature        3.00      4.00      1.00 -2.47     4.22     0.05
+artist_name*           Inf      -Inf      -Inf    NA       NA       NA</code></pre>
+<p>Here the frequnency plot of the spotify metrics for valence and arousal expressed in the song. We can see that the tracks tended to be more negative in valence but that energy levels were more normal in their distribution.</p>
+<pre class="r"><code>s1Proc %&gt;% 
+  tidyr::gather(key = Characteristic,
+                value = value,
+                valence, energy) %&gt;% 
+  ggplot2::ggplot(aes(x = value, y = Characteristic, color = Characteristic, fill = Characteristic)) + 
+  ggridges::geom_density_ridges() + 
+  ggplot2::xlim(0,1) +
+  ggplot2::theme_minimal()+ 
+  ggplot2::ggtitle(&quot;Density Plot of Valence and Energy of Listened to Songs&quot;) + 
+  ggplot2::xlab(&quot;Value of Valence/Energy standardised on a 0 - 1 scale. \nCloser to 0 is equal to less energy or less positive valence&quot;)</code></pre>
+<pre><code>Picking joint bandwidth of 0.0965</code></pre>
+<pre><code>Warning: Removed 180 rows containing non-finite values
+(stat_density_ridges).</code></pre>
+<p><img src="figure/StudyOneExplore.Rmd/plotspotifys1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Here we can see the songs plotted onto an affective grid of the affect expression.</p>
+<pre class="r"><code>s1Proc %&gt;% 
+filter(mode == &quot;minor&quot; | mode == &quot;major&quot; &amp; !is.na(track_name)) %&gt;% 
+ggplot2::ggplot(aes(x = valence,
+y = energy,
+color = mode)) +
+geom_point(size = 10, alpha = .5) +
+geom_hline(yintercept = .5) +
+geom_vline(xintercept =.5) +
+ylim(0,1) +
+xlim(0,1) +
+ggplot2::geom_point(aes(color = mode)) +
+ggplot2::geom_hline(yintercept = .5) +
+ggplot2::geom_vline(xintercept =.5) + 
+ggplot2::ylim(0,1) + 
+ggplot2::xlim(0,1)</code></pre>
+<pre><code>Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
+will replace the existing scale.</code></pre>
+<pre><code>Scale for &#39;x&#39; is already present. Adding another scale for &#39;x&#39;, which
+will replace the existing scale.</code></pre>
+<p><img src="figure/StudyOneExplore.Rmd/plotspotifys1.1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Interstingly, it seems that the songs are clustering around the lower left quadrant (which includes prototypical sadness, Russell, 1980) and the upper right (which includes prototypical happiness). It seems the descriptives for energy are being driven by whether the music selected is positive or negative. It is possible the selection is being made on a valence criteria and the normal distrubution of energy is a product of positively valenced music being higher in arousal. This is consistent with the relative high arousal ratings seen in the Eerola and Vuoskoski set which was designed to include all four quadrants</p>
+</div>
+<div id="correlations" class="section level1">
+<h1>Correlations</h1>
+<pre class="r"><code>s1SpotCor &lt;- dplyr::select(s1Proc, Rumination, valence, energy, danceability)
+
+psych::cor.plot(s1SpotCor, star = TRUE)</code></pre>
+<p><img src="figure/StudyOneExplore.Rmd/s1spotifycorrealtions-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>apaTables::apa.cor.table(s1SpotCor)</code></pre>
+<pre><code>
+
+Means, standard deviations, and correlations with confidence intervals
+ 
+
+  Variable        M    SD   1           2          3          
+  1. Rumination   3.71 0.62                                   
+                                                              
+  2. valence      0.38 0.22 .05                               
+                            [-.27, .36]                       
+                                                              
+  3. energy       0.52 0.22 .10         .55**                 
+                            [-.23, .40] [.28, .74]            
+                                                              
+  4. danceability 0.53 0.14 -.05        .38*       .27        
+                            [-.37, .27] [.07, .63] [-.05, .55]
+                                                              
+
+Note. M and SD are used to represent mean and standard deviation, respectively.
+Values in square brackets indicate the 95% confidence interval.
+The confidence interval is a plausible range of population correlations 
+that could have caused the sample correlation (Cumming, 2014).
+* indicates p &lt; .05. ** indicates p &lt; .01.
+ </code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.6.1 (2019-07-05)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS Mojave 10.14.6
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_AU.UTF-8/en_AU.UTF-8/en_AU.UTF-8/C/en_AU.UTF-8/en_AU.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] psych_1.8.12    ggridges_0.5.1  forcats_0.4.0   stringr_1.4.0  
+ [5] dplyr_0.8.3     purrr_0.3.2     readr_1.3.1     tidyr_0.8.3    
+ [9] tibble_2.1.3    ggplot2_3.2.0   tidyverse_1.2.1
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_0.2.5 xfun_0.9         haven_2.1.1      lattice_0.20-38 
+ [5] colorspace_1.4-1 generics_0.0.2   vctrs_0.2.0      htmltools_0.3.6 
+ [9] yaml_2.2.0       rlang_0.4.0      pillar_1.4.2     foreign_0.8-71  
+[13] glue_1.3.1       withr_2.1.2      modelr_0.1.4     readxl_1.3.1    
+[17] plyr_1.8.4       munsell_0.5.0    gtable_0.3.0     workflowr_1.4.0 
+[21] cellranger_1.1.0 rvest_0.3.4      apaTables_2.0.5  evaluate_0.14   
+[25] labeling_0.3     knitr_1.24       parallel_3.6.1   broom_0.5.2     
+[29] Rcpp_1.0.2       scales_1.0.0     backports_1.1.4  jsonlite_1.6    
+[33] fs_1.3.1         mnormt_1.5-5     hms_0.5.0        digest_0.6.20   
+[37] stringi_1.4.3    grid_3.6.1       rprojroot_1.3-2  cli_1.1.0       
+[41] tools_3.6.1      magrittr_1.5     lazyeval_0.2.2   crayon_1.3.4    
+[45] pkgconfig_2.0.2  zeallot_0.1.0    xml2_1.2.1       lubridate_1.7.4 
+[49] assertthat_0.2.1 rmarkdown_1.14   httr_1.4.1       rstudioapi_0.10 
+[53] R6_2.4.0         nlme_3.1-140     git2r_0.26.1     compiler_3.6.1  </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

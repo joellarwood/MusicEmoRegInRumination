@@ -7,4 +7,10 @@ editor_options:
   chunk_output_type: console
 ---
 
-Describe your project.
+This project investigated how rumination was related to emotional outcomes of music listening in the context of sadness. We did this using two experiments and one cross-sectional survey. Data was also obtained from spotify about the songs participants listened to, or nominated as being likely listened to. 
+
+The project has been broken down into it's constituent parts. 
+
+Each study has a page containing confirmatory tests and another page containing exploratory tests. The results are annotated sporadically but this is primarlily intended to show the results rather than provide rich interpretation. 
+
+THe manuscript will also be uplaoded to the site upon completion. 

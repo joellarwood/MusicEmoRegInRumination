@@ -1,0 +1,135 @@
+---
+title: "SStudy Two: Exploratorty Data Analysis"
+author: "Joel Larwood"
+date: "2019-09-23"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Adding Control variables to the model
+
+In the dataset we also collected data about the BRECVEMA mechanism occuring during listening, demogrpahics and how likely they were to use the song for regulation. 
+### As GLMM 
+
+
+
+
+```{r loadS2data}
+library(tidyverse)
+s2long <- read_csv("data/s2long.csv")
+```
+
+So I want to build some models with control mechanisms coming in at each point 
+
+Model 1 is the timepoint only model 
+```{r timepointonly}
+library(sjPlot)
+timepoint <- lmerTest::lmer(Sadness~1 + Timepoint + (1 |id), data = drop_na(s2long))
+tab_model(timepoint)
+
+```
+
+Model 2 I add demographics 
+
+```{r}
+demo <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + (1 |id), data = drop_na(s2long))
+tab_model(demo)
+```
+ Model 3 I add spotify data 
+ 
+```{r}
+spotifyvar <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy +  (1 |id), data = drop_na(s2long))
+tab_model(spotifyvar)
+```
+
+model 4 I add the brecvema mechanisms 
+```{r}
+mecscale <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + (1 |id), data = drop_na(s2long))
+
+tab_model(mecscale)
+```
+
+model 5 I add how likely they are to listen to the song when they are sad  
+```{r}
+likelyuse <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + (1 |id), data = drop_na(s2long))
+
+tab_model (likelyuse)
+```
+
+model 6 I add rumiation 
+```{r}
+rumination <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + rumination +  (1 |id), data = drop_na(s2long))
+
+tab_model(rumination)
+plot_model(rumination)
+```
+
+Finally I add the interaction term 
+```{r}
+ruminationint <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + rumination + rumination:Timepoint + (1 |id), data = drop_na(s2long))
+
+tab_model(ruminationint)
+```
+
+Now I want to compare these models 
+```{r}
+anova(timepoint, demo, spotifyvar, mecscale, likelyuse, rumination, ruminationint)
+```
+
+## 
+Model 1 is the timepoint only model 
+```{r timepointonly}
+library(sjPlot)
+timepoint <- lmerTest::lmer(Sadness~1 + Timepoint + (1 |id), data = drop_na(s2long))
+tab_model(timepoint)
+
+```
+
+Model 2 I add demographics 
+
+```{r}
+demo <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + (1 |id), data = drop_na(s2long))
+tab_model(demo)
+```
+ Model 3 I add spotify data 
+ 
+```{r}
+spotifyvar <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy +  (1 |id), data = drop_na(s2long))
+tab_model(spotifyvar)
+```
+
+model 4 I add the brecvema mechanisms 
+```{r}
+mecscale <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + (1 |id), data = drop_na(s2long))
+
+tab_model(mecscale)
+```
+
+model 5 I add how likely they are to listen to the song when they are sad  
+```{r}
+likelyuse <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + (1 |id), data = drop_na(s2long))
+
+tab_model (likelyuse)
+```
+
+model 6 I add rumiation 
+```{r}
+rumination <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + rumination +  (1 |id), data = drop_na(s2long))
+
+tab_model(rumination)
+plot_model(rumination)
+```
+
+Finally I add the interaction term 
+```{r}
+ruminationint <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + rumination + rumination:Timepoint + (1 |id), data = drop_na(s2long))
+
+tab_model(ruminationint)
+```
+
+Now I want to compare these models 
+```{r}
+anova(timepoint, demo, spotifyvar, mecscale, likelyuse, rumination, ruminationint)
+```
+

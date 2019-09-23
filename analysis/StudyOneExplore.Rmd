@@ -1,0 +1,81 @@
+---
+title: "Study One: Exploratorty Data Analysis"
+author: "Joel Larwood"
+date: "2019-09-23"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+```{r}
+library(tidyverse)
+library(ggridges)
+library(psych)
+```
+
+Here I provide descriptive statistics for the songs listened to by participants who selected their own music. 
+
+# Describe
+
+```{r}
+s1Proc <- read_csv("data/s1Processed.csv")
+```
+
+
+Here we can see descriptive statistics for the songs self selected
+```{r spotifydescribe}
+s1Proc %>% 
+dplyr::select(contains("track"),
+              contains("ness"),
+              energy,
+              mode,
+              valence,
+              duration_ms,
+              tempo,
+              time_signature,
+              artist_name) %>% 
+  psych::describe()
+```
+
+Here the frequnency plot of the spotify metrics for valence and arousal expressed in the song. We can see that the tracks tended to be more negative in valence but that energy levels were more normal in their distribution. 
+```{r plotspotifys1}
+s1Proc %>% 
+  tidyr::gather(key = Characteristic,
+                value = value,
+                valence, energy) %>% 
+  ggplot2::ggplot(aes(x = value, y = Characteristic, color = Characteristic, fill = Characteristic)) + 
+  ggridges::geom_density_ridges() + 
+  ggplot2::xlim(0,1) +
+  ggplot2::theme_minimal()+ 
+  ggplot2::ggtitle("Density Plot of Valence and Energy of Listened to Songs") + 
+  ggplot2::xlab("Value of Valence/Energy standardised on a 0 - 1 scale. \nCloser to 0 is equal to less energy or less positive valence")
+
+```
+
+Here we can see the songs plotted onto an affective grid of the affect expression. 
+```{r plotspotifys1.1}
+s1Proc %>% 
+filter(mode == "minor" | mode == "major" & !is.na(track_name)) %>% 
+ggplot2::ggplot(aes(x = valence,
+y = energy,
+color = mode)) +
+geom_point(size = 10, alpha = .5) +
+geom_hline(yintercept = .5) +
+geom_vline(xintercept =.5) +
+ylim(0,1) +
+xlim(0,1) +
+ggplot2::geom_point(aes(color = mode)) +
+ggplot2::geom_hline(yintercept = .5) +
+ggplot2::geom_vline(xintercept =.5) + 
+ggplot2::ylim(0,1) + 
+ggplot2::xlim(0,1)
+```
+
+Interstingly, it seems that the songs are clustering around the lower left quadrant (which includes prototypical sadness, Russell, 1980) and the upper right (which includes prototypical happiness). It seems the descriptives for energy are being driven by whether the music selected is positive or negative. It is possible the selection is being made on a valence criteria and the normal distrubution of energy is a product of positively valenced music being higher in arousal. This is consistent with the relative high arousal ratings seen in the Eerola and Vuoskoski set which was designed to include all four quadrants
+
+# Correlations 
+
+```{r s1spotifycorrealtions}
+
+apaTables::apa.cor.table(s1SpotCor)
+```
+
