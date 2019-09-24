@@ -26,7 +26,13 @@ s2 <- s2raw %>%
          PostInduction = rowSums(dplyr::select(., deq_2_1: deq_2_4)),
          PostListening = rowSums(dplyr::select(., deq_3_1: deq_3_4)), 
          dif = PostListening - PostInduction
-         )
+  ) %>% 
+  mutate_at(.vars = vars(mecscale_1:mecscale_8), 
+            factor) %>% 
+  mutate_at(.vars = vars (mecscale_1:mecscale_8),
+            .funs = forcats::fct_recode, 
+            "Yes" = "1", 
+            "No" = "2")
 
 
 s2 <- s2 %>% 
@@ -44,6 +50,16 @@ s2 %>%
   psych::describe()
 
 write_csv(s2, "data/s2Processed.csv")
+
+s2 %>% var_labels(mecscale_1 = "brainstem",
+                        mecscale_2 = "Entrainment",
+                        mecscale_3 = "Memory", 
+                        mecscale_4 = "Conditioning",
+                        mecscale_5 = "Imagery",
+                        mecscale_6 = "Contagion", 
+                        mecscale_7 = "Expectancy",
+                        mecscale_8 = "Appraisal", 
+                  reg.use_1 = "Regulatory Use Probability")
 ```
 
 All measures showed appropraite reliability 
@@ -82,7 +98,7 @@ s2long <- s2 %>%
                                 "1" = "PostListening")))
 
 
-
+write_csv(s2long, "data/s2long.csv")
   
 
 library(lmerTest)

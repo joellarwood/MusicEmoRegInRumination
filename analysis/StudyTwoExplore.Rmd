@@ -7,17 +7,49 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Adding Control variables to the model
+# An exploratory saturdated model
 
 In the dataset we also collected data about the BRECVEMA mechanism occuring during listening, demogrpahics and how likely they were to use the song for regulation. 
-### As GLMM 
-
-
-
 
 ```{r loadS2data}
 library(tidyverse)
-s2long <- read_csv("data/s2long.csv")
+s2longExplore <- read_csv("data/s2long.csv") %>% 
+  dplyr::select(id, 
+                Sadness,
+                Timepoint, 
+                rumination, 
+                Baseline,
+                age,
+                gender, 
+                contains("mec"), 
+                musebaq, 
+                reg.use_1, 
+                valence, 
+                energy) %>% 
+  drop_na()  %>% 
+   mutate_at(.vars = vars(mecscale_1:mecscale_8), 
+              factor) %>% 
+   mutate_at(.vars = vars (mecscale_1:mecscale_8),
+             .funs = forcats::fct_recode, 
+             "Yes" = "1", 
+             "No" = "2")
+```
+
+In this data set there are `length(unique(s2longExplore$id))` participants 
+
+To find the best model I am going to saturdate a GLMM with all variables and the interaction between time and rumination. To do this I will be looking at the conditional AIC and use a backward stepwise approach from the maximal model 
+
+```{r}
+s2max <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + musebaq +rumination + rumination:Timepoint + (1 |id), data = s2longExplore)
+```
+
+```{r}
+
+# step(s2max, alpha.fixed = .1)
+# 
+# tab_model(get_model(step(s2max, alpha.fixed = .1)))
+# 
+# plot_model(get_model(step(s2max, alpha.fixed = .1)))
 ```
 
 So I want to build some models with control mechanisms coming in at each point 
@@ -56,80 +88,47 @@ likelyuse <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + ene
 
 tab_model (likelyuse)
 ```
+model 6 I add the MUSEBAQ 
 
-model 6 I add rumiation 
 ```{r}
-rumination <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + rumination +  (1 |id), data = drop_na(s2long))
+musebaqglmm <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + musebaq + (1 |id), data = drop_na(s2long))
+
+tab_model(musebaqglmm)
+```
+
+model 7 I add rumiation 
+```{r}
+ruminationmain <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + musebaq + rumination +  (1 |id), data = drop_na(s2long))
 
 tab_model(rumination)
-plot_model(rumination)
 ```
 
 Finally I add the interaction term 
 ```{r}
-ruminationint <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + rumination + rumination:Timepoint + (1 |id), data = drop_na(s2long))
+ruminationint <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + musebaq +rumination + rumination:Timepoint + (1 |id), data = drop_na(s2long))
 
 tab_model(ruminationint)
 ```
 
 Now I want to compare these models 
 ```{r}
-anova(timepoint, demo, spotifyvar, mecscale, likelyuse, rumination, ruminationint)
-```
+anova(timepoint, demo, spotifyvar, mecscale, likelyuse, musebaqglmm, ruminationmain, ruminationint)
 
-## 
-Model 1 is the timepoint only model 
-```{r timepointonly}
-library(sjPlot)
-timepoint <- lmerTest::lmer(Sadness~1 + Timepoint + (1 |id), data = drop_na(s2long))
-tab_model(timepoint)
 
 ```
 
-Model 2 I add demographics 
+Now I am going to do an exploratory backwards stepwise. This indicated that the best fitting model was the hypothesised model 
 
 ```{r}
-demo <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + (1 |id), data = drop_na(s2long))
-tab_model(demo)
-```
- Model 3 I add spotify data 
- 
-```{r}
-spotifyvar <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy +  (1 |id), data = drop_na(s2long))
-tab_model(spotifyvar)
+lmerTest::step(S2glmm)
 ```
 
-model 4 I add the brecvema mechanisms 
-```{r}
-mecscale <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + (1 |id), data = drop_na(s2long))
+# Exploring correaltions with rumination 
 
-tab_model(mecscale)
-```
+```{r rumcor}
 
-model 5 I add how likely they are to listen to the song when they are sad  
-```{r}
-likelyuse <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + (1 |id), data = drop_na(s2long))
-
-tab_model (likelyuse)
-```
-
-model 6 I add rumiation 
-```{r}
-rumination <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + rumination +  (1 |id), data = drop_na(s2long))
-
-tab_model(rumination)
-plot_model(rumination)
-```
-
-Finally I add the interaction term 
-```{r}
-ruminationint <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + rumination + rumination:Timepoint + (1 |id), data = drop_na(s2long))
-
-tab_model(ruminationint)
-```
-
-Now I want to compare these models 
-```{r}
-anova(timepoint, demo, spotifyvar, mecscale, likelyuse, rumination, ruminationint)
+s2 <- read_csv("data/s2.csv") %>% 
+  dplyr::select(rumination, 
+                contains(mecscale))
 ```
 
