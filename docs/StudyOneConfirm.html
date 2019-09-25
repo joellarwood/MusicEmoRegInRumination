@@ -381,7 +381,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -390,7 +390,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -399,10 +399,10 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-09-23
+<strong>Last updated:</strong> 2019-09-25
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>MusicEmoRegInRumination/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -418,12 +418,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
@@ -490,10 +490,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtreef182b4376d4b88393a9134688f34707fc2a2b6abtargetblankf182b43a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellarwood/MusicEmoRegInRumination/tree/f182b4376d4b88393a9134688f34707fc2a2b6ab" target="_blank">f182b43</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtreededd590617979257074aef6ac904a8e6cfd01401targetblankdedd590a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellarwood/MusicEmoRegInRumination/tree/dedd590617979257074aef6ac904a8e6cfd01401" target="_blank">dedd590</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtreef182b4376d4b88393a9134688f34707fc2a2b6abtargetblankf182b43a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtreededd590617979257074aef6ac904a8e6cfd01401targetblankdedd590a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -504,12 +504,11 @@ Ignored files:
     Ignored:    .Rproj.user/
 
 Untracked files:
-    Untracked:  analysis/StudyOneConfirm.Rmd
-    Untracked:  data/s1.csv
-    Untracked:  s1MARScor.txt
+    Untracked:  docs/figure/StudyTwoExplore.Rmd/
+    Untracked:  docs/s1MARScor.txt
 
 Unstaged changes:
-    Modified:   analysis/about.Rmd
+    Modified:   data/s2Processed.csv
 
 </code></pre>
 <p>
@@ -522,9 +521,86 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/dedd590617979257074aef6ac904a8e6cfd01401/analysis/StudyOneConfirm.Rmd" target="_blank">dedd590</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-09-25
+</td>
+<td>
+Publish to study 2 explore
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/cd4829d7c748aa7dfc20056dee6673d2e7ebd554/analysis/StudyOneConfirm.Rmd" target="_blank">cd4829d</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-09-23
+</td>
+<td>
+build control model
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/joellarwood/MusicEmoRegInRumination/cd4829d7c748aa7dfc20056dee6673d2e7ebd554/docs/StudyOneConfirm.html" target="_blank">cd4829d</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-09-23
+</td>
+<td>
+build control model
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -630,6 +706,7 @@ Variable type: numeric
 <pre><code>
 High Rumination  Low Rumination 
              65              63 </code></pre>
+<pre class="r"><code>write_csv(s1dat, &quot;data/s1Processed.csv&quot;)</code></pre>
 </div>
 <div id="reliabilities" class="section level1">
 <h1>Reliabilities</h1>
@@ -755,6 +832,43 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 <pre><code>Warning: Additional arguments ignored: plot_plot</code></pre>
 <pre><code>NOTE: Results may be misleading due to involvement in interactions</code></pre>
 <p><img src="figure/StudyOneConfirm.Rmd/ANOVAs1RumSplitMainEffect-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-ANOVAs1RumSplitMainEffect-1">
+Past versions of ANOVAs1RumSplitMainEffect-1.png
+</button>
+</p>
+<div id="fig-ANOVAs1RumSplitMainEffect-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/cd4829d7c748aa7dfc20056dee6673d2e7ebd554/docs/figure/StudyOneConfirm.Rmd/ANOVAs1RumSplitMainEffect-1.png" target="_blank">cd4829d</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-09-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Following up the interaction we can see that it is qualified by each group returning to baseline levels of sadness excepted for the sad music group</p>
 <pre class="r"><code>timepointsimpleeffect &lt;- emmeans(ANOVAs1, ~ Timepoint|Condition)</code></pre>
 <pre><code>NOTE: Results may be misleading due to involvement in interactions</code></pre>
@@ -878,9 +992,46 @@ ggplot2::theme(legend.title = element_blank())</code></pre>
 Error bars do not allow comparisons across all means.
 Suppress error bars with: error = &quot;none&quot;</code></pre>
 <p><img src="figure/StudyOneConfirm.Rmd/ANOVAs1plot-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-ANOVAs1plot-1">
+Past versions of ANOVAs1plot-1.png
+</button>
+</p>
+<div id="fig-ANOVAs1plot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/cd4829d7c748aa7dfc20056dee6673d2e7ebd554/docs/figure/StudyOneConfirm.Rmd/ANOVAs1plot-1.png" target="_blank">cd4829d</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-09-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>s1dat %&gt;% 
 dplyr::select(&quot;Rumination&quot;, &quot;MARS_Neg&quot;, &quot;MARS_Pos&quot;) %&gt;% 
-apaTables::apa.cor.table(filename = &quot;s1MARScor.txt&quot;,
+apaTables::apa.cor.table(filename = &quot;docs/s1MARScor.txt&quot;,
 landscape = FALSE)</code></pre>
 <pre><code>
 
@@ -960,13 +1111,13 @@ loaded via a namespace (and not attached):
 [64] pkgconfig_2.0.2     evaluate_0.14       lattice_0.20-38    
 [67] labeling_0.3        tidyselect_0.2.5    plyr_1.8.4         
 [70] magrittr_1.5        R6_2.4.0            generics_0.0.2     
-[73] pillar_1.4.2        haven_2.1.1         foreign_0.8-71     
-[76] withr_2.1.2         abind_1.4-5         performance_0.3.0  
-[79] modelr_0.1.4        crayon_1.3.4        car_3.0-3          
-[82] rmarkdown_1.14      grid_3.6.1          readxl_1.3.1       
-[85] data.table_1.12.2   git2r_0.26.1        digest_0.6.20      
-[88] xtable_1.8-4        numDeriv_2016.8-1.1 munsell_0.5.0      
-[91] beeswarm_0.2.3      vipor_0.4.5        </code></pre>
+[73] pillar_1.4.2        haven_2.1.1         whisker_0.3-2      
+[76] foreign_0.8-71      withr_2.1.2         abind_1.4-5        
+[79] performance_0.3.0   modelr_0.1.4        crayon_1.3.4       
+[82] car_3.0-3           rmarkdown_1.14      grid_3.6.1         
+[85] readxl_1.3.1        data.table_1.12.2   git2r_0.26.1       
+[88] digest_0.6.20       xtable_1.8-4        numDeriv_2016.8-1.1
+[91] munsell_0.5.0       beeswarm_0.2.3      vipor_0.4.5        </code></pre>
 </div>
 </div>
 </div>
