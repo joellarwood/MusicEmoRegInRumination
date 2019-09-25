@@ -18,5 +18,5 @@ This site provides the script and some insight into my thoughts as writing/seein
 ### [Exploratory Tests](StudyTwoExplore.html)
 
 ## Study Three 
-### [Confirmatory Tests](StudyThreeConfrim.html)
+### [Confirmatory Tests](StudyThreeConfirm.html)
 ### [Exploratory tests](StudyThreeExplore.html) 
