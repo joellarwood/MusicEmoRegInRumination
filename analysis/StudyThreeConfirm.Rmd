@@ -1,0 +1,54 @@
+---
+title: "Study Two: Confirmatory Data Analysis"
+author: "Joel Larwood"
+date: "2019-09-25"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Load in data
+
+```{r s3loadin, message = FALSE}
+
+library(tidyverse)
+library(naniar)
+
+s3 <- read_csv("data/s3.csv") %>%  
+  naniar::replace_with_na_all(~.x == -99) %>% 
+  naniar::add_prop_miss() %>% 
+  dplyr::filter(prop_miss_all < .50)
+ 
+s3 <- s3 %>% 
+  mutate(RUM6 = 6 - RUM6,
+         RUM9 = 6 - RUM9,
+         RUM10 = 6 - RUM10,
+         )
+
+s3 <- s3 %>% 
+  mutate(rumination = rowSums(dplyr::select(., RUM1:RUM12)), 
+         clarity = rowSums(dplyr::select(., DERS1_1, DERS2_1)), 
+         goals = rowSums(dplyr::select(., DERS3_1, DERS7_1, DERS15_1)), 
+         impulse = rowSums(dplyr::select(., DERS4_1, DERS8_1, DERS11_1)), 
+         strategies = rowSums(dplyr::select(., DERS5_1, DERS6_1, DERS12_1, DERS14_1, DERS16_1)),
+         nonaccept = rowSums(dplyr::select(., DERS9_1, DERS10_1, DERS13_1)), 
+         ders = clarity + goals + impulse + strategies + nonaccept, 
+         mesi = rowSums(dplyr::select(., MESI1_1:MESI7_1)), 
+         marsneg = rowSums(dplyr::select(., MARS3_1:MARS13_1)),
+         depression = DASS3_1+DASS5_1+DASS10_1+DASS13_1 +DASS16_1+DASS17_1+DASS21_1
+  )
+
+write_csv(s3, "data/s3Processed.csv")
+```
+
+# I hypohtesised a moderated mediation for this analysis (on later realisation it is very underpowered)
+
+```{r moderatedmediation, eval = FALSE}
+
+library(processR)
+
+model7 <- processR
+
+
+```
+

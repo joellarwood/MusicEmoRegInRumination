@@ -1,0 +1,57 @@
+---
+title: "StudyThreeExplore"
+author: "Joel Larwood"
+date: "2019-09-25"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+```{r loadexploredata}
+
+library(tidyverse)
+
+s3explore <- read_csv("data/s3Processed.csv") %>% 
+  mutate(rumsplit = if_else(.$rumination < median(rumination, na.rm = TRUE), 
+                            "Low", "High"))
+
+```
+
+## To begin with I'm interested in the correaltions between the variables
+
+```{r}
+library(corrplot)
+
+corrplot::corrplot(corr = cor(dplyr::select(s3explore, 
+                                            rumination, strategies, ders, mesi, depression, energy, valence), use = "pairwise.complete.obs"), 
+                   method = "number",
+                   type = "lower", 
+                   p.mat = cor.mtest((dplyr::select(s3explore, 
+                                            rumination, strategies, ders, mesi, depression, energy, valence)))$p,
+                   pch.cex = .3, 
+                   tl.srt = 0)
+
+```
+
+# Here is what people nominated as listening to when they are sad
+```{r}
+ggpubr::ggscatterhist(s3explore,
+                      x = "valence",
+                      y = "energy",
+                      palette = "simpsons",
+                      color = "rumsplit",
+                      fill = "rumsplit",
+                      size = 3,
+                      legend = "right",
+                      xlab = "Spotify valence metric",
+                      ylab = "Spotify energy metric",
+                      cor.coef = TRUE,
+                      cor.coef.coord = c(.71, .9),
+                      add = "reg.line",
+                      conf.int = TRUE,
+                      margin.params = list(fill = "rumsplit"),
+                      legend.title = "Rumination \nScore",
+                      xlim = c(0, 1),
+                      ylim = c(0, 1),
+                      ) 
+```
+

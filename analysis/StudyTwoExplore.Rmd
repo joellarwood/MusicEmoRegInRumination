@@ -173,7 +173,6 @@ ggpubr::ggscatterhist(s2explore,
                       legend = "right",
                       xlab = "Spotify valence metric",
                       ylab = "Spotify energy metric",
-                      
                       cor.coef = TRUE,
                       cor.coef.coord = c(.71, .9),
                       add = "reg.line",

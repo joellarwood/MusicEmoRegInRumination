@@ -16,3 +16,7 @@ This site provides the script and some insight into my thoughts as writing/seein
 ## Study Two 
 ### [Confirmatory Tests](StudyTwoConfirm.html)
 ### [Exploratory Tests](StudyTwoExplore.html)
+
+## Study Three 
+### [Confirmatory Tests](StudyThreeConfrim.html)
+### [Exploratory tests](StudyThreeExplore.html) 
