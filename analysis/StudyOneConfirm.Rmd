@@ -32,7 +32,7 @@ names(s1raw)
 ```
 
 
-```{r scores}
+```{r scores, message=FALSE}
 s1dat <- s1raw %>% 
   mutate(Baseline = rowSums(dplyr::select(., POMSDSF1_1:POMSDSF8_1)),
          PostInduction = rowSums(dplyr::select(., POMSDSF1_2:POMSDSF8_2)),
@@ -82,7 +82,7 @@ write_csv(s1dat, "data/s1Processed.csv")
 ```
 
 # Reliabilities 
-```{r alphas}
+```{r alphas, message=FALSE}
 # Baseline ALpha 
 psych::alpha(dplyr::select(s1dat, POMSDSF1_1:POMSDSF8_1 ))$total$raw_alpha
 
@@ -119,7 +119,7 @@ psych::alpha(dplyr::select(s1dat, MARS3_1,
 
 ## ANOVA 
 Here, we can see that there is a signifciant main efffect of timepoint and rumination group but not condition. There is also a significant timepoint*condition interaction 
-```{r ANOVAs1}
+```{r ANOVAs1, message=FALSE}
 
 s1long <- gather (
   s1dat,
@@ -143,7 +143,7 @@ anova_apa(ANOVAs1,
 ```
 
 The main effect of time is charactersied by an increase from time 1 to time two and a decrease from time 2 to time 3
-```{r ANOVAs1TimeMainEffect}
+```{r ANOVAs1TimeMainEffect, message=FALSE}
 # summary(as.glht(pairs(m1)), test=adjusted("free")) code for adjusted pvalues
 maineffecttime <- emmeans(ANOVAs1, ~Timepoint)
 
@@ -151,7 +151,7 @@ summary(as.glht(pairs(maineffecttime), test=adjusted("free")))
 ```
 
 We can also see that over all TImepoints and conditions people high in rumination have higher sadness scores 
-```{r ANOVAs1RumSplitMainEffect}
+```{r ANOVAs1RumSplitMainEffect, message=FALSE}
 
 maineffectrum <- emmeans(ANOVAs1, ~ RumSplit)
 
@@ -169,7 +169,7 @@ afex::afex_plot(ANOVAs1,
 
 
 Following up the interaction we can see that it is qualified by each group returning to baseline levels of sadness excepted for the sad music group
-```{r ANOVAs1interaction}
+```{r ANOVAs1interaction, message=FALSE}
 timepointsimpleeffect <- emmeans(ANOVAs1, ~ Timepoint|Condition)
 
 summary(as.glht(pairs(timepointsimpleeffect)), test = adjusted("free"))
@@ -179,7 +179,7 @@ conditionsimpleeffect<- (emmeans(ANOVAs1, ~ Condition|Timepoint))
 summary(as.glht(pairs(conditionsimpleeffect)))
 ```
 
-```{r ANOVAs1plot}
+```{r ANOVAs1plot, message=FALSE}
 afex::afex_plot(ANOVAs1,
 x = "Timepoint",
 trace = "Condition", 
@@ -193,7 +193,7 @@ ggplot2::theme(legend.title = element_blank())
 ```
 
 
-```{r RumCor}
+```{r RumCor, message=FALSE}
 s1dat %>% 
 dplyr::select("Rumination", "MARS_Neg", "MARS_Pos") %>% 
 apaTables::apa.cor.table(filename = "docs/s1MARScor.txt",

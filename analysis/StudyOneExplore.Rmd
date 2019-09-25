@@ -6,7 +6,7 @@ output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
 ---
-```{r}
+```{r, message=FALSE}
 library(tidyverse)
 library(ggridges)
 library(psych)
@@ -16,13 +16,13 @@ Here I provide descriptive statistics for the songs listened to by participants 
 
 # Describe
 
-```{r}
+```{r, message=FALSE}
 s1explore <- read_csv("data/s1Processed.csv")
 ```
 
 
 Here we can see descriptive statistics for the songs self selected
-```{r spotifydescribe}
+```{r spotifydescribe, message=FALSE}
 s1explore %>% 
 dplyr::select(contains("track"),
               contains("ness"),
@@ -38,7 +38,7 @@ dplyr::select(contains("track"),
 ```
 
 Here the frequnency plot of the spotify metrics for valence and arousal expressed in the song. We can see that the tracks tended to be more negative in valence but that energy levels were more normal in their distribution. 
-```{r plotspotifys1}
+```{r plotspotifys1, message=FALSE, eval = FALSE}
 s1explore %>% 
   tidyr::gather(key = Characteristic,
                 value = value,
@@ -53,7 +53,7 @@ s1explore %>%
 ```
 
 Here we can see the songs plotted onto an affective grid of the affect expression. 
-```{r plotspotifys1.1}
+```{r plotspotifys1.1, message=FALSE}
 # s1Proc %>% 
 # filter(mode == "minor" | mode == "major" & !is.na(track_name)) %>% 
 # ggplot2::ggplot(aes(x = valence,

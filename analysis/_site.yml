@@ -6,9 +6,9 @@ navbar:
   - text: Home
     href: index.html
   - text: Study 1 Confirm
-    href: StudyOneExplore.html
-  - text: Study 1 Explore
     href: StudyOneConfirm.html
+  - text: Study 1 Explore
+    href: StudyOneExplore.html
   - text: Study 2 Confirm
     href: StudyTwoConfirm.html
   - text: Study 2 Explore
