@@ -7,5 +7,12 @@ output:
 editor_options:
   chunk_output_type: console
 ---
+This site provides the script and some insight into my thoughts as writing/seeing the results. I have broken the site into 6 sections, one section of confirmatory tests adn one section of exploratory tests for each of the three studies. 
 
-Welcome to my research website.
+## Study One 
+### [Confirmatory Tests](StudyOneConfirm.html)
+### [Exploratory Tests](StudyOneExplore.html)
+
+## Study Two 
+### [Confirmatory Tests](StudyTwoConfirm.html)
+### [Exploratory Tests](StudyTwoExplore.html)
