@@ -12,9 +12,9 @@
 
 <meta name="author" content="Joel Larwood" />
 
-<meta name="date" content="2019-09-23" />
+<meta name="date" content="2019-09-25" />
 
-<title>Study One: Exploratorty Data Analysis</title>
+<title>StudyThreeExplore</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -372,9 +372,9 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Study One: Exploratorty Data Analysis</h1>
+<h1 class="title toc-ignore">StudyThreeExplore</h1>
 <h4 class="author">Joel Larwood</h4>
-<h4 class="date">2019-09-23</h4>
+<h4 class="date">2019-09-25</h4>
 
 </div>
 
@@ -552,61 +552,10 @@ Message
 <tbody>
 <tr>
 <td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellarwood/MusicEmoRegInRumination/1eec50325c41018d7fbaf71461aa3ef4f8869191/docs/StudyOneExplore.html" target="_blank">1eec503</a>
-</td>
-<td>
-Joel Larwood
-</td>
-<td>
-2019-09-25
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellarwood/MusicEmoRegInRumination/d153258e43999308c83c430f1134200d40010c42/docs/StudyOneExplore.html" target="_blank">d153258</a>
-</td>
-<td>
-Joel Larwood
-</td>
-<td>
-2019-09-25
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellarwood/MusicEmoRegInRumination/2e25e9c061dcb885f40eab921160bcd5015642ac/docs/StudyOneExplore.html" target="_blank">2e25e9c</a>
-</td>
-<td>
-Joel Larwood
-</td>
-<td>
-2019-09-25
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
 Rmd
 </td>
 <td>
-<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/dedd590617979257074aef6ac904a8e6cfd01401/analysis/StudyOneExplore.Rmd" target="_blank">dedd590</a>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/ec775454727e1b827a753f4ee04c3a972c98a812/analysis/StudyThreeExplore.Rmd" target="_blank">ec77545</a>
 </td>
 <td>
 Joel Larwood
@@ -615,41 +564,7 @@ Joel Larwood
 2019-09-25
 </td>
 <td>
-Publish to study 2 explore
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/cd4829d7c748aa7dfc20056dee6673d2e7ebd554/analysis/StudyOneExplore.Rmd" target="_blank">cd4829d</a>
-</td>
-<td>
-Joel Larwood
-</td>
-<td>
-2019-09-23
-</td>
-<td>
-build control model
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/joellarwood/MusicEmoRegInRumination/cd4829d7c748aa7dfc20056dee6673d2e7ebd554/docs/StudyOneExplore.html" target="_blank">cd4829d</a>
-</td>
-<td>
-Joel Larwood
-</td>
-<td>
-2019-09-23
-</td>
-<td>
-build control model
+begin s3
 </td>
 </tr>
 </tbody>
@@ -659,257 +574,53 @@ build control model
 </div>
 </div>
 </div>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>✔ ggplot2 3.2.0     ✔ purrr   0.3.2
-✔ tibble  2.1.3     ✔ dplyr   0.8.3
-✔ tidyr   0.8.3     ✔ stringr 1.4.0
-✔ readr   1.3.1     ✔ forcats 0.4.0</code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>library(ggridges)</code></pre>
-<pre><code>
-Attaching package: &#39;ggridges&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
+<pre class="r"><code>library(tidyverse)
 
-    scale_discrete_manual</code></pre>
-<pre class="r"><code>library(psych)</code></pre>
-<pre><code>
-Attaching package: &#39;psych&#39;</code></pre>
-<pre><code>The following objects are masked from &#39;package:ggplot2&#39;:
+s3explore &lt;- read_csv(&quot;data/s3Processed.csv&quot;) %&gt;% 
+  mutate(rumsplit = if_else(.$rumination &lt; median(rumination, na.rm = TRUE), 
+                            &quot;Low&quot;, &quot;High&quot;))</code></pre>
+<div id="to-begin-with-im-interested-in-the-correaltions-between-the-variables" class="section level1">
+<h1>To begin with I’m interested in the correaltions between the variables</h1>
+<pre class="r"><code>library(corrplot)
 
-    %+%, alpha</code></pre>
-<p>Here I provide descriptive statistics for the songs listened to by participants who selected their own music.</p>
-<div id="describe" class="section level1">
-<h1>Describe</h1>
-<pre class="r"><code>s1explore &lt;- read_csv(&quot;data/s1Processed.csv&quot;)</code></pre>
-<pre><code>Parsed with column specification:
-cols(
-  .default = col_double(),
-  MusicAccessNo = col_logical(),
-  Nationality = col_character(),
-  Condition = col_character(),
-  SelfSelected_Song1 = col_character(),
-  SelfSelected_Song2 = col_character(),
-  track_name = col_character(),
-  artist_name = col_character(),
-  album_name = col_character(),
-  key = col_character(),
-  mode = col_character(),
-  key_mode = col_character(),
-  RumSplit = col_character()
-)</code></pre>
-<pre><code>See spec(...) for full column specifications.</code></pre>
-<p>Here we can see descriptive statistics for the songs self selected</p>
-<pre class="r"><code>s1explore %&gt;% 
-dplyr::select(contains(&quot;track&quot;),
-              contains(&quot;ness&quot;),
-              energy,
-              mode,
-              valence,
-              duration_ms,
-              tempo,
-              time_signature,
-              RumSplit,
-              artist_name) %&gt;% 
-  psych::describe()</code></pre>
-<pre><code>Warning in psych::describe(.): NAs introduced by coercion
-
-Warning in psych::describe(.): NAs introduced by coercion
-
-Warning in psych::describe(.): NAs introduced by coercion
-
-Warning in psych::describe(.): NAs introduced by coercion</code></pre>
-<pre><code>Warning in FUN(newX[, i], ...): no non-missing arguments to min; returning
-Inf
-
-Warning in FUN(newX[, i], ...): no non-missing arguments to min; returning
-Inf
-
-Warning in FUN(newX[, i], ...): no non-missing arguments to min; returning
-Inf
-
-Warning in FUN(newX[, i], ...): no non-missing arguments to min; returning
-Inf</code></pre>
-<pre><code>Warning in FUN(newX[, i], ...): no non-missing arguments to max; returning
--Inf
-
-Warning in FUN(newX[, i], ...): no non-missing arguments to max; returning
--Inf
-
-Warning in FUN(newX[, i], ...): no non-missing arguments to max; returning
--Inf
-
-Warning in FUN(newX[, i], ...): no non-missing arguments to max; returning
--Inf</code></pre>
-<pre><code>                 vars   n      mean       sd    median   trimmed      mad
-track_name*         1  38       NaN       NA        NA       NaN       NA
-track_popularity    2  38     50.92    19.17     53.00     51.84    25.20
-Sadness_MIP         3 128      1.00     0.00      1.00      1.00     0.00
-loudness            4  38     -8.79     4.78     -6.88     -8.18     2.29
-speechiness         5  38      0.07     0.07      0.04      0.05     0.01
-acousticness        6  38      0.37     0.34      0.30      0.35     0.42
-instrumentalness    7  38      0.06     0.20      0.00      0.00     0.00
-liveness            8  38      0.16     0.11      0.12      0.15     0.06
-energy              9  38      0.52     0.22      0.49      0.51     0.28
-mode*              10  38       NaN       NA        NA       NaN       NA
-valence            11  38      0.38     0.22      0.36      0.36     0.24
-duration_ms        12  38 248908.13 68660.79 241772.00 247376.97 69118.07
-tempo              13  38    119.91    29.90    120.03    119.60    33.30
-time_signature     14  38      3.89     0.31      4.00      3.97     0.00
-RumSplit*          15 128       NaN       NA        NA       NaN       NA
-artist_name*       16  38       NaN       NA        NA       NaN       NA
-                       min       max     range  skew kurtosis       se
-track_name*            Inf      -Inf      -Inf    NA       NA       NA
-track_popularity      0.00     80.00     80.00 -0.45    -0.51     3.11
-Sadness_MIP           1.00      1.00      0.00   NaN      NaN     0.00
-loudness            -22.32     -1.99     20.33 -1.31     1.09     0.77
-speechiness           0.03      0.32      0.29  2.18     4.03     0.01
-acousticness          0.00      0.97      0.97  0.43    -1.37     0.05
-instrumentalness      0.00      0.89      0.89  3.54    11.32     0.03
-liveness              0.03      0.61      0.58  1.86     3.93     0.02
-energy                0.16      0.98      0.82  0.31    -0.89     0.04
-mode*                  Inf      -Inf      -Inf    NA       NA       NA
-valence               0.09      0.91      0.82  0.68    -0.54     0.04
-duration_ms      103306.00 393120.00 289814.00  0.15    -0.68 11138.25
-tempo                64.83    180.30    115.47  0.06    -1.03     4.85
-time_signature        3.00      4.00      1.00 -2.47     4.22     0.05
-RumSplit*              Inf      -Inf      -Inf    NA       NA       NA
-artist_name*           Inf      -Inf      -Inf    NA       NA       NA</code></pre>
-<p>Here the frequnency plot of the spotify metrics for valence and arousal expressed in the song. We can see that the tracks tended to be more negative in valence but that energy levels were more normal in their distribution.</p>
-<pre class="r"><code>s1explore %&gt;% 
-  tidyr::gather(key = Characteristic,
-                value = value,
-                valence, energy) %&gt;% 
-  ggplot2::ggplot(aes(x = value, y = Characteristic, color = Characteristic, fill = Characteristic)) + 
-  ggridges::geom_density_ridges() + 
-  ggplot2::xlim(0,1) +
-  ggplot2::theme_minimal()+ 
-  ggplot2::ggtitle(&quot;Density Plot of Valence and Energy of Listened to Songs&quot;) + 
-  ggplot2::xlab(&quot;Value of Valence/Energy standardised on a 0 - 1 scale. \nCloser to 0 is equal to less energy or less positive valence&quot;)</code></pre>
-<pre><code>Picking joint bandwidth of 0.0965</code></pre>
-<pre><code>Warning: Removed 180 rows containing non-finite values
-(stat_density_ridges).</code></pre>
-<p><img src="figure/StudyOneExplore.Rmd/plotspotifys1-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plotspotifys1-1">
-Past versions of plotspotifys1-1.png
-</button>
-</p>
-<div id="fig-plotspotifys1-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/cd4829d7c748aa7dfc20056dee6673d2e7ebd554/docs/figure/StudyOneExplore.Rmd/plotspotifys1-1.png" target="_blank">cd4829d</a>
-</td>
-<td>
-Joel Larwood
-</td>
-<td>
-2019-09-23
-</td>
-</tr>
-</tbody>
-</table>
+corrplot::corrplot(corr = cor(dplyr::select(s3explore, 
+                                            rumination, strategies, ders, mesi, depression, energy, valence), use = &quot;pairwise.complete.obs&quot;), 
+                   method = &quot;number&quot;,
+                   type = &quot;lower&quot;, 
+                   p.mat = cor.mtest((dplyr::select(s3explore, 
+                                            rumination, strategies, ders, mesi, depression, energy, valence)))$p,
+                   pch.cex = .3, 
+                   tl.srt = 0)</code></pre>
+<p><img src="figure/StudyThreeExplore.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>From thsi we can see that trait use of music is not related to any variables in the data frame. Not is the charactertsitic of the song.</p>
 </div>
-</div>
-<p>Here we can see the songs plotted onto an affective grid of the affect expression.</p>
-<pre class="r"><code># s1Proc %&gt;% 
-# filter(mode == &quot;minor&quot; | mode == &quot;major&quot; &amp; !is.na(track_name)) %&gt;% 
-# ggplot2::ggplot(aes(x = valence,
-# y = energy,
-# color = mode)) +
-# geom_point(size = 10, alpha = .5) +
-# geom_hline(yintercept = .5) +
-# geom_vline(xintercept =.5) +
-# ylim(0,1) +
-# xlim(0,1) +
-# ggplot2::geom_point(aes(color = mode)) +
-# ggplot2::geom_hline(yintercept = .5) +
-# ggplot2::geom_vline(xintercept =.5) + 
-# ggplot2::ylim(0,1) + 
-# ggplot2::xlim(0,1)
-
-
-ggpubr::ggscatterhist(s1explore,
+<div id="here-is-what-people-nominated-as-listening-to-when-they-are-sad" class="section level1">
+<h1>Here is what people nominated as listening to when they are sad</h1>
+<pre class="r"><code>ggpubr::ggscatterhist(s3explore,
                       x = &quot;valence&quot;,
                       y = &quot;energy&quot;,
                       palette = &quot;simpsons&quot;,
-                      color = &quot;RumSplit&quot;,
-                      fill = &quot;RumSplit&quot;,
+                      color = &quot;rumsplit&quot;,
+                      fill = &quot;rumsplit&quot;,
                       size = 3,
                       legend = &quot;right&quot;,
                       xlab = &quot;Spotify valence metric&quot;,
                       ylab = &quot;Spotify energy metric&quot;,
-                      conf.int = TRUE,
-                      margin.params = list(fill = &quot;RumSplit&quot;),
+                      margin.params = list(fill = &quot;rumsplit&quot;),
                       legend.title = &quot;Rumination \nScore&quot;,
                       xlim = c(0, 1),
                       ylim = c(0, 1),
-                      ) </code></pre>
-<pre><code>Warning: Removed 90 rows containing missing values (geom_point).</code></pre>
-<pre><code>Warning: Removed 90 rows containing non-finite values (stat_density).</code></pre>
-<pre><code>Warning: Removed 90 rows containing missing values (geom_point).</code></pre>
-<pre><code>Warning: Removed 90 rows containing non-finite values (stat_density).</code></pre>
-<p><img src="figure/StudyOneExplore.Rmd/plotspotifys1.1-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plotspotifys1.1-1">
-Past versions of plotspotifys1.1-1.png
-</button>
-</p>
-<div id="fig-plotspotifys1.1-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/cd4829d7c748aa7dfc20056dee6673d2e7ebd554/docs/figure/StudyOneExplore.Rmd/plotspotifys1.1-1.png" target="_blank">cd4829d</a>
-</td>
-<td>
-Joel Larwood
-</td>
-<td>
-2019-09-23
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Interstingly, it seems that the songs are clustering around the lower left quadrant (which includes prototypical sadness, Russell, 1980) and the upper right (which includes prototypical happiness). It seems the descriptives for energy are being driven by whether the music selected is positive or negative. It is possible the selection is being made on a valence criteria and the normal distrubution of energy is a product of positively valenced music being higher in arousal. This is consistent with the relative high arousal ratings seen in the Eerola and Vuoskoski set which was designed to include all four quadrants</p>
-</div>
-<div id="correlations" class="section level1">
-<h1>Correlations</h1>
-<pre class="r"><code>#apaTables::apa.cor.table(s1SpotCor)</code></pre>
+                      caption = &quot;Note: Margins represent desnity plots of axis&quot;, 
+                      title = &quot;Valence and Energy metrics of identified songs&quot;,
+                      subtitle = &quot;A song you listen to when you are sad&quot;, 
+                      margin.plot.size = 1
+)</code></pre>
+<pre><code>Warning: Removed 43 rows containing missing values (geom_point).</code></pre>
+<pre><code>Warning: Removed 43 rows containing non-finite values (stat_density).</code></pre>
+<pre><code>Warning: Removed 43 rows containing missing values (geom_point).</code></pre>
+<pre><code>Warning: Removed 43 rows containing non-finite values (stat_density).</code></pre>
+<p><img src="figure/StudyThreeExplore.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>here we can see there is lots of variability in what people choose. The qualtiative repsonses may provide extra information here allowing for a clustering analysis. We could also look at adding lyrics as additional information</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -933,26 +644,25 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] psych_1.8.12    ggridges_0.5.1  forcats_0.4.0   stringr_1.4.0  
- [5] dplyr_0.8.3     purrr_0.3.2     readr_1.3.1     tidyr_0.8.3    
- [9] tibble_2.1.3    ggplot2_3.2.0   tidyverse_1.2.1
+ [1] corrplot_0.84   forcats_0.4.0   stringr_1.4.0   dplyr_0.8.3    
+ [5] purrr_0.3.2     readr_1.3.1     tidyr_0.8.3     tibble_2.1.3   
+ [9] ggplot2_3.2.0   tidyverse_1.2.1
 
 loaded via a namespace (and not attached):
  [1] tidyselect_0.2.5 xfun_0.9         haven_2.1.1      lattice_0.20-38 
  [5] colorspace_1.4-1 generics_0.0.2   vctrs_0.2.0      htmltools_0.3.6 
- [9] yaml_2.2.0       rlang_0.4.0      ggpubr_0.2.3     pillar_1.4.2    
-[13] foreign_0.8-71   glue_1.3.1       withr_2.1.2      modelr_0.1.4    
-[17] readxl_1.3.1     plyr_1.8.4       ggsignif_0.6.0   munsell_0.5.0   
-[21] gtable_0.3.0     workflowr_1.4.0  cellranger_1.1.0 ggsci_2.9       
-[25] rvest_0.3.4      evaluate_0.14    labeling_0.3     knitr_1.24      
-[29] parallel_3.6.1   broom_0.5.2      Rcpp_1.0.2       scales_1.0.0    
-[33] backports_1.1.4  jsonlite_1.6     fs_1.3.1         mnormt_1.5-5    
-[37] hms_0.5.0        digest_0.6.20    stringi_1.4.3    cowplot_1.0.0   
-[41] grid_3.6.1       rprojroot_1.3-2  cli_1.1.0        tools_3.6.1     
-[45] magrittr_1.5     lazyeval_0.2.2   crayon_1.3.4     whisker_0.3-2   
-[49] pkgconfig_2.0.2  zeallot_0.1.0    xml2_1.2.1       lubridate_1.7.4 
-[53] assertthat_0.2.1 rmarkdown_1.14   httr_1.4.1       rstudioapi_0.10 
-[57] R6_2.4.0         nlme_3.1-140     git2r_0.26.1     compiler_3.6.1  </code></pre>
+ [9] yaml_2.2.0       rlang_0.4.0      pillar_1.4.2     ggpubr_0.2.3    
+[13] glue_1.3.1       withr_2.1.2      modelr_0.1.4     readxl_1.3.1    
+[17] munsell_0.5.0    ggsignif_0.6.0   gtable_0.3.0     workflowr_1.4.0 
+[21] cellranger_1.1.0 ggsci_2.9        rvest_0.3.4      evaluate_0.14   
+[25] labeling_0.3     knitr_1.24       broom_0.5.2      Rcpp_1.0.2      
+[29] scales_1.0.0     backports_1.1.4  jsonlite_1.6     fs_1.3.1        
+[33] hms_0.5.0        digest_0.6.20    stringi_1.4.3    cowplot_1.0.0   
+[37] grid_3.6.1       rprojroot_1.3-2  cli_1.1.0        tools_3.6.1     
+[41] magrittr_1.5     lazyeval_0.2.2   crayon_1.3.4     whisker_0.3-2   
+[45] pkgconfig_2.0.2  zeallot_0.1.0    xml2_1.2.1       lubridate_1.7.4 
+[49] assertthat_0.2.1 rmarkdown_1.14   httr_1.4.1       rstudioapi_0.10 
+[53] R6_2.4.0         nlme_3.1-140     git2r_0.26.1     compiler_3.6.1  </code></pre>
 </div>
 </div>
 

@@ -6,7 +6,7 @@ output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
 ---
-```{r loadexploredata}
+```{r loadexploredata, message = FALSE}
 
 library(tidyverse)
 
@@ -16,9 +16,9 @@ s3explore <- read_csv("data/s3Processed.csv") %>%
 
 ```
 
-## To begin with I'm interested in the correaltions between the variables
+# To begin with I'm interested in the correaltions between the variables
 
-```{r}
+```{r message=FALSE}
 library(corrplot)
 
 corrplot::corrplot(corr = cor(dplyr::select(s3explore, 
@@ -32,8 +32,11 @@ corrplot::corrplot(corr = cor(dplyr::select(s3explore,
 
 ```
 
+
+From thsi we can see that trait use of music is not related to any variables in the data frame. Not is the charactertsitic of the song. 
+
 # Here is what people nominated as listening to when they are sad
-```{r}
+```{r message=FALSE}
 ggpubr::ggscatterhist(s3explore,
                       x = "valence",
                       y = "energy",
@@ -44,14 +47,15 @@ ggpubr::ggscatterhist(s3explore,
                       legend = "right",
                       xlab = "Spotify valence metric",
                       ylab = "Spotify energy metric",
-                      cor.coef = TRUE,
-                      cor.coef.coord = c(.71, .9),
-                      add = "reg.line",
-                      conf.int = TRUE,
                       margin.params = list(fill = "rumsplit"),
                       legend.title = "Rumination \nScore",
                       xlim = c(0, 1),
                       ylim = c(0, 1),
-                      ) 
+                      caption = "Note: Margins represent desnity plots of axis", 
+                      title = "Valence and Energy metrics of identified songs",
+                      subtitle = "A song you listen to when you are sad", 
+                      margin.plot.size = 1
+)
 ```
 
+here we can see there is lots of variability in what people choose. The qualtiative repsonses may provide extra information here allowing for a clustering analysis. We could also look at adding lyrics as additional information

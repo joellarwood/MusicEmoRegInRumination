@@ -9,7 +9,7 @@ editor_options:
 
 ## Introduction
 
-```{r processdata}
+```{r processdata, message = FALSE}
 library(tidyverse)
 library(sjlabelled)
 
@@ -46,15 +46,15 @@ s2 %>%
 
 write_csv(s2, "data/s2Processed.csv")
 
-s2 %>% var_labels(mecscale_1 = "brainstem",
-                        mecscale_2 = "Entrainment",
-                        mecscale_3 = "Memory", 
-                        mecscale_4 = "Conditioning",
-                        mecscale_5 = "Imagery",
-                        mecscale_6 = "Contagion", 
-                        mecscale_7 = "Expectancy",
-                        mecscale_8 = "Appraisal", 
-                  reg.use_1 = "Regulatory Use Probability")
+# s2 %>% var_labels(mecscale_1 = "brainstem",
+#                         mecscale_2 = "Entrainment",
+#                         mecscale_3 = "Memory", 
+#                         mecscale_4 = "Conditioning",
+#                         mecscale_5 = "Imagery",
+#                         mecscale_6 = "Contagion", 
+#                         mecscale_7 = "Expectancy",
+#                         mecscale_8 = "Appraisal", 
+#                   reg.use_1 = "Regulatory Use Probability")
 ```
 
 All measures showed appropraite reliability 
@@ -80,7 +80,7 @@ apa::t_apa(S2Manipulation)
 # Hypothesis Test 
 
 A significant interaction was found. 
-```{r}
+```{r message = FALSE}
 
 library(sjlabelled)
 s2long <- s2 %>% 
@@ -115,9 +115,8 @@ sjPlot::plot_model(S2glmm,
                    show.p = TRUE,
                    order.terms = c(1,2,3)
                    ) + 
-  ggpubr::theme_pubr(legend = "right") + 
-  ggplot2::theme(title = element_blank()) 
-
+  ggplot2::theme(title = element_blank())+ 
+  ggpubr::theme_pubr(legend = "right")
 ```
 
 The simple effects showed that sadness increased for all levels of rumunation 

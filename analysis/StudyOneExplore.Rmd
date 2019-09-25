@@ -17,13 +17,13 @@ Here I provide descriptive statistics for the songs listened to by participants 
 # Describe
 
 ```{r}
-s1Proc <- read_csv("data/s1Processed.csv")
+s1explore <- read_csv("data/s1Processed.csv")
 ```
 
 
 Here we can see descriptive statistics for the songs self selected
 ```{r spotifydescribe}
-s1Proc %>% 
+s1explore %>% 
 dplyr::select(contains("track"),
               contains("ness"),
               energy,
@@ -32,13 +32,14 @@ dplyr::select(contains("track"),
               duration_ms,
               tempo,
               time_signature,
+              RumSplit,
               artist_name) %>% 
   psych::describe()
 ```
 
 Here the frequnency plot of the spotify metrics for valence and arousal expressed in the song. We can see that the tracks tended to be more negative in valence but that energy levels were more normal in their distribution. 
 ```{r plotspotifys1}
-s1Proc %>% 
+s1explore %>% 
   tidyr::gather(key = Characteristic,
                 value = value,
                 valence, energy) %>% 
@@ -53,21 +54,39 @@ s1Proc %>%
 
 Here we can see the songs plotted onto an affective grid of the affect expression. 
 ```{r plotspotifys1.1}
-s1Proc %>% 
-filter(mode == "minor" | mode == "major" & !is.na(track_name)) %>% 
-ggplot2::ggplot(aes(x = valence,
-y = energy,
-color = mode)) +
-geom_point(size = 10, alpha = .5) +
-geom_hline(yintercept = .5) +
-geom_vline(xintercept =.5) +
-ylim(0,1) +
-xlim(0,1) +
-ggplot2::geom_point(aes(color = mode)) +
-ggplot2::geom_hline(yintercept = .5) +
-ggplot2::geom_vline(xintercept =.5) + 
-ggplot2::ylim(0,1) + 
-ggplot2::xlim(0,1)
+# s1Proc %>% 
+# filter(mode == "minor" | mode == "major" & !is.na(track_name)) %>% 
+# ggplot2::ggplot(aes(x = valence,
+# y = energy,
+# color = mode)) +
+# geom_point(size = 10, alpha = .5) +
+# geom_hline(yintercept = .5) +
+# geom_vline(xintercept =.5) +
+# ylim(0,1) +
+# xlim(0,1) +
+# ggplot2::geom_point(aes(color = mode)) +
+# ggplot2::geom_hline(yintercept = .5) +
+# ggplot2::geom_vline(xintercept =.5) + 
+# ggplot2::ylim(0,1) + 
+# ggplot2::xlim(0,1)
+
+
+ggpubr::ggscatterhist(s1explore,
+                      x = "valence",
+                      y = "energy",
+                      palette = "simpsons",
+                      color = "RumSplit",
+                      fill = "RumSplit",
+                      size = 3,
+                      legend = "right",
+                      xlab = "Spotify valence metric",
+                      ylab = "Spotify energy metric",
+                      conf.int = TRUE,
+                      margin.params = list(fill = "RumSplit"),
+                      legend.title = "Rumination \nScore",
+                      xlim = c(0, 1),
+                      ylim = c(0, 1),
+                      ) 
 ```
 
 Interstingly, it seems that the songs are clustering around the lower left quadrant (which includes prototypical sadness, Russell, 1980) and the upper right (which includes prototypical happiness). It seems the descriptives for energy are being driven by whether the music selected is positive or negative. It is possible the selection is being made on a valence criteria and the normal distrubution of energy is a product of positively valenced music being higher in arousal. This is consistent with the relative high arousal ratings seen in the Eerola and Vuoskoski set which was designed to include all four quadrants

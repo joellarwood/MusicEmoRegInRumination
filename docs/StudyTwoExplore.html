@@ -381,7 +381,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -390,7 +390,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -399,10 +399,10 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-09-25
+<strong>Last updated:</strong> 2019-09-26
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>MusicEmoRegInRumination/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -418,12 +418,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -490,10 +490,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtreed153258e43999308c83c430f1134200d40010c42targetblankd153258a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellarwood/MusicEmoRegInRumination/tree/d153258e43999308c83c430f1134200d40010c42" target="_blank">d153258</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtreeec775454727e1b827a753f4ee04c3a972c98a812targetblankec77545a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellarwood/MusicEmoRegInRumination/tree/ec775454727e1b827a753f4ee04c3a972c98a812" target="_blank">ec77545</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtreed153258e43999308c83c430f1134200d40010c42targetblankd153258a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtreeec775454727e1b827a753f4ee04c3a972c98a812targetblankec77545a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -504,11 +504,14 @@ Ignored files:
     Ignored:    .Rproj.user/
 
 Untracked files:
-    Untracked:  docs/s1MARScor.txt
+    Untracked:  docs/figure/StudyThreeExplore.Rmd/
 
 Unstaged changes:
-    Modified:   analysis/_site.yml
-    Modified:   data/s2Processed.csv
+    Modified:   analysis/StudyOneExplore.Rmd
+    Modified:   analysis/StudyThreeConfirm.Rmd
+    Modified:   analysis/StudyThreeExplore.Rmd
+    Modified:   analysis/StudyTwoConfirm.Rmd
+    Modified:   analysis/StudyTwoExplore.Rmd
 
 </code></pre>
 <p>
@@ -547,6 +550,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/ec775454727e1b827a753f4ee04c3a972c98a812/analysis/StudyTwoExplore.Rmd" target="_blank">ec77545</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-09-25
+</td>
+<td>
+begin s3
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/joellarwood/MusicEmoRegInRumination/1eec50325c41018d7fbaf71461aa3ef4f8869191/docs/StudyTwoExplore.html" target="_blank">1eec503</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-09-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -659,16 +696,8 @@ build control model
 <div id="an-exploratory-saturdated-model" class="section level1">
 <h1>An exploratory saturdated model</h1>
 <p>In the dataset we also collected data about the BRECVEMA mechanism occuring during listening, demogrpahics and how likely they were to use the song for regulation.</p>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>✔ ggplot2 3.2.0     ✔ purrr   0.3.2
-✔ tibble  2.1.3     ✔ dplyr   0.8.3
-✔ tidyr   0.8.3     ✔ stringr 1.4.0
-✔ readr   1.3.1     ✔ forcats 0.4.0</code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>s2longExplore &lt;- read_csv(&quot;data/s2long.csv&quot;) %&gt;% 
+<pre class="r"><code>library(tidyverse)
+s2longExplore &lt;- read_csv(&quot;data/s2long.csv&quot;) %&gt;% 
   dplyr::select(id, 
                 Sadness,
                 Timepoint, 
@@ -686,39 +715,20 @@ build control model
               factor) %&gt;% 
    mutate_at(.vars = vars (mecscale_1:mecscale_8),
              .funs = forcats::fct_recode, 
-             &quot;Yes&quot; = &quot;1&quot;, 
-             &quot;No&quot; = &quot;2&quot;)</code></pre>
-<pre><code>Parsed with column specification:
-cols(
-  .default = col_double(),
-  ProlificID = col_character(),
-  track_name = col_character(),
-  sad.song = col_character(),
-  artist_name = col_character(),
-  sad.song.artist = col_character(),
-  StartDate = col_character(),
-  EndDate = col_character(),
-  IPAddress = col_character(),
-  RecordedDate = col_character(),
-  ResponseId = col_character(),
-  RecipientLastName = col_character(),
-  RecipientFirstName = col_character(),
-  RecipientEmail = col_character(),
-  ExternalReference = col_character(),
-  LocationLatitude = col_character(),
-  LocationLongitude = col_character(),
-  DistributionChannel = col_character(),
-  UserLanguage = col_character(),
-  gender = col_character(),
-  track_uri = col_character()
-  # ... with 10 more columns
-)</code></pre>
-<pre><code>See spec(...) for full column specifications.</code></pre>
+             &quot;No&quot; = &quot;2&quot;, 
+             &quot;Yes&quot; = &quot;1&quot;) %&gt;% 
+    dplyr::rename(brainstem = mecscale_1,
+                        Entrainment = mecscale_2,
+                        Memory = mecscale_3, 
+                        Conditioning = mecscale_4,
+                        Imagery = mecscale_5, 
+                        Contagion = mecscale_6, 
+                        Expectancy = mecscale_7,
+                        Appraisal = mecscale_8)</code></pre>
 <p>So I want to build some models with control mechanisms coming in at each point</p>
 <p>Model 1 is the timepoint only model</p>
-<pre class="r"><code>library(sjPlot)</code></pre>
-<pre><code>Learn more about sjPlot with &#39;browseVignettes(&quot;sjPlot&quot;)&#39;.</code></pre>
-<pre class="r"><code>timepoint &lt;- lmerTest::lmer(Sadness~1 + Timepoint + (1 |id), data = s2longExplore)
+<pre class="r"><code>library(sjPlot)
+timepoint &lt;- lmerTest::lmer(Sadness~1 + Timepoint + (1 |id), data = s2longExplore)
 tab_model(timepoint)</code></pre>
 <table style="border-collapse:collapse; border:none;">
 <tr>
@@ -1142,7 +1152,7 @@ Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
 </tr>
 </table>
 <p>model 4 I add the brecvema mechanisms</p>
-<pre class="r"><code>mecscale &lt;- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + (1 |id), data = s2longExplore)
+<pre class="r"><code>mecscale &lt;- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal + (1 |id), data = s2longExplore)
 
 tab_model(mecscale)</code></pre>
 <table style="border-collapse:collapse; border:none;">
@@ -1429,7 +1439,7 @@ Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
 </tr>
 </table>
 <p>model 5 I add how likely they are to listen to the song when they are sad</p>
-<pre class="r"><code>likelyuse &lt;- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + (1 |id), data = s2longExplore)
+<pre class="r"><code>likelyuse &lt;- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal + reg.use_1 + (1 |id), data = s2longExplore)
 
 tab_model (likelyuse)</code></pre>
 <table style="border-collapse:collapse; border:none;">
@@ -1730,7 +1740,7 @@ Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
 </tr>
 </table>
 <p>model 6 I add the MUSEBAQ</p>
-<pre class="r"><code>musebaqglmm &lt;- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + musebaq + (1 |id), data = s2longExplore)
+<pre class="r"><code>musebaqglmm &lt;- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal+ reg.use_1 + musebaq + (1 |id), data = s2longExplore)
 
 tab_model(musebaqglmm)</code></pre>
 <table style="border-collapse:collapse; border:none;">
@@ -2045,7 +2055,7 @@ Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
 </tr>
 </table>
 <p>model 7 I add rumiation</p>
-<pre class="r"><code>ruminationmain &lt;- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + musebaq + rumination +  (1 |id), data = s2longExplore)
+<pre class="r"><code>ruminationmain &lt;- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal+ reg.use_1 + musebaq + rumination +  (1 |id), data = s2longExplore)
 
 tab_model(ruminationmain)</code></pre>
 <table style="border-collapse:collapse; border:none;">
@@ -2374,7 +2384,7 @@ Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
 </tr>
 </table>
 <p>Finally I add the interaction term</p>
-<pre class="r"><code>ruminationint &lt;- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + musebaq +rumination + rumination:Timepoint + (1 |id), data = s2longExplore)
+<pre class="r"><code>ruminationint &lt;- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal + reg.use_1 + musebaq +rumination + rumination:Timepoint + (1 |id), data = s2longExplore)
 
 tab_model(ruminationint)</code></pre>
 <table style="border-collapse:collapse; border:none;">
@@ -2720,7 +2730,6 @@ Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
 <h2>Model comparisons</h2>
 <p>Now I want to compare these models</p>
 <pre class="r"><code>knitr::kable(anova(timepoint, demo, spotifyvar, mecscale, likelyuse, musebaqglmm, ruminationmain, ruminationint))</code></pre>
-<pre><code>refitting model(s) with ML (instead of REML)</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -2826,348 +2835,347 @@ Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
 </tr>
 </tbody>
 </table>
-<p>This shows the</p>
 </div>
 </div>
 <div id="automatic-model" class="section level1">
 <h1>Automatic Model</h1>
 <p>Now I am going to do an exploratory analysis to find the best fitting model</p>
 <pre class="r"><code>library(buildmer)
-saturatedformula &lt;- Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + musebaq +rumination + rumination:Timepoint + (1 |id)
+saturatedformula &lt;- Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal + reg.use_1 + musebaq +rumination + rumination:Timepoint + (1 |id)
 
 buildmer::buildmer(formula = saturatedformula, data = s2longExplore, crit = &quot;AIC&quot;)</code></pre>
-<pre><code>    grouping                 term                      block        score
-1       &lt;NA&gt;                    1                    NA NA 1           NA
-14      &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
-13      &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
-4       &lt;NA&gt;           mecscale_1           NA NA mecscale_1  -16.4920548
-10      &lt;NA&gt;           mecscale_8           NA NA mecscale_8   -9.4363422
-11      &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
-101     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
-9       &lt;NA&gt;           mecscale_7           NA NA mecscale_7   -1.2430803
-5       &lt;NA&gt;           mecscale_3           NA NA mecscale_3   -0.7296296
-12      &lt;NA&gt;                  age                  NA NA age    0.7227618
-15      &lt;NA&gt;               energy               NA NA energy    0.5597461
-2       &lt;NA&gt;           mecscale_2           NA NA mecscale_2    0.5039917
-51      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
-21      &lt;NA&gt;           mecscale_4           NA NA mecscale_4    0.9248747
-3       &lt;NA&gt;           mecscale_6           NA NA mecscale_6    1.3481773
-22      &lt;NA&gt;           mecscale_5           NA NA mecscale_5    1.4876967
-23      &lt;NA&gt;              valence              NA NA valence    1.9192190
-16      &lt;NA&gt;               gender               NA NA gender    2.4284837
-17        id                    1                    NA id 1 -280.9850613
-              AIC Iteration
-1              NA         1
-14             NA         1
-13    -5.64866584         1
-4     -4.43767183         1
-10    -3.27175267         1
-11             NA         1
-101   -0.29960994         1
-9     -0.03410082         1
-5      0.07268851         1
-12     1.21428573         1
-15     0.45894516         1
-2      1.03995224         1
-51    -2.79144091         1
-21     1.32965656         1
-3      1.67781521         1
-22     1.81624096         1
-23     1.96503919         1
-16     3.09701255         1
-17  -280.98506132         1
-    grouping                 term                      block        score
-1       &lt;NA&gt;                    1                    NA NA 1           NA
-14      &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
-13      &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
-4       &lt;NA&gt;           mecscale_1           NA NA mecscale_1  -16.4920548
-10      &lt;NA&gt;           mecscale_8           NA NA mecscale_8   -9.4363422
-11      &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
-101     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
-9       &lt;NA&gt;           mecscale_7           NA NA mecscale_7   -1.2430803
-5       &lt;NA&gt;           mecscale_3           NA NA mecscale_3   -0.7296296
-12      &lt;NA&gt;                  age                  NA NA age    0.7227618
-15      &lt;NA&gt;               energy               NA NA energy    0.5597461
-2       &lt;NA&gt;           mecscale_2           NA NA mecscale_2    0.5039917
-51      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
-21      &lt;NA&gt;           mecscale_4           NA NA mecscale_4    0.9248747
-3       &lt;NA&gt;           mecscale_6           NA NA mecscale_6    1.3481773
-22      &lt;NA&gt;           mecscale_5           NA NA mecscale_5    1.4876967
-23      &lt;NA&gt;              valence              NA NA valence    1.9192190
-17        id                    1                    NA id 1 -280.9850613
-              AIC Iteration
-1              NA         2
-14             NA         2
-13    -5.55462273         2
-4     -4.22958665         2
-10    -3.02132117         2
-11             NA         2
-101   -0.65773528         2
-9      0.02322607         2
-5      0.41057141         2
-12     1.19382012         2
-15     0.59988044         2
-2      0.95577209         2
-51    -2.79144091         2
-21     1.37200473         2
-3      1.55702522         2
-22     1.73199090         2
-23     1.95359173         2
-17  -280.50455659         2
-    grouping                 term                      block        score
-1       &lt;NA&gt;                    1                    NA NA 1           NA
-14      &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
-13      &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
-4       &lt;NA&gt;           mecscale_1           NA NA mecscale_1  -16.4920548
-10      &lt;NA&gt;           mecscale_8           NA NA mecscale_8   -9.4363422
-11      &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
-101     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
-9       &lt;NA&gt;           mecscale_7           NA NA mecscale_7   -1.2430803
-5       &lt;NA&gt;           mecscale_3           NA NA mecscale_3   -0.7296296
-12      &lt;NA&gt;                  age                  NA NA age    0.7227618
-15      &lt;NA&gt;               energy               NA NA energy    0.5597461
-2       &lt;NA&gt;           mecscale_2           NA NA mecscale_2    0.5039917
-51      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
-21      &lt;NA&gt;           mecscale_4           NA NA mecscale_4    0.9248747
-3       &lt;NA&gt;           mecscale_6           NA NA mecscale_6    1.3481773
-22      &lt;NA&gt;           mecscale_5           NA NA mecscale_5    1.4876967
-17        id                    1                    NA id 1 -280.9850613
-              AIC Iteration
-1              NA         3
-14             NA         3
-13    -5.51167024         3
-4     -4.24398472         3
-10    -3.04619037         3
-11             NA         3
-101   -0.64828615         3
-9     -0.02725521         3
-5      0.43362436         3
-12     1.21182157         3
-15     0.54584703         3
-2      0.94572818         3
-51    -2.79144091         3
-21     1.34060625         3
-3      1.52839785         3
-22     1.70570320         3
-17  -279.96611593         3
-    grouping                 term                      block        score
-1       &lt;NA&gt;                    1                    NA NA 1           NA
-14      &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
-13      &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
-4       &lt;NA&gt;           mecscale_1           NA NA mecscale_1  -16.4920548
-10      &lt;NA&gt;           mecscale_8           NA NA mecscale_8   -9.4363422
-11      &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
-101     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
-9       &lt;NA&gt;           mecscale_7           NA NA mecscale_7   -1.2430803
-5       &lt;NA&gt;           mecscale_3           NA NA mecscale_3   -0.7296296
-12      &lt;NA&gt;                  age                  NA NA age    0.7227618
-15      &lt;NA&gt;               energy               NA NA energy    0.5597461
-2       &lt;NA&gt;           mecscale_2           NA NA mecscale_2    0.5039917
-51      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
-21      &lt;NA&gt;           mecscale_4           NA NA mecscale_4    0.9248747
-3       &lt;NA&gt;           mecscale_6           NA NA mecscale_6    1.3481773
-17        id                    1                    NA id 1 -280.9850613
-              AIC Iteration
-1              NA         4
-14             NA         4
-13    -5.50887009         4
-4     -4.33377471         4
-10    -3.27505623         4
-11             NA         4
-101   -0.66716885         4
-9     -0.05072485         4
-5      0.14048561         4
-12     1.28603927         4
-15     0.57403391         4
-2      1.00599371         4
-51    -2.79144091         4
-21     1.43110933         4
-3      1.62560174         4
-17  -279.61275799         4
-    grouping                 term                      block        score
-1       &lt;NA&gt;                    1                    NA NA 1           NA
-14      &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
-13      &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
-4       &lt;NA&gt;           mecscale_1           NA NA mecscale_1  -16.4920548
-10      &lt;NA&gt;           mecscale_8           NA NA mecscale_8   -9.4363422
-11      &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
-101     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
-9       &lt;NA&gt;           mecscale_7           NA NA mecscale_7   -1.2430803
-5       &lt;NA&gt;           mecscale_3           NA NA mecscale_3   -0.7296296
-12      &lt;NA&gt;                  age                  NA NA age    0.7227618
-15      &lt;NA&gt;               energy               NA NA energy    0.5597461
-2       &lt;NA&gt;           mecscale_2           NA NA mecscale_2    0.5039917
-51      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
-21      &lt;NA&gt;           mecscale_4           NA NA mecscale_4    0.9248747
-17        id                    1                    NA id 1 -280.9850613
+<pre><code>   grouping                 term                      block        score
+1      &lt;NA&gt;                    1                    NA NA 1           NA
+14     &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
+13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
+3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.4920548
+2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.4363422
+11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
+10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
+6      &lt;NA&gt;           Expectancy           NA NA Expectancy   -1.2430803
+8      &lt;NA&gt;               Memory               NA NA Memory   -0.7296296
+12     &lt;NA&gt;                  age                  NA NA age    0.7227618
+31     &lt;NA&gt;               energy               NA NA energy    0.5597461
+32     &lt;NA&gt;          Entrainment          NA NA Entrainment    0.5039917
+5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
+15     &lt;NA&gt;         Conditioning         NA NA Conditioning    0.9248747
+16     &lt;NA&gt;            Contagion            NA NA Contagion    1.3481773
+21     &lt;NA&gt;              Imagery              NA NA Imagery    1.4876967
+22     &lt;NA&gt;              valence              NA NA valence    1.9192190
+17     &lt;NA&gt;               gender               NA NA gender    2.4284837
+18       id                    1                    NA id 1 -280.9850613
              AIC Iteration
-1             NA         5
-14            NA         5
-13    -5.2377114         5
-4     -4.2968426         5
-10    -3.2319606         5
-11            NA         5
-101   -0.5693363         5
-9      0.1052707         5
-5      0.1044023         5
-12     1.2200994         5
-15     0.7441367         5
-2      1.0900015         5
-51    -2.7914409         5
-21     1.3825763         5
-17  -279.3200711         5
-    grouping                 term                      block        score
-1       &lt;NA&gt;                    1                    NA NA 1           NA
-14      &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
-13      &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
-4       &lt;NA&gt;           mecscale_1           NA NA mecscale_1  -16.4920548
-10      &lt;NA&gt;           mecscale_8           NA NA mecscale_8   -9.4363422
-11      &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
-101     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
-9       &lt;NA&gt;           mecscale_7           NA NA mecscale_7   -1.2430803
-5       &lt;NA&gt;           mecscale_3           NA NA mecscale_3   -0.7296296
-12      &lt;NA&gt;                  age                  NA NA age    0.7227618
-15      &lt;NA&gt;               energy               NA NA energy    0.5597461
-2       &lt;NA&gt;           mecscale_2           NA NA mecscale_2    0.5039917
-51      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
-17        id                    1                    NA id 1 -280.9850613
+1             NA         1
+14            NA         1
+13   -5.64866584         1
+3    -4.43767183         1
+2    -3.27175267         1
+11            NA         1
+10   -0.29960994         1
+6    -0.03410082         1
+8     0.07268851         1
+12    1.21428573         1
+31    0.45894516         1
+32    1.03995224         1
+5    -2.79144091         1
+15    1.32965656         1
+16    1.67781521         1
+21    1.81624096         1
+22    1.96503919         1
+17    3.09701255         1
+18 -280.98506132         1
+   grouping                 term                      block        score
+1      &lt;NA&gt;                    1                    NA NA 1           NA
+14     &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
+13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
+3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.4920548
+2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.4363422
+11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
+10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
+6      &lt;NA&gt;           Expectancy           NA NA Expectancy   -1.2430803
+8      &lt;NA&gt;               Memory               NA NA Memory   -0.7296296
+12     &lt;NA&gt;                  age                  NA NA age    0.7227618
+31     &lt;NA&gt;               energy               NA NA energy    0.5597461
+32     &lt;NA&gt;          Entrainment          NA NA Entrainment    0.5039917
+5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
+15     &lt;NA&gt;         Conditioning         NA NA Conditioning    0.9248747
+16     &lt;NA&gt;            Contagion            NA NA Contagion    1.3481773
+21     &lt;NA&gt;              Imagery              NA NA Imagery    1.4876967
+22     &lt;NA&gt;              valence              NA NA valence    1.9192190
+18       id                    1                    NA id 1 -280.9850613
              AIC Iteration
-1             NA         6
-14            NA         6
-13    -4.8875599         6
-4     -4.5649391         6
-10    -3.0620212         6
-11            NA         6
-101   -0.4266337         6
-9      0.1005930         6
-5     -0.2776541         6
-12     1.2466645         6
-15     0.7946403         6
-2      1.1395696         6
-51    -2.7914409         6
-17  -279.2086679         6
-    grouping                 term                      block        score
-1       &lt;NA&gt;                    1                    NA NA 1           NA
-14      &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
-13      &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
-4       &lt;NA&gt;           mecscale_1           NA NA mecscale_1  -16.4920548
-10      &lt;NA&gt;           mecscale_8           NA NA mecscale_8   -9.4363422
-11      &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
-101     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
-9       &lt;NA&gt;           mecscale_7           NA NA mecscale_7   -1.2430803
-5       &lt;NA&gt;           mecscale_3           NA NA mecscale_3   -0.7296296
-15      &lt;NA&gt;               energy               NA NA energy    0.5597461
-2       &lt;NA&gt;           mecscale_2           NA NA mecscale_2    0.5039917
-51      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
-17        id                    1                    NA id 1 -280.9850613
-              AIC Iteration
-1              NA         7
-14             NA         7
-13    -5.82378744         7
-4     -4.52665614         7
-10    -3.28896787         7
-11             NA         7
-101   -0.31408925         7
-9      0.08438749         7
-5     -0.08529517         7
-15     0.91155136         7
-2      1.03008706         7
-51    -2.79144091         7
-17  -279.19921486         7
-    grouping                 term                      block        score
-1       &lt;NA&gt;                    1                    NA NA 1           NA
-14      &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
-13      &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
-4       &lt;NA&gt;           mecscale_1           NA NA mecscale_1  -16.4920548
-10      &lt;NA&gt;           mecscale_8           NA NA mecscale_8   -9.4363422
-11      &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
-101     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
-9       &lt;NA&gt;           mecscale_7           NA NA mecscale_7   -1.2430803
-5       &lt;NA&gt;           mecscale_3           NA NA mecscale_3   -0.7296296
-15      &lt;NA&gt;               energy               NA NA energy    0.5597461
-51      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
-17        id                    1                    NA id 1 -280.9850613
-              AIC Iteration
-1              NA         8
-14             NA         8
-13    -5.94564466         8
-4     -4.78118641         8
-10    -3.75746801         8
-11             NA         8
-101   -0.54780063         8
-9      0.10837465         8
-5      0.02620235         8
-15     1.30055988         8
-51    -2.79144091         8
-17  -279.35151636         8
-    grouping                 term                      block        score
-1       &lt;NA&gt;                    1                    NA NA 1           NA
-14      &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
-13      &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
-4       &lt;NA&gt;           mecscale_1           NA NA mecscale_1  -16.4920548
-10      &lt;NA&gt;           mecscale_8           NA NA mecscale_8   -9.4363422
-11      &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
-101     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
-9       &lt;NA&gt;           mecscale_7           NA NA mecscale_7   -1.2430803
-5       &lt;NA&gt;           mecscale_3           NA NA mecscale_3   -0.7296296
-51      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
-17        id                    1                    NA id 1 -280.9850613
+1             NA         2
+14            NA         2
+13   -5.55462273         2
+3    -4.22958665         2
+2    -3.02132117         2
+11            NA         2
+10   -0.65773528         2
+6     0.02322607         2
+8     0.41057141         2
+12    1.19382012         2
+31    0.59988044         2
+32    0.95577209         2
+5    -2.79144091         2
+15    1.37200473         2
+16    1.55702522         2
+21    1.73199090         2
+22    1.95359173         2
+18 -280.50455659         2
+   grouping                 term                      block        score
+1      &lt;NA&gt;                    1                    NA NA 1           NA
+14     &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
+13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
+3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.4920548
+2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.4363422
+11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
+10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
+6      &lt;NA&gt;           Expectancy           NA NA Expectancy   -1.2430803
+8      &lt;NA&gt;               Memory               NA NA Memory   -0.7296296
+12     &lt;NA&gt;                  age                  NA NA age    0.7227618
+31     &lt;NA&gt;               energy               NA NA energy    0.5597461
+32     &lt;NA&gt;          Entrainment          NA NA Entrainment    0.5039917
+5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
+15     &lt;NA&gt;         Conditioning         NA NA Conditioning    0.9248747
+16     &lt;NA&gt;            Contagion            NA NA Contagion    1.3481773
+21     &lt;NA&gt;              Imagery              NA NA Imagery    1.4876967
+18       id                    1                    NA id 1 -280.9850613
              AIC Iteration
-1             NA         9
-14            NA         9
-13    -6.3964544         9
-4     -4.5145561         9
-10    -3.2244421         9
-11            NA         9
-101   -0.8319954         9
-9      0.1391248         9
-5      0.4316814         9
-51    -2.7914409         9
-17  -279.3047394         9
-    grouping                 term                      block       score
-1       &lt;NA&gt;                    1                    NA NA 1          NA
-14      &lt;NA&gt;           rumination           NA NA rumination  -44.084250
-13      &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.610389
-4       &lt;NA&gt;           mecscale_1           NA NA mecscale_1  -16.492055
-10      &lt;NA&gt;           mecscale_8           NA NA mecscale_8   -9.436342
-11      &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.598386
-101     &lt;NA&gt;              musebaq              NA NA musebaq   -4.047307
-9       &lt;NA&gt;           mecscale_7           NA NA mecscale_7   -1.243080
-51      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.754003
-17        id                    1                    NA id 1 -280.985061
+1             NA         3
+14            NA         3
+13   -5.51167024         3
+3    -4.24398472         3
+2    -3.04619037         3
+11            NA         3
+10   -0.64828615         3
+6    -0.02725521         3
+8     0.43362436         3
+12    1.21182157         3
+31    0.54584703         3
+32    0.94572818         3
+5    -2.79144091         3
+15    1.34060625         3
+16    1.52839785         3
+21    1.70570320         3
+18 -279.96611593         3
+   grouping                 term                      block        score
+1      &lt;NA&gt;                    1                    NA NA 1           NA
+14     &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
+13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
+3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.4920548
+2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.4363422
+11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
+10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
+6      &lt;NA&gt;           Expectancy           NA NA Expectancy   -1.2430803
+8      &lt;NA&gt;               Memory               NA NA Memory   -0.7296296
+12     &lt;NA&gt;                  age                  NA NA age    0.7227618
+31     &lt;NA&gt;               energy               NA NA energy    0.5597461
+32     &lt;NA&gt;          Entrainment          NA NA Entrainment    0.5039917
+5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
+15     &lt;NA&gt;         Conditioning         NA NA Conditioning    0.9248747
+16     &lt;NA&gt;            Contagion            NA NA Contagion    1.3481773
+18       id                    1                    NA id 1 -280.9850613
              AIC Iteration
-1             NA        10
-14            NA        10
-13    -6.5454093        10
-4     -4.9936901        10
-10    -3.6902431        10
-11            NA        10
-101   -1.5462580        10
-9      0.1378652        10
-51    -2.7914409        10
-17  -279.9033965        10
-    grouping                 term                      block       score
-1       &lt;NA&gt;                    1                    NA NA 1          NA
-14      &lt;NA&gt;           rumination           NA NA rumination  -44.084250
-13      &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.610389
-4       &lt;NA&gt;           mecscale_1           NA NA mecscale_1  -16.492055
-10      &lt;NA&gt;           mecscale_8           NA NA mecscale_8   -9.436342
-11      &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.598386
-101     &lt;NA&gt;              musebaq              NA NA musebaq   -4.047307
-51      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.754003
-17        id                    1                    NA id 1 -280.985061
+1             NA         4
+14            NA         4
+13   -5.50887009         4
+3    -4.33377471         4
+2    -3.27505623         4
+11            NA         4
+10   -0.66716885         4
+6    -0.05072485         4
+8     0.14048561         4
+12    1.28603927         4
+31    0.57403391         4
+32    1.00599371         4
+5    -2.79144091         4
+15    1.43110933         4
+16    1.62560174         4
+18 -279.61275799         4
+   grouping                 term                      block        score
+1      &lt;NA&gt;                    1                    NA NA 1           NA
+14     &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
+13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
+3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.4920548
+2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.4363422
+11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
+10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
+6      &lt;NA&gt;           Expectancy           NA NA Expectancy   -1.2430803
+8      &lt;NA&gt;               Memory               NA NA Memory   -0.7296296
+12     &lt;NA&gt;                  age                  NA NA age    0.7227618
+31     &lt;NA&gt;               energy               NA NA energy    0.5597461
+32     &lt;NA&gt;          Entrainment          NA NA Entrainment    0.5039917
+5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
+15     &lt;NA&gt;         Conditioning         NA NA Conditioning    0.9248747
+18       id                    1                    NA id 1 -280.9850613
             AIC Iteration
-1            NA        11
-14           NA        11
-13    -6.685745        11
-4     -5.972487        11
-10    -3.607174        11
-11           NA        11
-101   -1.468864        11
-51    -2.791441        11
-17  -280.722051        11</code></pre>
+1            NA         5
+14           NA         5
+13   -5.2377114         5
+3    -4.2968426         5
+2    -3.2319606         5
+11           NA         5
+10   -0.5693363         5
+6     0.1052707         5
+8     0.1044023         5
+12    1.2200994         5
+31    0.7441367         5
+32    1.0900015         5
+5    -2.7914409         5
+15    1.3825763         5
+18 -279.3200711         5
+   grouping                 term                      block        score
+1      &lt;NA&gt;                    1                    NA NA 1           NA
+14     &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
+13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
+3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.4920548
+2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.4363422
+11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
+10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
+6      &lt;NA&gt;           Expectancy           NA NA Expectancy   -1.2430803
+8      &lt;NA&gt;               Memory               NA NA Memory   -0.7296296
+12     &lt;NA&gt;                  age                  NA NA age    0.7227618
+31     &lt;NA&gt;               energy               NA NA energy    0.5597461
+32     &lt;NA&gt;          Entrainment          NA NA Entrainment    0.5039917
+5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
+18       id                    1                    NA id 1 -280.9850613
+            AIC Iteration
+1            NA         6
+14           NA         6
+13   -4.8875599         6
+3    -4.5649391         6
+2    -3.0620212         6
+11           NA         6
+10   -0.4266337         6
+6     0.1005930         6
+8    -0.2776541         6
+12    1.2466645         6
+31    0.7946403         6
+32    1.1395696         6
+5    -2.7914409         6
+18 -279.2086679         6
+   grouping                 term                      block        score
+1      &lt;NA&gt;                    1                    NA NA 1           NA
+14     &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
+13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
+3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.4920548
+2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.4363422
+11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
+10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
+6      &lt;NA&gt;           Expectancy           NA NA Expectancy   -1.2430803
+8      &lt;NA&gt;               Memory               NA NA Memory   -0.7296296
+31     &lt;NA&gt;               energy               NA NA energy    0.5597461
+32     &lt;NA&gt;          Entrainment          NA NA Entrainment    0.5039917
+5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
+18       id                    1                    NA id 1 -280.9850613
+             AIC Iteration
+1             NA         7
+14            NA         7
+13   -5.82378744         7
+3    -4.52665614         7
+2    -3.28896787         7
+11            NA         7
+10   -0.31408925         7
+6     0.08438749         7
+8    -0.08529517         7
+31    0.91155136         7
+32    1.03008706         7
+5    -2.79144091         7
+18 -279.19921486         7
+   grouping                 term                      block        score
+1      &lt;NA&gt;                    1                    NA NA 1           NA
+14     &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
+13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
+3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.4920548
+2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.4363422
+11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
+10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
+6      &lt;NA&gt;           Expectancy           NA NA Expectancy   -1.2430803
+8      &lt;NA&gt;               Memory               NA NA Memory   -0.7296296
+31     &lt;NA&gt;               energy               NA NA energy    0.5597461
+5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
+18       id                    1                    NA id 1 -280.9850613
+             AIC Iteration
+1             NA         8
+14            NA         8
+13   -5.94564466         8
+3    -4.78118641         8
+2    -3.75746801         8
+11            NA         8
+10   -0.54780063         8
+6     0.10837465         8
+8     0.02620235         8
+31    1.30055988         8
+5    -2.79144091         8
+18 -279.35151636         8
+   grouping                 term                      block        score
+1      &lt;NA&gt;                    1                    NA NA 1           NA
+14     &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
+13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
+3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.4920548
+2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.4363422
+11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
+10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
+6      &lt;NA&gt;           Expectancy           NA NA Expectancy   -1.2430803
+8      &lt;NA&gt;               Memory               NA NA Memory   -0.7296296
+5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
+18       id                    1                    NA id 1 -280.9850613
+            AIC Iteration
+1            NA         9
+14           NA         9
+13   -6.3964544         9
+3    -4.5145561         9
+2    -3.2244421         9
+11           NA         9
+10   -0.8319954         9
+6     0.1391248         9
+8     0.4316814         9
+5    -2.7914409         9
+18 -279.3047394         9
+   grouping                 term                      block       score
+1      &lt;NA&gt;                    1                    NA NA 1          NA
+14     &lt;NA&gt;           rumination           NA NA rumination  -44.084250
+13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.610389
+3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.492055
+2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.436342
+11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.598386
+10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.047307
+6      &lt;NA&gt;           Expectancy           NA NA Expectancy   -1.243080
+5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.754003
+18       id                    1                    NA id 1 -280.985061
+            AIC Iteration
+1            NA        10
+14           NA        10
+13   -6.5454093        10
+3    -4.9936901        10
+2    -3.6902431        10
+11           NA        10
+10   -1.5462580        10
+6     0.1378652        10
+5    -2.7914409        10
+18 -279.9033965        10
+   grouping                 term                      block       score
+1      &lt;NA&gt;                    1                    NA NA 1          NA
+14     &lt;NA&gt;           rumination           NA NA rumination  -44.084250
+13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.610389
+3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.492055
+2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.436342
+11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.598386
+10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.047307
+5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.754003
+18       id                    1                    NA id 1 -280.985061
+           AIC Iteration
+1           NA        11
+14          NA        11
+13   -6.685745        11
+3    -5.972487        11
+2    -3.607174        11
+11          NA        11
+10   -1.468864        11
+5    -2.791441        11
+18 -280.722051        11</code></pre>
 <pre><code>Linear mixed model fit by REML [&#39;lmerModLmerTest&#39;]
-Formula: Sadness ~ 1 + rumination + reg.use_1 + mecscale_1 + mecscale_8 +  
+Formula: Sadness ~ 1 + rumination + reg.use_1 + brainstem + Appraisal +  
     Timepoint + musebaq + rumination:Timepoint + (1 | id)
    Data: s2longExplore
 REML criterion at convergence: 3966.803
@@ -3179,14 +3187,14 @@ Number of obs: 696, groups:  id, 348
 Fixed Effects:
                       (Intercept)                         rumination  
                           6.70213                            1.19110  
-                        reg.use_1                       mecscale_1No  
+                        reg.use_1                        brainstemNo  
                           0.02842                           -1.70624  
-                     mecscale_8No             TimepointPostListening  
+                      AppraisalNo             TimepointPostListening  
                          -1.75549                           -1.05855  
                           musebaq  rumination:TimepointPostListening  
                           0.07017                            0.61536  </code></pre>
 <p>the best model was identifed as</p>
-<pre class="r"><code>selected &lt;- lmerTest::lmer(Sadness ~ 1 + rumination + reg.use_1 + mecscale_1 + mecscale_8 + Timepoint + musebaq + rumination:Timepoint + (1 | id), data = s2longExplore)</code></pre>
+<pre class="r"><code>selected &lt;- lmerTest::lmer(Sadness ~ 1 + rumination + reg.use_1 + brainstem + Appraisal + Timepoint + musebaq + rumination:Timepoint + (1 | id), data = s2longExplore)</code></pre>
 <p>It returns this</p>
 <pre class="r"><code>tab_model(selected)</code></pre>
 <table style="border-collapse:collapse; border:none;">
@@ -3452,16 +3460,12 @@ ggpubr::ggscatterhist(s2explore,
                       legend = &quot;right&quot;,
                       xlab = &quot;Spotify valence metric&quot;,
                       ylab = &quot;Spotify energy metric&quot;,
-                      
-                      cor.coef = TRUE,
-                      cor.coef.coord = c(.71, .9),
-                      add = &quot;reg.line&quot;,
                       conf.int = TRUE,
                       margin.params = list(fill = &quot;rumsplit&quot;),
                       legend.title = &quot;Rumination \nScore&quot;,
                       xlim = c(0, 1),
                       ylim = c(0, 1),
-                      ) </code></pre>
+                      mean.point = TRUE) </code></pre>
 <p><img src="figure/StudyTwoExplore.Rmd/s2spotify-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-s2spotify-1">

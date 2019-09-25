@@ -52,3 +52,4 @@ model7 <- processR
 
 ```
 
+This is not currently running (XQuatz needs to be installed) but jamovi analysis showed no over all mediation, with or without moderator. In the exploratory analysis we can see that this is likely from MESI (MUSE: Emotion regulation subscale) not predicting anything. 

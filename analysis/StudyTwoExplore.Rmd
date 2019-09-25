@@ -11,7 +11,7 @@ editor_options:
 
 In the dataset we also collected data about the BRECVEMA mechanism occuring during listening, demogrpahics and how likely they were to use the song for regulation. 
 
-```{r loadS2data}
+```{r loadS2data, message = FALSE}
 library(tidyverse)
 s2longExplore <- read_csv("data/s2long.csv") %>% 
   dplyr::select(id, 
@@ -31,14 +31,22 @@ s2longExplore <- read_csv("data/s2long.csv") %>%
               factor) %>% 
    mutate_at(.vars = vars (mecscale_1:mecscale_8),
              .funs = forcats::fct_recode, 
-             "Yes" = "1", 
-             "No" = "2")
+             "No" = "2", 
+             "Yes" = "1") %>% 
+    dplyr::rename(brainstem = mecscale_1,
+                        Entrainment = mecscale_2,
+                        Memory = mecscale_3, 
+                        Conditioning = mecscale_4,
+                        Imagery = mecscale_5, 
+                        Contagion = mecscale_6, 
+                        Expectancy = mecscale_7,
+                        Appraisal = mecscale_8)
 ```
 
 So I want to build some models with control mechanisms coming in at each point 
 
 Model 1 is the timepoint only model 
-```{r timepointonly}
+```{r timepointonly, message=FALSE}
 library(sjPlot)
 timepoint <- lmerTest::lmer(Sadness~1 + Timepoint + (1 |id), data = s2longExplore)
 tab_model(timepoint)
@@ -47,59 +55,57 @@ tab_model(timepoint)
 
 Model 2 I add demographics 
 
-```{r}
+```{r message=FALSE}
 demo <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + (1 |id), data = s2longExplore)
 tab_model(demo)
 ```
  Model 3 I add spotify data 
  
-```{r}
+```{r message=FALSE}
 spotifyvar <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy +  (1 |id), data = s2longExplore)
 tab_model(spotifyvar)
 ```
 
 model 4 I add the brecvema mechanisms 
-```{r}
-mecscale <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + (1 |id), data = s2longExplore)
+```{r message=FALSE}
+mecscale <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal + (1 |id), data = s2longExplore)
 
 tab_model(mecscale)
 ```
 
 model 5 I add how likely they are to listen to the song when they are sad  
-```{r}
-likelyuse <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + (1 |id), data = s2longExplore)
+```{r message=FALSE}
+likelyuse <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal + reg.use_1 + (1 |id), data = s2longExplore)
 
 tab_model (likelyuse)
 ```
 model 6 I add the MUSEBAQ 
 
-```{r}
-musebaqglmm <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + musebaq + (1 |id), data = s2longExplore)
+```{r message=FALSE}
+musebaqglmm <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal+ reg.use_1 + musebaq + (1 |id), data = s2longExplore)
 
 tab_model(musebaqglmm)
 ```
 
 model 7 I add rumiation 
-```{r}
-ruminationmain <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + musebaq + rumination +  (1 |id), data = s2longExplore)
+```{r message=FALSE}
+ruminationmain <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal+ reg.use_1 + musebaq + rumination +  (1 |id), data = s2longExplore)
 
 tab_model(ruminationmain)
 ```
 
 Finally I add the interaction term 
-```{r}
-ruminationint <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + musebaq +rumination + rumination:Timepoint + (1 |id), data = s2longExplore)
+```{r message=FALSE}
+ruminationint <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal + reg.use_1 + musebaq +rumination + rumination:Timepoint + (1 |id), data = s2longExplore)
 
 tab_model(ruminationint)
 ```
 ## Model comparisons 
 
 Now I want to compare these models 
-```{r}
+```{r message=FALSE}
 knitr::kable(anova(timepoint, demo, spotifyvar, mecscale, likelyuse, musebaqglmm, ruminationmain, ruminationint))
 ```
-
-This shows the 
 
 # Automatic Model 
 
@@ -107,7 +113,7 @@ Now I am going to do an exploratory analysis to find the best fitting model
 
 ```{r message = FALSE}
 library(buildmer)
-saturatedformula <- Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + musebaq +rumination + rumination:Timepoint + (1 |id)
+saturatedformula <- Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal + reg.use_1 + musebaq +rumination + rumination:Timepoint + (1 |id)
 
 buildmer::buildmer(formula = saturatedformula, data = s2longExplore, crit = "AIC")
 
@@ -117,12 +123,12 @@ buildmer::buildmer(formula = saturatedformula, data = s2longExplore, crit = "AIC
 the best model was identifed as 
 
 
-```{r}
-selected <- lmerTest::lmer(Sadness ~ 1 + rumination + reg.use_1 + mecscale_1 + mecscale_8 + Timepoint + musebaq + rumination:Timepoint + (1 | id), data = s2longExplore)
+```{r, message=FALSE}
+selected <- lmerTest::lmer(Sadness ~ 1 + rumination + reg.use_1 + brainstem + Appraisal + Timepoint + musebaq + rumination:Timepoint + (1 | id), data = s2longExplore)
 ```
 
 It returns this 
-```{r}
+```{r, message=FALSE}
 tab_model(selected)
 
 plot_model(selected)
@@ -173,16 +179,14 @@ ggpubr::ggscatterhist(s2explore,
                       legend = "right",
                       xlab = "Spotify valence metric",
                       ylab = "Spotify energy metric",
-                      cor.coef = TRUE,
-                      cor.coef.coord = c(.71, .9),
-                      add = "reg.line",
                       conf.int = TRUE,
                       margin.params = list(fill = "rumsplit"),
                       legend.title = "Rumination \nScore",
                       xlim = c(0, 1),
                       ylim = c(0, 1),
-                      ) 
+                      mean.point = TRUE) 
 
 ```
+
 
 

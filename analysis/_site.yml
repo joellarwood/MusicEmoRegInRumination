@@ -5,10 +5,22 @@ navbar:
   left:
   - text: Home
     href: index.html
+  - text: Study 1 Confirm
+    href: StudyOneExplore.html
+  - text: Study 1 Explore
+    href: StudyOneConfirm.html
+  - text: Study 2 Confirm
+    href: StudyTwoConfirm.html
+  - text: Study 2 Explore
+    href: StudyTwoExplore.html
+  - text: Study 3 Confirm
+    href: StudyThreeConfirm.html
+  - text: Study 3 Explore
+    href: StudyThreeExplore.html
   - text: About
     href: about.html
-  - text: License
-    href: license.html
+#  - text: License
+#    href: license.html
 output:
   workflowr::wflow_html:
     toc: yes
