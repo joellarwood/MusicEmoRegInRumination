@@ -76,6 +76,6 @@ Interstingly, it seems that the songs are clustering around the lower left quadr
 
 ```{r s1spotifycorrealtions}
 
-apaTables::apa.cor.table(s1SpotCor)
+#apaTables::apa.cor.table(s1SpotCor)
 ```
 

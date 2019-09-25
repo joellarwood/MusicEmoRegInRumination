@@ -196,6 +196,6 @@ ggplot2::theme(legend.title = element_blank())
 ```{r RumCor}
 s1dat %>% 
 dplyr::select("Rumination", "MARS_Neg", "MARS_Pos") %>% 
-apaTables::apa.cor.table(filename = "s1MARScor.txt",
+apaTables::apa.cor.table(filename = "docs/s1MARScor.txt",
 landscape = FALSE)
 ```

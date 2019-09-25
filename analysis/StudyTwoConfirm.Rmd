@@ -11,6 +11,7 @@ editor_options:
 
 ```{r processdata}
 library(tidyverse)
+library(sjlabelled)
 
 s2raw <- read_csv("data/s2.csv")
 
@@ -26,13 +27,7 @@ s2 <- s2raw %>%
          PostInduction = rowSums(dplyr::select(., deq_2_1: deq_2_4)),
          PostListening = rowSums(dplyr::select(., deq_3_1: deq_3_4)), 
          dif = PostListening - PostInduction
-  ) %>% 
-  mutate_at(.vars = vars(mecscale_1:mecscale_8), 
-            factor) %>% 
-  mutate_at(.vars = vars (mecscale_1:mecscale_8),
-            .funs = forcats::fct_recode, 
-            "Yes" = "1", 
-            "No" = "2")
+         ) 
 
 
 s2 <- s2 %>% 
@@ -123,14 +118,6 @@ sjPlot::plot_model(S2glmm,
   ggpubr::theme_pubr(legend = "right") + 
   ggplot2::theme(title = element_blank()) 
 
-ggplot2::ggplot(data = modelplot,
-                aes(x = x, 
-                    y = predicted), 
-                geom_point(x))
-
-
-
-modelplot <-get_model_data(S2glmm, type = "int", mdrt.values = "meansd")
 ```
 
 The simple effects showed that sadness increased for all levels of rumunation 
@@ -142,8 +129,8 @@ meanrum <- mean(s2$rumination, na.rm = TRUE)
 
 s2SimpleList <- list(rumination = c(minusrum, plusrum, meanrum), Timepoint = c("PostInduction", "PostListening"))
 
-s2SimpleSlopes <- emmeans(S2glmm, ~rumination*Timepoint, at = s2SimpleList)
+s2SimpleSlopes <- emmeans::emmeans(S2glmm, ~rumination*Timepoint, at = s2SimpleList)
 
-contrast(s2SimpleSlopes, "pairwise", by = "rumination")
+emmeans::contrast(s2SimpleSlopes, "pairwise", by = "rumination")
 ```
 

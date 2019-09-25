@@ -1,5 +1,5 @@
 ---
-title: "SStudy Two: Exploratorty Data Analysis"
+title: "Study Two: Exploratorty Data Analysis"
 author: "Joel Larwood"
 date: "2019-09-23"
 output: workflowr::wflow_html
@@ -35,29 +35,12 @@ s2longExplore <- read_csv("data/s2long.csv") %>%
              "No" = "2")
 ```
 
-In this data set there are `length(unique(s2longExplore$id))` participants 
-
-To find the best model I am going to saturdate a GLMM with all variables and the interaction between time and rumination. To do this I will be looking at the conditional AIC and use a backward stepwise approach from the maximal model 
-
-```{r}
-s2max <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + musebaq +rumination + rumination:Timepoint + (1 |id), data = s2longExplore)
-```
-
-```{r}
-
-# step(s2max, alpha.fixed = .1)
-# 
-# tab_model(get_model(step(s2max, alpha.fixed = .1)))
-# 
-# plot_model(get_model(step(s2max, alpha.fixed = .1)))
-```
-
 So I want to build some models with control mechanisms coming in at each point 
 
 Model 1 is the timepoint only model 
 ```{r timepointonly}
 library(sjPlot)
-timepoint <- lmerTest::lmer(Sadness~1 + Timepoint + (1 |id), data = drop_na(s2long))
+timepoint <- lmerTest::lmer(Sadness~1 + Timepoint + (1 |id), data = s2longExplore)
 tab_model(timepoint)
 
 ```
@@ -65,70 +48,142 @@ tab_model(timepoint)
 Model 2 I add demographics 
 
 ```{r}
-demo <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + (1 |id), data = drop_na(s2long))
+demo <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + (1 |id), data = s2longExplore)
 tab_model(demo)
 ```
  Model 3 I add spotify data 
  
 ```{r}
-spotifyvar <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy +  (1 |id), data = drop_na(s2long))
+spotifyvar <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy +  (1 |id), data = s2longExplore)
 tab_model(spotifyvar)
 ```
 
 model 4 I add the brecvema mechanisms 
 ```{r}
-mecscale <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + (1 |id), data = drop_na(s2long))
+mecscale <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + (1 |id), data = s2longExplore)
 
 tab_model(mecscale)
 ```
 
 model 5 I add how likely they are to listen to the song when they are sad  
 ```{r}
-likelyuse <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + (1 |id), data = drop_na(s2long))
+likelyuse <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + (1 |id), data = s2longExplore)
 
 tab_model (likelyuse)
 ```
 model 6 I add the MUSEBAQ 
 
 ```{r}
-musebaqglmm <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + musebaq + (1 |id), data = drop_na(s2long))
+musebaqglmm <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + musebaq + (1 |id), data = s2longExplore)
 
 tab_model(musebaqglmm)
 ```
 
 model 7 I add rumiation 
 ```{r}
-ruminationmain <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + musebaq + rumination +  (1 |id), data = drop_na(s2long))
+ruminationmain <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + musebaq + rumination +  (1 |id), data = s2longExplore)
 
-tab_model(rumination)
+tab_model(ruminationmain)
 ```
 
 Finally I add the interaction term 
 ```{r}
-ruminationint <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + musebaq +rumination + rumination:Timepoint + (1 |id), data = drop_na(s2long))
+ruminationint <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + musebaq +rumination + rumination:Timepoint + (1 |id), data = s2longExplore)
 
 tab_model(ruminationint)
 ```
+## Model comparisons 
 
 Now I want to compare these models 
 ```{r}
-anova(timepoint, demo, spotifyvar, mecscale, likelyuse, musebaqglmm, ruminationmain, ruminationint)
+knitr::kable(anova(timepoint, demo, spotifyvar, mecscale, likelyuse, musebaqglmm, ruminationmain, ruminationint))
+```
 
+This shows the 
+
+# Automatic Model 
+
+Now I am going to do an exploratory analysis to find the best fitting model
+
+```{r message = FALSE}
+library(buildmer)
+saturatedformula <- Sadness~1 + Timepoint + age + gender + valence + energy + mecscale_1 + mecscale_2 + mecscale_3 + mecscale_4 + mecscale_5 + mecscale_6 + mecscale_7 + mecscale_8 + reg.use_1 + musebaq +rumination + rumination:Timepoint + (1 |id)
+
+buildmer::buildmer(formula = saturatedformula, data = s2longExplore, crit = "AIC")
 
 ```
 
-Now I am going to do an exploratory backwards stepwise. This indicated that the best fitting model was the hypothesised model 
+
+the best model was identifed as 
+
 
 ```{r}
-lmerTest::step(S2glmm)
+selected <- lmerTest::lmer(Sadness ~ 1 + rumination + reg.use_1 + mecscale_1 + mecscale_8 + Timepoint + musebaq + rumination:Timepoint + (1 | id), data = s2longExplore)
 ```
 
+It returns this 
+```{r}
+tab_model(selected)
+
+plot_model(selected)
+```
+    
 # Exploring correaltions with rumination 
 
-```{r rumcor}
+```{r rumcor, message = FALSE}
 
-s2 <- read_csv("data/s2.csv") %>% 
-  dplyr::select(rumination, 
-                contains(mecscale))
+s2explore <- read_csv("data/s2Processed.csv") %>% 
+  mutate(rumsplit = if_else(.$rumination < median(rumination, na.rm = TRUE), 
+                            "Low", "High"))
 ```
+
+
+```{r s2spotify, message = FALSE, warning = FALSE}
+
+library(ggsci)
+
+# s2explore %>% 
+#   ggplot2::ggplot(aes(x = valence,
+#                       y = energy,
+#                       fill = rumination, 
+#                       color = rumination)) +
+#   geom_point(size = 5, alpha = .5) +
+#   geom_hline(yintercept = .5) +
+#   geom_vline(xintercept =.5) +
+#   ylim(0,1) +
+#   xlim(0,1) +
+#   ggplot2::geom_point(aes(fill = rumination)) +
+#   ggplot2::geom_hline(yintercept = .5) +
+#   ggplot2::geom_vline(xintercept =.5) + 
+#   ggplot2::ylim(0,1) + 
+#   ggplot2::xlim(0,1) +
+#   ggpubr::stat_cor(label.x = .75, 
+#                    label.y = .95) + 
+#   ggpubr::theme_pubr(legend = "right") +
+#   ggplot2::stat_smooth(method = "lm")
+
+
+ggpubr::ggscatterhist(s2explore,
+                      x = "valence",
+                      y = "energy",
+                      palette = "simpsons",
+                      color = "rumsplit",
+                      fill = "rumsplit",
+                      size = 3,
+                      legend = "right",
+                      xlab = "Spotify valence metric",
+                      ylab = "Spotify energy metric",
+                      
+                      cor.coef = TRUE,
+                      cor.coef.coord = c(.71, .9),
+                      add = "reg.line",
+                      conf.int = TRUE,
+                      margin.params = list(fill = "rumsplit"),
+                      legend.title = "Rumination \nScore",
+                      xlim = c(0, 1),
+                      ylim = c(0, 1),
+                      ) 
+
+```
+
 
