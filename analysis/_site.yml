@@ -1,7 +1,7 @@
 name: "MusicEmoRegInRumination"
 output_dir: ../docs
 navbar:
-  title: "MusicEmoRegInRumination"
+  title: "The influence of trtait rumination is the musically based regulation of sadness"
   left:
   - text: Home
     href: index.html
