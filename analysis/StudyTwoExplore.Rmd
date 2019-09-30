@@ -1,5 +1,5 @@
 ---
-title: "Study Two: Exploratorty Data Analysis"
+title: "Study Two: Exploratorty Data Analysis (Timepoints)"
 author: "Joel Larwood"
 date: "2019-09-23"
 output: workflowr::wflow_html
@@ -133,60 +133,3 @@ tab_model(selected)
 
 plot_model(selected)
 ```
-    
-# Exploring correaltions with rumination 
-
-```{r rumcor, message = FALSE}
-
-s2explore <- read_csv("data/s2Processed.csv") %>% 
-  mutate(rumsplit = if_else(.$rumination < median(rumination, na.rm = TRUE), 
-                            "Low", "High"))
-```
-
-
-```{r s2spotify, message = FALSE, warning = FALSE}
-
-library(ggsci)
-
-# s2explore %>% 
-#   ggplot2::ggplot(aes(x = valence,
-#                       y = energy,
-#                       fill = rumination, 
-#                       color = rumination)) +
-#   geom_point(size = 5, alpha = .5) +
-#   geom_hline(yintercept = .5) +
-#   geom_vline(xintercept =.5) +
-#   ylim(0,1) +
-#   xlim(0,1) +
-#   ggplot2::geom_point(aes(fill = rumination)) +
-#   ggplot2::geom_hline(yintercept = .5) +
-#   ggplot2::geom_vline(xintercept =.5) + 
-#   ggplot2::ylim(0,1) + 
-#   ggplot2::xlim(0,1) +
-#   ggpubr::stat_cor(label.x = .75, 
-#                    label.y = .95) + 
-#   ggpubr::theme_pubr(legend = "right") +
-#   ggplot2::stat_smooth(method = "lm")
-
-
-ggpubr::ggscatterhist(s2explore,
-                      x = "valence",
-                      y = "energy",
-                      palette = "simpsons",
-                      color = "rumsplit",
-                      fill = "rumsplit",
-                      size = 3,
-                      legend = "right",
-                      xlab = "Spotify valence metric",
-                      ylab = "Spotify energy metric",
-                      conf.int = TRUE,
-                      margin.params = list(fill = "rumsplit"),
-                      legend.title = "Rumination \nScore",
-                      xlim = c(0, 1),
-                      ylim = c(0, 1),
-                      mean.point = TRUE) 
-
-```
-
-
-

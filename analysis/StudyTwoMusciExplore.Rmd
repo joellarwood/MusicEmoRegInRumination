@@ -1,0 +1,133 @@
+---
+title: "Study Two: Exploratorty Data Analysis (Timepoints)"
+author: "joellarwood"
+date: "2019-09-30"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+ 
+# Exploring correaltions with rumination 
+
+```{r rumcor, message = FALSE}
+
+takeone <- function(x, na.rm = TRUE)(x - 1)
+
+s2explore <- read_csv("data/s2Processed.csv") %>% 
+  mutate(rumsplit = if_else(.$rumination < median(rumination, na.rm = TRUE), 
+                            "Low", "High")) %>%   
+  mutate_at(.vars = vars(mecscale_1:mecscale_8), 
+             takeone) %>% 
+    dplyr::rename(brainstem = mecscale_1,
+                        Entrainment = mecscale_2,
+                        Memory = mecscale_3, 
+                        Conditioning = mecscale_4,
+                        Imagery = mecscale_5, 
+                        Contagion = mecscale_6, 
+                        Expectancy = mecscale_7,
+                        Appraisal = mecscale_8) %>% 
+  mutate(LikelyUse = if_else(reg.use_1 < median(reg.use_1, na.rm = TRUE), 
+                             0, 
+                             1))
+```
+
+
+```{r s2spotify, message = FALSE, warning = FALSE}
+
+library(ggsci)
+library(ggpubr)
+
+# s2explore %>% 
+#   ggplot2::ggplot(aes(x = valence,
+#                       y = energy,
+#                       fill = rumination, 
+#                       color = rumination)) +
+#   geom_point(size = 5, alpha = .5) +
+#   geom_hline(yintercept = .5) +
+#   geom_vline(xintercept =.5) +
+#   ylim(0,1) +
+#   xlim(0,1) +
+#   ggplot2::geom_point(aes(fill = rumination)) +
+#   ggplot2::geom_hline(yintercept = .5) +
+#   ggplot2::geom_vline(xintercept =.5) + 
+#   ggplot2::ylim(0,1) + 
+#   ggplot2::xlim(0,1) +
+#   ggpubr::stat_cor(label.x = .75, 
+#                    label.y = .95) + 
+#   ggpubr::theme_pubr(legend = "right") +
+#   ggplot2::stat_smooth(method = "lm")
+
+
+ggpubr::ggscatterhist(s2explore,
+                      x = "valence",
+                      y = "energy",
+                      palette = "simpsons",
+                      color = "rumsplit",
+                      fill = "rumsplit",
+                      size = 3,
+                      legend = "right",
+                      xlab = "Spotify valence metric",
+                      ylab = "Spotify energy metric",
+                      conf.int = TRUE,
+                      margin.params = list(fill = "rumsplit"),
+                      legend.title = "Rumination \nScore",
+                      xlim = c(0, 1),
+                      ylim = c(0, 1),
+                      mean.point = TRUE) 
+
+```
+
+# Cluister analysis 
+```{r}
+clusterS2Dat <- s2explore %>% 
+  select(valence,
+         energy, 
+         brainstem, 
+         Entrainment,
+         Memory, 
+         Conditioning, 
+         Imagery, 
+         Contagion, 
+         Expectancy, 
+         Appraisal,
+         id,
+         track_name,
+         artist_name,
+         track_uri
+  )
+```
+
+K means - valence and energy
+
+Number of clusters indicated as 2
+```{r}
+library(NbClust)
+library(factoextra)
+
+VA <- drop_na(select(s2explore, valence, energy, id))
+
+factoextra::fviz_nbclust(NbClust(select(VA, -id), distance = "euclidean", method = "kmeans")) + theme_minimal() + ggtitle("NbClust's optimal number of clusters")
+
+VAclust <- VA %>% 
+  mutate(KmeansCluster = as.factor(kmeans(select(VA, -id), 3)$cluster)) 
+
+ggpubr::ggscatter(VAclust, 
+                  x = "valence", 
+                  y = "energy", 
+                  color = "KmeansCluster", 
+                  star.plot = TRUE,
+                  palette = "simpsons", 
+                  legend = "right",
+                  xlab = "Spotify valence metric", 
+                  ylab = "Spotify energy metric") +
+  scale_y_continuous(breaks = c(0, .25, .5, .75, 1)) + 
+  scale_x_continuous(breaks =c(0, .25, .5, .75, 1))
+
+s2clusters <- full_join(clusterS2Dat, select(VAclust, id, KmeansCluster), by = "id")
+
+```
+
+
+
+

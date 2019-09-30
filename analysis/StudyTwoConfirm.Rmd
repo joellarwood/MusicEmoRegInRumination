@@ -75,6 +75,11 @@ The manipulation/induction of sadness was succesful
 S2Manipulation <- t.test(s2$PostInduction, s2$Baseline, paired = TRUE) 
 
 apa::t_apa(S2Manipulation)
+
+mean(s2$Baseline)
+sd(s2$Baseline)
+mean(s2$PostInduction)
+sd(s2$PostInduction)
 ```
 
 # Hypothesis Test 
@@ -87,11 +92,7 @@ s2long <- s2 %>%
   gather(key = Timepoint,
          value = Sadness,
          factor_key = TRUE,
-         PostInduction, PostListening) %>% 
-  dplyr::mutate(dummy = as.numeric(fct_recode(Timepoint,
-                                "0" = "PostInduction",
-                                "1" = "PostListening")))
-
+         PostInduction, PostListening) 
 
 write_csv(s2long, "data/s2long.csv")
   
@@ -126,7 +127,8 @@ minusrum <- mean(s2$rumination, na.rm = TRUE)-sd(s2$rumination, na.rm = TRUE)
 plusrum <- mean(s2$rumination, na.rm = TRUE)+sd(s2$rumination, na.rm = TRUE)
 meanrum <- mean(s2$rumination, na.rm = TRUE)
 
-s2SimpleList <- list(rumination = c(minusrum, plusrum, meanrum), Timepoint = c("PostInduction", "PostListening"))
+
+s2SimpleList <- list(rumination = c(minusrum, plusrum, meanrum), Timepoint = c("Baseline", "PostInduction", "PostListening"))
 
 s2SimpleSlopes <- emmeans::emmeans(S2glmm, ~rumination*Timepoint, at = s2SimpleList)
 
