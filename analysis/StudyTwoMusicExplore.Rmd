@@ -120,6 +120,7 @@ s2clusters <- full_join(s2explore, select(VAclust, id, KmeansCluster), by = "id"
 ```{r clustercomparison}
 
 MechPropSummary <- s2clusters %>% 
+    drop_na(KmeansCluster) %>% 
   group_by(KmeansCluster) %>% 
   summarize(Brainstem=sum(brainstem=="Yes", na.rm = TRUE)/n(),
             Entrainment = sum(Entrainment=="Yes", na.rm = TRUE)/n(),
@@ -137,6 +138,7 @@ SpreadContingencyS2 <- MechPropSummary %>%
          value = proportion, 
         Brainstem:Appraisal) %>% 
   mutate(Mechanism = KmeansCluster)
+library(tableone)
 
 tableone::CreateCatTable(vars = c("brainstem"  ,  
                                   "Entrainment"  ,
@@ -148,25 +150,31 @@ tableone::CreateCatTable(vars = c("brainstem"  ,
                                   "Appraisal"), 
                          strata = "KmeansCluster", 
                          data = s2clusters)
+
+library(RVAideMemoire)
+
 fisher.multcomp(xtabs(~Entrainment + KmeansCluster, data = s2clusters))$p.value
 fisher.multcomp(xtabs(~Memory + KmeansCluster, data = s2clusters))$p.value
 fisher.multcomp(xtabs(~Conditioning + KmeansCluster, data = s2clusters))$p.value
 fisher.multcomp(xtabs(~Contagion + KmeansCluster, data = s2clusters))$p.value
 fisher.multcomp(xtabs(~Appraisal + KmeansCluster, data = s2clusters))$p.value
 
-
-
-
+ggpubr::ggbarplot(data = SpreadContingencyS2, 
+                  x = "Mechanism", 
+                  y = "proportion", 
+                  color = "cluster", 
+                  fill = "cluster", 
+                  position = position_dodge(0.9), 
+                  palette = "simpsons", 
+                  legend = "right", 
+                  xtickslab.rt = 45, 
+                  ggtheme = theme_pubr(base_family = "Times New Roman")) +
+ggplot2::scale_y_continuous(breaks=c(0, .2,.4,.6,.8,1)) + 
+  ggplot2::ylim(0, 1) +
+  ggplot2::ylab("Proportion of yes response")
 
 ```
 
-
-## Follow up to Chi-Square
-```{r}
-
-
-
-```
 
 ## Rumination
 ```{r}
@@ -178,8 +186,6 @@ ggpubr::ggviolin(drop_na(s2clusters),
                   legend = "right", 
                  add = "boxplot", 
                  ) + 
-  ggpubr::stat_compare_means(method = "anova", 
-                             label.x = 1.3) + 
   ggplot2::scale_y_continuous(breaks = c(1,2,3,4,5))
 
 library(afex)
@@ -204,9 +210,7 @@ ggpubr::ggviolin(drop_na(s2clusters),
                   palette = "simpsons",
                   legend = "right", 
                  add = "boxplot", 
-                 ) + 
-  ggpubr::stat_compare_means(method = "anova", 
-                             label.x = 1.3) 
+                 ) 
 
 apa::anova_apa(afex::aov_ez(id = "id", 
              dv = "musebaq", 
@@ -226,10 +230,7 @@ ggpubr::ggviolin(drop_na(s2clusters),
                   palette = "simpsons",
                   legend = "right", 
                  add = "boxplot", 
-                 ) + 
-  ggpubr::stat_compare_means(method = "kruskal.test", 
-                             label.x = 1.28, 
-                             label.y = 120) 
+                 ) 
 
 kruskal.test(reg.use_1 ~ KmeansCluster, data = s2clusters)
 
