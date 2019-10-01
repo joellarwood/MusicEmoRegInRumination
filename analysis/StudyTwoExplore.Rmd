@@ -59,7 +59,7 @@ Model 2 I add demographics
 demo <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + (1 |id), data = s2longExplore)
 tab_model(demo)
 ```
- Model 3 I add spotify data 
+Model 3 I add spotify data 
  
 ```{r message=FALSE}
 spotifyvar <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy +  (1 |id), data = s2longExplore)

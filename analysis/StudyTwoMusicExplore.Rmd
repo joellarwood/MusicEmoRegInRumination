@@ -1,0 +1,258 @@
+---
+title: "Study Two: Exploratorty Data Analysis (Timepoints)"
+author: "joellarwood"
+date: "2019-09-30"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+ 
+# Exploring correaltions with rumination 
+
+```{r rumcor, message = FALSE}
+library(tidyverse)
+
+takeone <- function(x, na.rm = TRUE)(x - 1)
+
+s2explore <- read_csv("data/s2Processed.csv") %>% 
+  mutate(rumsplit = if_else(.$rumination < median(rumination, na.rm = TRUE), 
+                            "Low", "High")) %>%   
+  mutate_at(.vars = vars(mecscale_1:mecscale_8), 
+             takeone) %>% 
+    dplyr::rename(brainstem = mecscale_1,
+                        Entrainment = mecscale_2,
+                        Memory = mecscale_3, 
+                        Conditioning = mecscale_4,
+                        Imagery = mecscale_5, 
+                        Contagion = mecscale_6, 
+                        Expectancy = mecscale_7,
+                        Appraisal = mecscale_8) %>% 
+  mutate(LikelyUse = if_else(reg.use_1 < median(reg.use_1, na.rm = TRUE), 
+                             0, 
+                             1))  %>% 
+  mutate_at(c("brainstem", "Entrainment", "Memory", "Conditioning", "Imagery", "Contagion", "Expectancy", "Appraisal" ), 
+            funs(recode(., "0" = "No", "1" = "Yes" )))
+```
+
+##Correlations between traits and BRECVEMA 
+
+```{r s2correaltions}
+
+library(apaTables)
+
+apaTables::apa.cor.table(data = select(s2explore, 
+                                       rumination, 
+                                       musebaq, 
+                                       valence, 
+                                       energy), 
+                         filename = "docs/s2correlations.doc")
+
+```
+
+
+```{r s2spotify, message = FALSE, warning = FALSE}
+
+library(ggsci)
+library(ggpubr)
+
+ggpubr::ggscatterhist(s2explore,
+                      x = "valence",
+                      y = "energy",
+                      palette = "simpsons",
+                      color = "rumsplit",
+                      fill = "rumsplit",
+                      size = 3,
+                      legend = "right",
+                      xlab = "Spotify valence metric",
+                      ylab = "Spotify energy metric",
+                      conf.int = TRUE,
+                      margin.params = list(fill = "rumsplit"),
+                      legend.title = "Rumination \nScore",
+                      xlim = c(0, 1),
+                      ylim = c(0, 1),
+                      mean.point = FALSE) 
+
+```
+
+# Cluister analysis 
+
+K means - valence and energy
+
+Number of clusters indicated as 3
+NOTE: Cluster labels will change on each
+```{r s2cluster}
+library(NbClust)
+library(factoextra)
+
+VA <- drop_na(select(s2explore, valence, energy, id))
+
+factoextra::fviz_nbclust(NbClust(select(VA, -id), distance = "euclidean", method = "kmeans")) + theme_minimal() + ggtitle("NbClust's optimal number of clusters")
+
+VAclust <- VA %>% 
+  mutate(KmeansCluster = fct_recode(factor(kmeans(select(VA, -id), 3)$cluster)))
+
+```
+
+```{r plotcluster}
+ggpubr::ggscatter(VAclust, 
+                  x = "valence", 
+                  y = "energy", 
+                  color = "KmeansCluster",
+                  star.plot = TRUE,
+                  palette = "simpsons",
+                  legend = "right",
+                  legend.title = "Cluster",
+                  xlab = "Spotify valence metric",
+                  ylab = "Spotify energy metric", 
+                  ggtheme = theme_pubr(base_family = "Times New Roman")) +
+  scale_y_continuous(breaks = c(0, .25, .5, .75, 1)) +
+  scale_x_continuous(breaks =c(0, .25, .5, .75, 1)
+                     )
+
+s2clusters <- full_join(s2explore, select(VAclust, id, KmeansCluster), by = "id")
+          
+
+```
+
+# Describe clusters 
+
+```{r clustercomparison}
+
+MechPropSummary <- s2clusters %>% 
+  group_by(KmeansCluster) %>% 
+  summarize(Brainstem=sum(brainstem=="Yes", na.rm = TRUE)/n(),
+            Entrainment = sum(Entrainment=="Yes", na.rm = TRUE)/n(),
+            Memory = sum(Memory=="Yes", na.rm = TRUE)/n(),
+            Conditioning = sum(Conditioning == "Yes", na.rm = TRUE)/n(),
+            Imagery = sum(Imagery == "Yes", na.rm = TRUE)/n(),
+            Contagion = sum(Contagion == "Yes", na.rm = TRUE)/n(),
+            Expectancy = sum(Expectancy == "Yes", na.rm = TRUE)/n(),
+            Appraisal = sum(Appraisal == "Yes", na.rm = TRUE)/n() 
+  ) 
+
+SpreadContingencyS2 <- MechPropSummary %>% 
+  mutate(cluster = KmeansCluster) %>% 
+  gather(key = KmeansCluster, 
+         value = proportion, 
+        Brainstem:Appraisal) %>% 
+  mutate(Mechanism = KmeansCluster)
+
+tableone::CreateCatTable(vars = c("brainstem"  ,  
+                                  "Entrainment"  ,
+                                  "Memory"     ,   
+                                  "Conditioning"  ,
+                                  "Imagery"  ,
+                                  "Contagion"    , 
+                                  "Expectancy"   , 
+                                  "Appraisal"), 
+                         strata = "KmeansCluster", 
+                         data = s2clusters)
+fisher.multcomp(xtabs(~Entrainment + KmeansCluster, data = s2clusters))$p.value
+fisher.multcomp(xtabs(~Memory + KmeansCluster, data = s2clusters))$p.value
+fisher.multcomp(xtabs(~Conditioning + KmeansCluster, data = s2clusters))$p.value
+fisher.multcomp(xtabs(~Contagion + KmeansCluster, data = s2clusters))$p.value
+fisher.multcomp(xtabs(~Appraisal + KmeansCluster, data = s2clusters))$p.value
+
+
+
+
+
+```
+
+
+## Follow up to Chi-Square
+```{r}
+
+
+
+```
+
+## Rumination
+```{r}
+ggpubr::ggviolin(drop_na(s2clusters), 
+                  x = "KmeansCluster",
+                  y = "rumination", 
+                  fill ="KmeansCluster",
+                  palette = "simpsons",
+                  legend = "right", 
+                 add = "boxplot", 
+                 ) + 
+  ggpubr::stat_compare_means(method = "anova", 
+                             label.x = 1.3) + 
+  ggplot2::scale_y_continuous(breaks = c(1,2,3,4,5))
+
+library(afex)
+apa::anova_apa(afex::aov_ez(id = "id", 
+             dv = "rumination", 
+             data = s2clusters, 
+             between = "KmeansCluster", 
+             #covariate = "musebaq", 
+             type = 3), 
+             es = "ges"
+             )
+
+```
+
+##MUSEBAQ 
+
+```{r}
+ggpubr::ggviolin(drop_na(s2clusters), 
+                  x = "KmeansCluster",
+                  y = "musebaq", 
+                  fill ="KmeansCluster",
+                  palette = "simpsons",
+                  legend = "right", 
+                 add = "boxplot", 
+                 ) + 
+  ggpubr::stat_compare_means(method = "anova", 
+                             label.x = 1.3) 
+
+apa::anova_apa(afex::aov_ez(id = "id", 
+             dv = "musebaq", 
+             data = s2clusters, 
+             between = "KmeansCluster", 
+             type = 3), 
+             es = "ges"
+             )
+```
+
+##Likely regulation use 
+```{r}
+ggpubr::ggviolin(drop_na(s2clusters), 
+                  x = "KmeansCluster",
+                  y = "reg.use_1", 
+                  fill ="KmeansCluster",
+                  palette = "simpsons",
+                  legend = "right", 
+                 add = "boxplot", 
+                 ) + 
+  ggpubr::stat_compare_means(method = "kruskal.test", 
+                             label.x = 1.28, 
+                             label.y = 120) 
+
+kruskal.test(reg.use_1 ~ KmeansCluster, data = s2clusters)
+
+```
+
+## Clusters and Sadness changes 
+How do the three different clusters predict sadness 
+
+```{r}
+s2ClusterLong <- s2clusters %>% 
+  gather(key = Timepoint, 
+         value = Sadness, 
+         PostInduction,PostListening)
+
+library(lmerTest)
+library(sjPlot)
+
+s2ClusterSadness <- lmerTest::lmer(Sadness~1+Timepoint*KmeansCluster + (1 |id), data = s2ClusterLong)
+tab_model(s2ClusterSadness)
+anova(s2ClusterSadness)
+plot_model(s2ClusterSadness, 
+           type = "int")
+
+emmeans::contrast(emmeans::emmeans(s2ClusterSadness, ~Timepoint*KmeansCluster), "pairwise", by = "KmeansCluster")
+```
+

@@ -12,7 +12,8 @@ library(tidyverse)
 
 s3explore <- read_csv("data/s3Processed.csv") %>% 
   mutate(rumsplit = if_else(.$rumination < median(rumination, na.rm = TRUE), 
-                            "Low", "High"))
+                            "Low", "High")) %>% 
+  rowid_to_column("id")
 
 ```
 
@@ -33,7 +34,7 @@ corrplot::corrplot(corr = cor(dplyr::select(s3explore,
 ```
 
 
-From thsi we can see that trait use of music is not related to any variables in the data frame. Not is the charactertsitic of the song. 
+From this we can see that trait use of music is not related to any variables in the data frame. Not is the charactertsitic of the song. 
 
 # Here is what people nominated as listening to when they are sad
 ```{r message=FALSE}
@@ -58,4 +59,31 @@ ggpubr::ggscatterhist(s3explore,
 )
 ```
 
-here we can see there is lots of variability in what people choose. The qualtiative repsonses may provide extra information here allowing for a clustering analysis. We could also look at adding lyrics as additional information
+here we can see there is lots of variability in what people choose. The qualtiative repsonses may provide extra information here allowing for a clustering analysis. We could also look at adding lyrics as additional information. 
+
+# Cluster analysis 
+
+```{r}
+
+library(factoextra)
+s3ClusterVars <- s3explore %>% select(valence, energy, id) %>% drop_na()
+factoextra::fviz_nbclust(NbClust(select(s3ClusterVars, -id), distance = "euclidean", method = "kmeans")) + theme_minimal() + ggtitle("NbClust's optimal number of clusters")
+
+
+s3clusters <- s3ClusterVars %>% 
+  mutate(KmeansCluster = fct_recode(factor(kmeans(select(s3ClusterVars, -id), 2)$cluster)))
+
+ggpubr::ggscatter(s3clusters, 
+                  x = "valence", 
+                  y = "energy", 
+                  color = "KmeansCluster",
+                  star.plot = TRUE,
+                  palette = "simpsons",
+                  legend = "right",
+                  xlab = "Spotify valence metric",
+                  ylab = "Spotify energy metric") +
+  scale_y_continuous(breaks = c(0, .25, .5, .75, 1)) +
+  scale_x_continuous(breaks =c(0, .25, .5, .75, 1)
+                     )
+```
+
