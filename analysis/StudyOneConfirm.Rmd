@@ -89,13 +89,14 @@ The alpha for the cognitive and emotion regulation scale of the MUSEBAQ was `r m
 s1Manipulation <- t.test(s1$PostInduction, s1$Baseline, paired = TRUE) 
 
 apa::t_apa(s1Manipulation)
+apa::t_apa(s1Manipulation, format = "rmarkdown")
 
 mean(s1$Baseline)
 sd(s1$Baseline)
 mean(s1$PostInduction)
 sd(s1$PostInduction)
 ```
-The manipulation/induction of sadness was succesful `r apa::t_apa(s1Manipulation)` with scores rising from baseline (*M* = `r mean(s1$Baseline)`, *SD* = `r sd(s1$Baseline)`) to Post induction (*M* = `r mean(s1$PostInduction)`, *SD* = `r sd(s1$PostInduction)`)
+The manipulation/induction of sadness was succesful *t*(381) = 14.01, *p* < .001, *d* = 0.72, with scores rising from baseline (*M* = `r mean(s1$Baseline)`, *SD* = `r sd(s1$Baseline)`) to Post induction (*M* = `r mean(s1$PostInduction)`, *SD* = `r sd(s1$PostInduction)`)
 
 # Hypothesis Test 
 

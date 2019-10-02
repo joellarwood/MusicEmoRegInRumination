@@ -75,7 +75,7 @@ ggpubr::ggscatterhist(s1explore,
 
 ```
 
-# Cluister analysis 
+# Cluster analysis 
 
 K means - valence and energy
 

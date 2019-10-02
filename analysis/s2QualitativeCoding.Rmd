@@ -1,0 +1,73 @@
+---
+title: "s2QualitativeCoding"
+author: "Joel Larwood"
+date: "2019-10-02"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+In this study we had participants freely respond to why they listened to the nominated song when they were sad. We have coded their responses acording to Saarikallio's MMR model 
+
+
+Responses that did not fir the MMR model were coded according to Juslin's BRECVA model. 
+
+Joel Larwood coded the items along with Dianna Vidas. Coding was completed indepednetnly before disagreements were discussed.
+
+The coding schem can be seen below.
+
+# MMR (Based of Saarikallio, 2008)
+
+Mechanism | Participant describes... | Key 
+------|-------|--------
+Entertainment | Using music in the background while doing another activity | Ent
+Revival | Listening to musi as a way to relax or restore energy | Rev
+Strong Sensations | Searching for intense emotional feelings - Face validaty of items relates to postive emotions | SS
+Diversion | Listening to music to distract themselves or forget about their emotions or thoughts | Div
+Discharge | Discharge is about emotional disclosure, releasing anger or sadness through music that expresses these emotions | Dis
+Mental Work |  Using music to help themselves cognitively process or clarify their emotions, give new insights or perspectives  | MW 
+Solace | Listening to music to find comfort or feel understood in their emotional experience | Sol
+
+
+
+
+
+# BRECVEMA coding (Based of Julin, 2015) 
+
+Mechanism | Participant describes... | Key
+-------|--------|-------
+Brain Stem Reflex | Musical events that were startling or psychiologically arousing | BSR 
+Rythmic Entrainment |  The music as having a strong and/or captivating beat, pulse or rhytym | En 
+Positive Memory | The music evoking a pleasant memory   | PosMem 
+Negative Memory | The music evoking a unpleasant memory | NegMem
+Memory (unspecified valence) | The music evoking a memory (valence of memory not specified) | MemNS
+Evaluative Conditioning (Positive) | The music evoking more general pleasnt associations | PosCond 
+Evaluative Conditioning (Negative) | The music evoking more general negative associations | NegCond
+Imagery | The music evoking mental images | Im
+Contagion (Positive) | The songs/singers positive emotion altering the listerners emotion in a positively valenced direction | PosCont
+Contagion (Negative) | The songs/singers positive emotion altering the listerners emotion in a negatively valenced direction | NegCont
+
+# Notes on the coding process 
+
+Half way through it seemed that it was clustering around people who used songs to either delberately feel better, express their emotions, engage with memories, or think about their emotions 
+
+This led me to consider a new coding strategy where I code along the lines of these four themes. 
+
+- Express emotion 
+- Think about emotion 
+- Change emotion 
+- Engage with memories 
+- Song features 
+
+At this point I am wondering if a thematic approach may be more useful than grounded theory? 
+
+Here I only code explicit responses along these lines. Post-hoc of unclassfied may be considered. Possible musical features theme?
+
+```{r}
+
+```
+
+
+

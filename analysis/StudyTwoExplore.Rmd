@@ -21,8 +21,8 @@ s2explore <- read_csv("data/s2Processed.csv") %>%
   mutate(rumsplit = if_else(.$rumination < median(rumination, na.rm = TRUE), 
                             "Low", "High")) %>% 
   rowid_to_column("id") %>% 
-  add_column(JL_Mech = NA, DV_Mech = NA) %>% 
-  select(id, track_name, artist_name, track_uri, SadSong, SadSongWhy, contains("MECH"), valence, energy, rumination:depression, rumsplit)
+  add_column(JL_MMR = NA, JL_BRECVEMA = NA, DV_MMR = NA, DV_BRECVEMA = NA) %>% 
+  select(id, track_name, artist_name, track_uri, SadSong, SadSongWhy, JL_MMR, JL_BRECVEMA, DV_MMR, DV_BRECVEMA, valence, energy, rumination:depression, rumsplit)
 
 write_csv(s2explore, "data/s2MechCoding.csv")
 ```
@@ -40,8 +40,36 @@ corrplot::corrplot(corr = cor(dplyr::select(s2explore,
                                             rumination, strategies, ders, mesi, depression, energy, valence)))$p,
                    pch.cex = .3, 
                    tl.srt = 0)
-
 ```
+
+```{r s2apacorrealtions, echo = FALSE}
+
+apa::cor_apa(cor.test(s2explore$rumination, s2explore$mesi), format = "rmarkdown")
+apa::cor_apa(cor.test(s2explore$ders, s2explore$mesi), "rmarkdown")
+apa::cor_apa(cor.test(s2explore$rumination, s2explore$valence), "rmarkdown")
+apa::cor_apa(cor.test(s2explore$rumination, s2explore$energy), "rmarkdown")
+apa::cor_apa(cor.test(s2explore$mesi, s2explore$valence), "rmarkdown")
+apa::cor_apa(cor.test(s2explore$mesi, s2explore$energy), "rmarkdown")
+```
+
+There was no correlation between rumination and music use for emotion regulation *r*(164) = .11, *p* = .162
+
+
+There was no correlation between music for emotion regulation and difficulties in regulating emotions *r*(164) = .06, *p* = .419
+
+
+There was no correlation between rumination and expressed song valence, *r*(121) = .04, *p* = .671
+
+
+
+There was no correlation between rumination and expressed song energy *r*(121) = -.08, *p* = .381
+
+
+There was no correlation between music use for emotion regulation and expressed song valence, *r*(121) = .00, *p* = .997
+ 
+
+
+There was no correlation between music use for emotion regulation and expressed song energy *r*(121) = .01, *p* = .930
 
 
 From this we can see that trait use of music is not related to any variables in the data frame. Not is the charactertsitic of the song. 
@@ -71,6 +99,7 @@ ggpubr::ggscatterhist(s2explore,
 
 here we can see there is lots of variability in what people choose. The qualtiative repsonses may provide extra information here allowing for a clustering analysis. We could also look at adding lyrics as additional information. 
 
+
 # Cluster analysis 
 
 ```{r}
@@ -85,6 +114,8 @@ factoextra::fviz_nbclust(NbClust(select(s2ClusterVars, -id), distance = "euclide
 s2clusters <- s2ClusterVars %>% 
   mutate(KmeansCluster = fct_recode(factor(kmeans(select(s2ClusterVars, -id), 2)$cluster)))
 
+s2clusters <- full_join(select(s2explore, -energy, -valence), s2clusters, by = "id")
+
 ggpubr::ggscatter(s2clusters, 
                   x = "valence", 
                   y = "energy", 
@@ -97,5 +128,23 @@ ggpubr::ggscatter(s2clusters,
   scale_y_continuous(breaks = c(0, .25, .5, .75, 1)) +
   scale_x_continuous(breaks =c(0, .25, .5, .75, 1)
                      )
+```
+
+# Comparing rumination and music for emotion regulation across clusters 
+
+```{r apafomratttest, echo = FALSE}
+apa::t_apa(t.test(s2clusters$rumination~s2clusters$KmeansCluster, var.equal = TRUE), format = "rmarkdown")
+apa::t_apa(t.test(s2clusters$mesi~s2clusters$KmeansCluster, var.equal = TRUE), format = "rmarkdown")
+```
+
+The was no difference in rumination scores across clusters *t*(121) = 0.86, *p* = .390, *d* = 0.16
+
+Nor was there anyd difference in music for emotion regulation across scores *t*(121) = 0.25, *p* = .801, *d* = 0.05
+
+#Qualitative coding 
+
+see [here](s2QualitativeCoiding.html) for coding description
+```{r}
+
 ```
 

@@ -26,6 +26,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
@@ -251,6 +252,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -351,22 +355,16 @@ div.tocify {
   <a href="StudyOneConfirm.html">Study 1 Confirm</a>
 </li>
 <li>
-  <a href="StudyOneExplore.html">Study 1 Explore</a>
+  <a href="StudyOneModelExplore.html">Study 1 Explore (Time)</a>
+</li>
+<li>
+  <a href="StudyOneMusicExplore.html">Study 1 Explore (Music)</a>
 </li>
 <li>
   <a href="StudyTwoConfirm.html">Study 2 Confirm</a>
 </li>
 <li>
   <a href="StudyTwoExplore.html">Study 2 Explore</a>
-</li>
-<li>
-  <a href="StudyThreeConfirm.html">Study 3 Confirm</a>
-</li>
-<li>
-  <a href="StudyThreeExplore.html">Study 3 Explore</a>
-</li>
-<li>
-  <a href="about.html">About</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -384,6 +382,14 @@ div.section {
 </style>
 
 <div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
 
 
 
@@ -438,7 +444,7 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 </div>
 <div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -505,10 +511,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtree60315e271453edb9856e0cafcb70253b4063296ctargetblank60315e2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellarwood/MusicEmoRegInRumination/tree/60315e271453edb9856e0cafcb70253b4063296c" target="_blank">60315e2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtree68d41a4ca9c3dc7961e2f1b2338595bd9ab9c830targetblank68d41a4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellarwood/MusicEmoRegInRumination/tree/68d41a4ca9c3dc7961e2f1b2338595bd9ab9c830" target="_blank">68d41a4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtree60315e271453edb9856e0cafcb70253b4063296ctargetblank60315e2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtree68d41a4ca9c3dc7961e2f1b2338595bd9ab9c830targetblank68d41a4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -521,29 +527,12 @@ Ignored files:
     Ignored:    analysis/StudyOneModelExplore_cache/
 
 Untracked files:
-    Untracked:  analysis/StudyOneModelExplore.Rmd
-    Untracked:  analysis/StudyOneMusicExplore.Rmd
-    Untracked:  data/DingelSharmanLarwood2019_Sadness_Experiement_Data/
-    Untracked:  data/s1long.csv
-    Untracked:  data/s2MechCoding.csv
-    Untracked:  docs/figure/StudyOneModelExplore.Rmd/
-    Untracked:  docs/s1correlations.doc
+    Untracked:  analysis/s2QualitativeCoding.Rmd
 
 Unstaged changes:
-    Modified:   analysis/StudyOneConfirm.Rmd
-    Deleted:    analysis/StudyOneExplore.Rmd
-    Deleted:    analysis/StudyThreeConfirm.Rmd
-    Deleted:    analysis/StudyThreeExplore.Rmd
-    Modified:   analysis/StudyTwoConfirm.Rmd
+    Modified:   analysis/StudyOneMusicExplore.Rmd
     Modified:   analysis/StudyTwoExplore.Rmd
-    Modified:   analysis/StudyTwoMusicExplore.Rmd
-    Modified:   data/s1.csv
-    Modified:   data/s1Processed.csv
-    Modified:   data/s2.csv
-    Modified:   data/s2Processed.csv
-    Deleted:    data/s2long.csv
-    Deleted:    data/s3.csv
-    Deleted:    data/s3Processed.csv
+    Modified:   data/s2MechCoding.csv
 
 </code></pre>
 <p>
@@ -556,9 +545,69 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/68d41a4ca9c3dc7961e2f1b2338595bd9ab9c830/analysis/StudyOneMusicExplore.Rmd" target="_blank">68d41a4</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-02
+</td>
+<td>
+change study structure, hide code
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/joellarwood/MusicEmoRegInRumination/68d41a4ca9c3dc7961e2f1b2338595bd9ab9c830/docs/StudyOneMusicExplore.html" target="_blank">68d41a4</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-02
+</td>
+<td>
+change study structure, hide code
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -652,9 +701,46 @@ ggpubr::ggscatterhist(s1explore,
                       ylim = c(0, 1),
                       mean.point = FALSE) </code></pre>
 <p><img src="figure/StudyOneMusicExplore.Rmd/s1spotify-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-s1spotify-1">
+Past versions of s1spotify-1.png
+</button>
+</p>
+<div id="fig-s1spotify-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/68d41a4ca9c3dc7961e2f1b2338595bd9ab9c830/docs/figure/StudyOneMusicExplore.Rmd/s1spotify-1.png" target="_blank">68d41a4</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-02
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="cluister-analysis" class="section level1">
-<h1>Cluister analysis</h1>
+</div>
+</div>
+<div id="cluster-analysis" class="section level1">
+<h1>Cluster analysis</h1>
 <p>K means - valence and energy</p>
 <p>Number of clusters indicated as 3 NOTE: Cluster labels will change on each</p>
 <pre class="r"><code>library(NbClust)
@@ -664,12 +750,86 @@ library(factoextra)</code></pre>
 
 factoextra::fviz_nbclust(NbClust(select(VA, -id), distance = &quot;euclidean&quot;, method = &quot;kmeans&quot;)) + theme_minimal() + ggtitle(&quot;NbClust&#39;s optimal number of clusters&quot;)</code></pre>
 <p><img src="figure/StudyOneMusicExplore.Rmd/s1cluster-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-s1cluster-1">
+Past versions of s1cluster-1.png
+</button>
+</p>
+<div id="fig-s1cluster-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/68d41a4ca9c3dc7961e2f1b2338595bd9ab9c830/docs/figure/StudyOneMusicExplore.Rmd/s1cluster-1.png" target="_blank">68d41a4</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>*** : The Hubert index is a graphical method of determining the number of clusters.
                 In the plot of Hubert index, we seek a significant knee that corresponds to a 
                 significant increase of the value of the measure i.e the significant peak in Hubert
                 index second differences plot. 
  </code></pre>
 <p><img src="figure/StudyOneMusicExplore.Rmd/s1cluster-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-s1cluster-2">
+Past versions of s1cluster-2.png
+</button>
+</p>
+<div id="fig-s1cluster-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/68d41a4ca9c3dc7961e2f1b2338595bd9ab9c830/docs/figure/StudyOneMusicExplore.Rmd/s1cluster-2.png" target="_blank">68d41a4</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>*** : The D index is a graphical method of determining the number of clusters. 
                 In the plot of D index, we seek a significant knee (the significant peak in Dindex
                 second differences plot) that corresponds to a significant increase of the value of
@@ -707,6 +867,43 @@ Conclusion
 =========================
 * According to the majority rule, the best number of clusters is  3 .</code></pre>
 <p><img src="figure/StudyOneMusicExplore.Rmd/s1cluster-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-s1cluster-3">
+Past versions of s1cluster-3.png
+</button>
+</p>
+<div id="fig-s1cluster-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/68d41a4ca9c3dc7961e2f1b2338595bd9ab9c830/docs/figure/StudyOneMusicExplore.Rmd/s1cluster-3.png" target="_blank">68d41a4</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>VAclust &lt;- VA %&gt;% 
   mutate(KmeansCluster = fct_recode(factor(kmeans(select(VA, -id), 3)$cluster)))</code></pre>
 <pre class="r"><code>ggpubr::ggscatter(VAclust, 
@@ -724,6 +921,43 @@ Conclusion
   scale_x_continuous(breaks =c(0, .25, .5, .75, 1)
                      )</code></pre>
 <p><img src="figure/StudyOneMusicExplore.Rmd/plotcluster-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plotcluster-1">
+Past versions of plotcluster-1.png
+</button>
+</p>
+<div id="fig-plotcluster-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/68d41a4ca9c3dc7961e2f1b2338595bd9ab9c830/docs/figure/StudyOneMusicExplore.Rmd/plotcluster-1.png" target="_blank">68d41a4</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>s1clusters &lt;- full_join(s1explore, select(VAclust, id, KmeansCluster), by = &quot;id&quot;)</code></pre>
 </div>
 <div id="describe-clusters" class="section level1">
@@ -808,6 +1042,43 @@ ggplot2::scale_y_continuous(breaks=c(0, .2,.4,.6,.8,1)) +
 <pre><code>Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which
 will replace the existing scale.</code></pre>
 <p><img src="figure/StudyOneMusicExplore.Rmd/clustercomparison-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustercomparison-1">
+Past versions of clustercomparison-1.png
+</button>
+</p>
+<div id="fig-clustercomparison-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/68d41a4ca9c3dc7961e2f1b2338595bd9ab9c830/docs/figure/StudyOneMusicExplore.Rmd/clustercomparison-1.png" target="_blank">68d41a4</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div id="rumination" class="section level2">
 <h2>Rumination</h2>
 <pre class="r"><code>ggpubr::ggviolin(drop_na(s1clusters), 
@@ -820,6 +1091,43 @@ will replace the existing scale.</code></pre>
                  ) + 
   ggplot2::scale_y_continuous(breaks = c(1,2,3,4,5))</code></pre>
 <p><img src="figure/StudyOneMusicExplore.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-1">
+Past versions of unnamed-chunk-1-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-1-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/68d41a4ca9c3dc7961e2f1b2338595bd9ab9c830/docs/figure/StudyOneMusicExplore.Rmd/unnamed-chunk-1-1.png" target="_blank">68d41a4</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>library(afex)</code></pre>
 <pre><code>Loading required package: lme4</code></pre>
 <pre><code>Loading required package: Matrix</code></pre>
@@ -879,6 +1187,43 @@ Removing those cases from the analysis.</code></pre>
                  add = &quot;boxplot&quot;, 
                  ) </code></pre>
 <p><img src="figure/StudyOneMusicExplore.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/68d41a4ca9c3dc7961e2f1b2338595bd9ab9c830/docs/figure/StudyOneMusicExplore.Rmd/unnamed-chunk-2-1.png" target="_blank">68d41a4</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>apa::anova_apa(afex::aov_ez(id = &quot;id&quot;, 
              dv = &quot;musebaq&quot;, 
              data = s1clusters, 
@@ -903,6 +1248,43 @@ Removing those cases from the analysis.</code></pre>
                  add = &quot;boxplot&quot;, 
                  ) </code></pre>
 <p><img src="figure/StudyOneMusicExplore.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/68d41a4ca9c3dc7961e2f1b2338595bd9ab9c830/docs/figure/StudyOneMusicExplore.Rmd/unnamed-chunk-3-1.png" target="_blank">68d41a4</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>kruskal.test(reg.use_1 ~ KmeansCluster, data = s1clusters)</code></pre>
 <pre><code>
     Kruskal-Wallis rank sum test
@@ -1099,6 +1481,43 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 <pre class="r"><code>plot_model(s1ClusterSadness, 
            type = &quot;int&quot;)</code></pre>
 <p><img src="figure/StudyOneMusicExplore.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/68d41a4ca9c3dc7961e2f1b2338595bd9ab9c830/docs/figure/StudyOneMusicExplore.Rmd/unnamed-chunk-4-1.png" target="_blank">68d41a4</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-02
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>emmeans::contrast(emmeans::emmeans(s1ClusterSadness, ~Timepoint*KmeansCluster), &quot;pairwise&quot;, by = &quot;KmeansCluster&quot;)</code></pre>
 <pre><code>KmeansCluster = 1:
  contrast                      estimate    SE  df t.ratio p.value
@@ -1171,13 +1590,13 @@ loaded via a namespace (and not attached):
  [73] labeling_0.3        cowplot_1.0.0       tidyselect_0.2.5   
  [76] plyr_1.8.4          R6_2.4.0            generics_0.0.2     
  [79] multcomp_1.4-10     DBI_1.0.0           pillar_1.4.2       
- [82] haven_2.1.1         foreign_0.8-71      withr_2.1.2        
- [85] survival_2.44-1.1   abind_1.4-5         performance_0.3.0  
- [88] modelr_0.1.4        crayon_1.3.4        car_3.0-3          
- [91] rmarkdown_1.14      grid_3.6.1          readxl_1.3.1       
- [94] data.table_1.12.2   git2r_0.26.1        digest_0.6.20      
- [97] xtable_1.8-4        numDeriv_2016.8-1.1 munsell_0.5.0      
-[100] mitools_2.4        </code></pre>
+ [82] haven_2.1.1         whisker_0.3-2       foreign_0.8-71     
+ [85] withr_2.1.2         survival_2.44-1.1   abind_1.4-5        
+ [88] performance_0.3.0   modelr_0.1.4        crayon_1.3.4       
+ [91] car_3.0-3           rmarkdown_1.14      grid_3.6.1         
+ [94] readxl_1.3.1        data.table_1.12.2   git2r_0.26.1       
+ [97] digest_0.6.20       xtable_1.8-4        numDeriv_2016.8-1.1
+[100] munsell_0.5.0       mitools_2.4        </code></pre>
 </div>
 </div>
 </div>
@@ -1229,6 +1648,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 <script>
 $(document).ready(function ()  {
