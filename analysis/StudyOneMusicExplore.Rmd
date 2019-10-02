@@ -20,7 +20,7 @@ s1explore <- read_csv("data/s1Processed.csv") %>%
                             "Low", "High")) %>%   
   mutate_at(.vars = vars(mecscale_1:mecscale_8), 
              takeone) %>% 
-    dplyr::rename(brainstem = mecscale_1,
+    dplyr::mutate(brainstem = mecscale_1,
                         Entrainment = mecscale_2,
                         Memory = mecscale_3, 
                         Conditioning = mecscale_4,

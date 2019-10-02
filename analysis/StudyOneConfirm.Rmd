@@ -34,7 +34,7 @@ s1 <- s1raw %>%
 
 
 s1 <- s1 %>% 
-  mutate(rumination = rowMeans(dplyr::select(., rrq_1:rrq_12)), na.rm = FALSE)
+  mutate(rumination = rowMeans(dplyr::select(., rrq_1:rrq_12), na.rm = FALSE))
 
 s1 %>% 
   dplyr::select(Baseline,
