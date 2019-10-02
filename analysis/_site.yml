@@ -7,18 +7,14 @@ navbar:
     href: index.html
   - text: Study 1 Confirm
     href: StudyOneConfirm.html
-  - text: Study 1 Explore
-    href: StudyOneExplore.html
+  - text: Study 1 Explore (Time)
+    href: StudyOneModelExplore.html
+  - text: Study 1 Explore (Music)
+    href: StudyOneMusicExplore.html
   - text: Study 2 Confirm
     href: StudyTwoConfirm.html
   - text: Study 2 Explore
     href: StudyTwoExplore.html
-  - text: Study 3 Confirm
-    href: StudyThreeConfirm.html
-  - text: Study 3 Explore
-    href: StudyThreeExplore.html
-  - text: About
-    href: about.html
 #  - text: License
 #    href: license.html
 output:
@@ -27,3 +23,5 @@ output:
     toc_float: yes
     theme: cosmo
     highlight: textmate
+    code_folding: hide
+

@@ -2,16 +2,12 @@
 title: "Study One: Exploratorty Data Analysis (Music)"
 author: "joellarwood"
 date: "2019-09-30"
-output:
-  workflowr::wflow_html:
-    code_folding: hide
+output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
 ---
 
-```{r echo = FALSE}
-knitr::opts_chunk$set(autodep = TRUE, message = FALSE, warnings = FALSE)
-```
+ 
 # Exploring correaltions with rumination 
 
 ```{r rumcor, message = FALSE}
@@ -79,7 +75,7 @@ ggpubr::ggscatterhist(s1explore,
 
 ```
 
-# Cluster analysis 
+# Cluister analysis 
 
 K means - valence and energy
 
@@ -97,7 +93,7 @@ VAclust <- VA %>%
   mutate(KmeansCluster = fct_recode(factor(kmeans(select(VA, -id), 3)$cluster)))
 
 ```
-# Graph of Clusters 
+
 ```{r plotcluster}
 ggpubr::ggscatter(VAclust, 
                   x = "valence", 
@@ -118,7 +114,7 @@ s1clusters <- full_join(s1explore, select(VAclust, id, KmeansCluster), by = "id"
           
 
 ```
-Here we can see three clusters, high arousal and negative valence; low arousal and negative valence; high arousal and positive valence 
+
 # Describe clusters 
 
 ```{r clustercomparison}
@@ -157,20 +153,10 @@ tableone::CreateCatTable(vars = c("brainstem"  ,
 
 library(RVAideMemoire)
 
-# Entrainment 
 fisher.multcomp(xtabs(~Entrainment + KmeansCluster, data = s1clusters))$p.value
-
-# Memory 
 fisher.multcomp(xtabs(~Memory + KmeansCluster, data = s1clusters))$p.value
-
-#Conditioning 
-
 fisher.multcomp(xtabs(~Conditioning + KmeansCluster, data = s1clusters))$p.value
-
-#Contagion 
 fisher.multcomp(xtabs(~Contagion + KmeansCluster, data = s1clusters))$p.value
-
-#Appraisal
 fisher.multcomp(xtabs(~Appraisal + KmeansCluster, data = s1clusters))$p.value
 
 ggpubr::ggbarplot(data = SpreadContingencys1, 

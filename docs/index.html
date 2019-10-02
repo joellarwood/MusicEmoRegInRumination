@@ -276,10 +276,10 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="StudyOneExplore.html">Study 1 Confirm</a>
+  <a href="StudyOneConfirm.html">Study 1 Confirm</a>
 </li>
 <li>
-  <a href="StudyOneConfirm.html">Study 1 Explore</a>
+  <a href="StudyOneExplore.html">Study 1 Explore</a>
 </li>
 <li>
   <a href="StudyTwoConfirm.html">Study 2 Confirm</a>
@@ -340,7 +340,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-09-26
+<strong>Last updated:</strong> 2019-10-02
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -371,10 +371,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtree0b8924570344a092f9f7205eb5bb11c8fe47420etargetblank0b89245a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellarwood/MusicEmoRegInRumination/tree/0b8924570344a092f9f7205eb5bb11c8fe47420e" target="_blank">0b89245</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtree60315e271453edb9856e0cafcb70253b4063296ctargetblank60315e2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellarwood/MusicEmoRegInRumination/tree/60315e271453edb9856e0cafcb70253b4063296c" target="_blank">60315e2</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtree0b8924570344a092f9f7205eb5bb11c8fe47420etargetblank0b89245a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtree60315e271453edb9856e0cafcb70253b4063296ctargetblank60315e2a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -382,10 +382,36 @@ Great! You are using Git for version control. Tracking code development and conn
 <pre><code>
 Ignored files:
     Ignored:    .DS_Store
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/StudyOneModelExplore_cache/
+
+Untracked files:
+    Untracked:  analysis/StudyOneModelExplore.Rmd
+    Untracked:  analysis/StudyOneMusicExplore.Rmd
+    Untracked:  data/DingelSharmanLarwood2019_Sadness_Experiement_Data/
+    Untracked:  data/s1long.csv
+    Untracked:  data/s2MechCoding.csv
+    Untracked:  docs/figure/StudyOneModelExplore.Rmd/
+    Untracked:  docs/figure/StudyOneMusicExplore.Rmd/
+    Untracked:  docs/s1correlations.doc
 
 Unstaged changes:
+    Modified:   analysis/StudyOneConfirm.Rmd
+    Deleted:    analysis/StudyOneExplore.Rmd
+    Deleted:    analysis/StudyThreeConfirm.Rmd
+    Deleted:    analysis/StudyThreeExplore.Rmd
+    Modified:   analysis/StudyTwoConfirm.Rmd
+    Modified:   analysis/StudyTwoExplore.Rmd
+    Modified:   analysis/StudyTwoMusicExplore.Rmd
     Modified:   analysis/index.Rmd
+    Modified:   data/s1.csv
+    Modified:   data/s1Processed.csv
+    Modified:   data/s2.csv
+    Modified:   data/s2Processed.csv
+    Deleted:    data/s2long.csv
+    Deleted:    data/s3.csv
+    Deleted:    data/s3Processed.csv
 
 </code></pre>
 <p>
@@ -424,6 +450,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/b7f27f7811f3cf5091a7279435bf40043a0b7017/analysis/index.Rmd" target="_blank">b7f27f7</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-09-25
+</td>
+<td>
+wflow_git_commit(all = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/joellarwood/MusicEmoRegInRumination/b7f27f7811f3cf5091a7279435bf40043a0b7017/docs/index.html" target="_blank">b7f27f7</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-09-25
+</td>
+<td>
+wflow_git_commit(all = TRUE)
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -556,8 +616,11 @@ Start workflowr project.
 <div id="confirmatory-tests" class="section level3">
 <h3><a href="StudyOneConfirm.html">Confirmatory Tests</a></h3>
 </div>
-<div id="exploratory-tests" class="section level3">
-<h3><a href="StudyOneExplore.html">Exploratory Tests</a></h3>
+<div id="exploratory-tests-of-time-effect" class="section level3">
+<h3><a href="StudyOneModelExplore.html">Exploratory Tests of Time Effect</a></h3>
+</div>
+<div id="exploratory-test-of-music" class="section level3">
+<h3><a href="StudyOneMusicExplore.html">Exploratory Test of Music</a></h3>
 </div>
 </div>
 <div id="study-two" class="section level2">
@@ -565,17 +628,8 @@ Start workflowr project.
 <div id="confirmatory-tests-1" class="section level3">
 <h3><a href="StudyTwoConfirm.html">Confirmatory Tests</a></h3>
 </div>
-<div id="exploratory-tests-1" class="section level3">
+<div id="exploratory-tests" class="section level3">
 <h3><a href="StudyTwoExplore.html">Exploratory Tests</a></h3>
-</div>
-</div>
-<div id="study-three" class="section level2">
-<h2>Study Three</h2>
-<div id="confirmatory-tests-2" class="section level3">
-<h3><a href="StudyThreeConfirm.html">Confirmatory Tests</a></h3>
-</div>
-<div id="exploratory-tests-2" class="section level3">
-<h3><a href="StudyThreeExplore.html">Exploratory tests</a></h3>
 </div>
 </div>
 

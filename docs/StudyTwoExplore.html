@@ -12,9 +12,9 @@
 
 <meta name="author" content="Joel Larwood" />
 
-<meta name="date" content="2019-09-23" />
+<meta name="date" content="2019-09-25" />
 
-<title>Study Two: Exploratorty Data Analysis (Timepoints)</title>
+<title>Study Two: Exploratory Data Analysis</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,6 +26,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
@@ -251,6 +252,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -385,18 +389,26 @@ div.section {
 
 <div class="fluid-row" id="header">
 
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
 
 
-<h1 class="title toc-ignore">Study Two: Exploratorty Data Analysis (Timepoints)</h1>
+
+<h1 class="title toc-ignore">Study Two: Exploratory Data Analysis</h1>
 <h4 class="author">Joel Larwood</h4>
-<h4 class="date">2019-09-23</h4>
+<h4 class="date">2019-09-25</h4>
 
 </div>
 
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -405,7 +417,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -414,10 +426,10 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-10-01
+<strong>Last updated:</strong> 2019-10-02
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>MusicEmoRegInRumination/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -433,12 +445,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -505,10 +517,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtree78fb1efbb92501e975757e838a631a8c62109e52targetblank78fb1efa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellarwood/MusicEmoRegInRumination/tree/78fb1efbb92501e975757e838a631a8c62109e52" target="_blank">78fb1ef</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtree60315e271453edb9856e0cafcb70253b4063296ctargetblank60315e2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellarwood/MusicEmoRegInRumination/tree/60315e271453edb9856e0cafcb70253b4063296c" target="_blank">60315e2</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtree78fb1efbb92501e975757e838a631a8c62109e52targetblank78fb1efa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtree60315e271453edb9856e0cafcb70253b4063296ctargetblank60315e2a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -518,6 +530,33 @@ Ignored files:
     Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/StudyOneModelExplore_cache/
+
+Untracked files:
+    Untracked:  analysis/StudyOneModelExplore.Rmd
+    Untracked:  analysis/StudyOneMusicExplore.Rmd
+    Untracked:  data/DingelSharmanLarwood2019_Sadness_Experiement_Data/
+    Untracked:  data/s1long.csv
+    Untracked:  data/s2MechCoding.csv
+    Untracked:  docs/figure/StudyOneModelExplore.Rmd/
+    Untracked:  docs/figure/StudyOneMusicExplore.Rmd/
+    Untracked:  docs/s1correlations.doc
+
+Unstaged changes:
+    Modified:   analysis/StudyOneConfirm.Rmd
+    Deleted:    analysis/StudyOneExplore.Rmd
+    Deleted:    analysis/StudyThreeConfirm.Rmd
+    Deleted:    analysis/StudyThreeExplore.Rmd
+    Modified:   analysis/StudyTwoConfirm.Rmd
+    Modified:   analysis/StudyTwoExplore.Rmd
+    Modified:   analysis/StudyTwoMusicExplore.Rmd
+    Modified:   data/s1.csv
+    Modified:   data/s1Processed.csv
+    Modified:   data/s2.csv
+    Modified:   data/s2Processed.csv
+    Deleted:    data/s2long.csv
+    Deleted:    data/s3.csv
+    Deleted:    data/s3Processed.csv
 
 </code></pre>
 <p>
@@ -556,6 +595,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/00d5ce03e87b26cbd904b7bcf8d4163f51394373/analysis/StudyTwoExplore.Rmd" target="_blank">00d5ce0</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-01
+</td>
+<td>
+cluster analysis and chi-square s2
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/joellarwood/MusicEmoRegInRumination/00d5ce03e87b26cbd904b7bcf8d4163f51394373/docs/StudyTwoExplore.html" target="_blank">00d5ce0</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-01
+</td>
+<td>
+cluster analysis and chi-square s2
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -750,2745 +823,126 @@ build control model
 </div>
 </div>
 </div>
-<div id="an-exploratory-saturdated-model" class="section level1">
-<h1>An exploratory saturdated model</h1>
-<p>In the dataset we also collected data about the BRECVEMA mechanism occuring during listening, demogrpahics and how likely they were to use the song for regulation.</p>
 <pre class="r"><code>library(tidyverse)
-s2longExplore &lt;- read_csv(&quot;data/s2long.csv&quot;) %&gt;% 
-  dplyr::select(id, 
-                Sadness,
-                Timepoint, 
-                rumination, 
-                Baseline,
-                age,
-                gender, 
-                contains(&quot;mec&quot;), 
-                musebaq, 
-                reg.use_1, 
-                valence, 
-                energy) %&gt;% 
-  drop_na()  %&gt;% 
-   mutate_at(.vars = vars(mecscale_1:mecscale_8), 
-              factor) %&gt;% 
-   mutate_at(.vars = vars (mecscale_1:mecscale_8),
-             .funs = forcats::fct_recode, 
-             &quot;No&quot; = &quot;2&quot;, 
-             &quot;Yes&quot; = &quot;1&quot;) %&gt;% 
-    dplyr::rename(brainstem = mecscale_1,
-                        Entrainment = mecscale_2,
-                        Memory = mecscale_3, 
-                        Conditioning = mecscale_4,
-                        Imagery = mecscale_5, 
-                        Contagion = mecscale_6, 
-                        Expectancy = mecscale_7,
-                        Appraisal = mecscale_8)</code></pre>
-<p>So I want to build some models with control mechanisms coming in at each point</p>
-<p>Model 1 is the timepoint only model</p>
-<pre class="r"><code>library(sjPlot)
-timepoint &lt;- lmerTest::lmer(Sadness~1 + Timepoint + (1 |id), data = s2longExplore)
-tab_model(timepoint)</code></pre>
-<table style="border-collapse:collapse; border:none;">
-<tr>
-<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
- 
-</th>
-<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
-Sadness
-</th>
-</tr>
-<tr>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
-Predictors
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-Estimates
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-CI
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-p
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-(Intercept)
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-12.47
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-11.89 – 13.05
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>&lt;0.001
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-PostListening
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-1.32
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.94 – 1.71
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>&lt;0.001
-</td>
-</tr>
-<tr>
-<td colspan="4" style="font-weight:bold; text-align:left; padding-top:.8em;">
-Random Effects
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-σ<sup>2</sup>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-6.66
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-τ<sub>00</sub> <sub>id</sub>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-23.71
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-ICC
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.78
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-N <sub>id</sub>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-348
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
-Observations
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
-696
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.014 / 0.784
-</td>
-</tr>
-</table>
-<p>Model 2 I add demographics</p>
-<pre class="r"><code>demo &lt;- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + (1 |id), data = s2longExplore)
-tab_model(demo)</code></pre>
-<table style="border-collapse:collapse; border:none;">
-<tr>
-<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
- 
-</th>
-<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
-Sadness
-</th>
-</tr>
-<tr>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
-Predictors
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-Estimates
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-CI
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-p
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-(Intercept)
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-16.27
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-10.99 – 21.55
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>&lt;0.001
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-PostListening
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-1.32
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.94 – 1.71
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>&lt;0.001
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-age
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.17
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.41 – 0.07
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.161
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-Male
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.17
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.27 – 0.94
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.769
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-Non-Binary/Not Disclosed
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.72
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--5.22 – 6.66
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.813
-</td>
-</tr>
-<tr>
-<td colspan="4" style="font-weight:bold; text-align:left; padding-top:.8em;">
-Random Effects
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-σ<sup>2</sup>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-6.66
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-τ<sub>00</sub> <sub>id</sub>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-23.77
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-ICC
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.78
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-N <sub>id</sub>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-348
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
-Observations
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
-696
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.019 / 0.785
-</td>
-</tr>
-</table>
-<p>Model 3 I add spotify data</p>
-<pre class="r"><code>spotifyvar &lt;- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy +  (1 |id), data = s2longExplore)
-tab_model(spotifyvar)</code></pre>
-<table style="border-collapse:collapse; border:none;">
-<tr>
-<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
- 
-</th>
-<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
-Sadness
-</th>
-</tr>
-<tr>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
-Predictors
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-Estimates
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-CI
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-p
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-(Intercept)
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-16.48
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-11.00 – 21.95
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>&lt;0.001
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-PostListening
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-1.32
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.94 – 1.71
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>&lt;0.001
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-age
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.18
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.42 – 0.06
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.152
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-Male
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.14
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.26 – 0.97
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.804
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-Non-Binary/Not Disclosed
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.75
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--5.22 – 6.72
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.806
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-valence
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.54
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.64 – 3.72
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.739
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-energy
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.58
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--3.24 – 2.07
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.667
-</td>
-</tr>
-<tr>
-<td colspan="4" style="font-weight:bold; text-align:left; padding-top:.8em;">
-Random Effects
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-σ<sup>2</sup>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-6.66
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-τ<sub>00</sub> <sub>id</sub>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-23.92
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-ICC
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.78
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-N <sub>id</sub>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-348
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
-Observations
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
-696
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.020 / 0.786
-</td>
-</tr>
-</table>
-<p>model 4 I add the brecvema mechanisms</p>
-<pre class="r"><code>mecscale &lt;- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal + (1 |id), data = s2longExplore)
 
-tab_model(mecscale)</code></pre>
-<table style="border-collapse:collapse; border:none;">
-<tr>
-<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
- 
-</th>
-<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
-Sadness
-</th>
-</tr>
-<tr>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
-Predictors
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-Estimates
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-CI
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-p
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-(Intercept)
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-22.28
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-16.52 – 28.03
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>&lt;0.001
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-PostListening
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-1.32
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.94 – 1.71
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>&lt;0.001
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-age
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.16
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.40 – 0.07
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.177
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-Male
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.39
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.48 – 0.70
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.480
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-Non-Binary/Not Disclosed
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-2.77
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--3.12 – 8.65
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.357
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-valence
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.20
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.91 – 3.31
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.899
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-energy
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.46
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--5.16 – 0.25
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.076
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.57
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.83 – -0.30
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.016</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.97
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.39 – 0.44
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.179
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.63
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.83 – -0.42
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.009</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.04
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.30 – 1.22
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.951
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.27
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.60 – 1.07
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.698
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.43
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.53 – 1.68
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.693
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.22
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.94 – 0.51
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.168
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.24
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--3.80 – -0.67
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.005</strong>
-</td>
-</tr>
-<tr>
-<td colspan="4" style="font-weight:bold; text-align:left; padding-top:.8em;">
-Random Effects
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-σ<sup>2</sup>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-6.66
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-τ<sub>00</sub> <sub>id</sub>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-22.03
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-ICC
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.77
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-N <sub>id</sub>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-348
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
-Observations
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
-696
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.096 / 0.790
-</td>
-</tr>
-</table>
-<p>model 5 I add how likely they are to listen to the song when they are sad</p>
-<pre class="r"><code>likelyuse &lt;- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal + reg.use_1 + (1 |id), data = s2longExplore)
+s2explore &lt;- read_csv(&quot;data/s2Processed.csv&quot;) %&gt;% 
+  mutate(rumsplit = if_else(.$rumination &lt; median(rumination, na.rm = TRUE), 
+                            &quot;Low&quot;, &quot;High&quot;)) %&gt;% 
+  rowid_to_column(&quot;id&quot;) %&gt;% 
+  add_column(JL_Mech = NA, DV_Mech = NA) %&gt;% 
+  select(id, track_name, artist_name, track_uri, SadSong, SadSongWhy, contains(&quot;MECH&quot;), valence, energy, rumination:depression, rumsplit)
 
-tab_model (likelyuse)</code></pre>
-<table style="border-collapse:collapse; border:none;">
-<tr>
-<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
- 
-</th>
-<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
-Sadness
-</th>
-</tr>
-<tr>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
-Predictors
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-Estimates
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-CI
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-p
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-(Intercept)
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-17.66
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-11.56 – 23.75
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>&lt;0.001
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-PostListening
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-1.32
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.94 – 1.71
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>&lt;0.001
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-age
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.09
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.32 – 0.14
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.452
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-Male
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.37
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.44 – 0.70
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.501
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-Non-Binary/Not Disclosed
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-2.53
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--3.23 – 8.29
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.390
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-valence
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.57
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.48 – 3.62
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.716
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-energy
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.98
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--4.64 – 0.68
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.146
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.74
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.98 – -0.49
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.007</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.87
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.26 – 0.52
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.220
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.26
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.46 – -0.07
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.039</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.26
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.99 – 1.51
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.683
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.24
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.55 – 1.07
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.716
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.14
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.95 – 2.22
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.897
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.17
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.86 – 0.51
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.174
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.85
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--3.40 – -0.30
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.020</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-reg.use_1
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.04
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.02 – 0.06
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>&lt;0.001
-</td>
-</tr>
-<tr>
-<td colspan="4" style="font-weight:bold; text-align:left; padding-top:.8em;">
-Random Effects
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-σ<sup>2</sup>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-6.66
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-τ<sub>00</sub> <sub>id</sub>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-21.00
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-ICC
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.76
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-N <sub>id</sub>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-348
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
-Observations
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
-696
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.130 / 0.790
-</td>
-</tr>
-</table>
-<p>model 6 I add the MUSEBAQ</p>
-<pre class="r"><code>musebaqglmm &lt;- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal+ reg.use_1 + musebaq + (1 |id), data = s2longExplore)
+write_csv(s2explore, &quot;data/s2MechCoding.csv&quot;)</code></pre>
+<div id="to-begin-with-im-interested-in-the-correaltions-between-the-variables" class="section level1">
+<h1>To begin with I’m interested in the correaltions between the variables</h1>
+<pre class="r"><code>library(corrplot)
 
-tab_model(musebaqglmm)</code></pre>
-<table style="border-collapse:collapse; border:none;">
-<tr>
-<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
- 
-</th>
-<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
-Sadness
-</th>
-</tr>
-<tr>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
-Predictors
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-Estimates
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-CI
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-p
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-(Intercept)
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-14.83
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-8.37 – 21.28
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>&lt;0.001
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-PostListening
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-1.32
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.94 – 1.71
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>&lt;0.001
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-age
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.10
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.33 – 0.13
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.390
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-Male
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.36
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.42 – 0.70
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.505
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-Non-Binary/Not Disclosed
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-1.83
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--3.92 – 7.58
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.533
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-valence
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.57
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.45 – 3.60
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.710
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-energy
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.65
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--4.31 – 1.00
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.223
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.66
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.89 – -0.42
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.009</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.73
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.12 – 0.65
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.298
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.97
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.17 – 0.24
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.118
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.36
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.88 – 1.60
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.571
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.25
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.54 – 1.05
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.712
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.34
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.74 – 2.41
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.750
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.20
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.87 – 0.48
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.163
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.65
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--3.19 – -0.10
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.037</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-reg.use_1
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.03
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.01 – 0.05
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.007</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-musebaq
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.10
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.02 – 0.17
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.014</strong>
-</td>
-</tr>
-<tr>
-<td colspan="4" style="font-weight:bold; text-align:left; padding-top:.8em;">
-Random Effects
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-σ<sup>2</sup>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-6.66
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-τ<sub>00</sub> <sub>id</sub>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-20.63
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-ICC
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.76
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-N <sub>id</sub>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-348
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
-Observations
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
-696
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.143 / 0.791
-</td>
-</tr>
-</table>
-<p>model 7 I add rumiation</p>
-<pre class="r"><code>ruminationmain &lt;- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal+ reg.use_1 + musebaq + rumination +  (1 |id), data = s2longExplore)
-
-tab_model(ruminationmain)</code></pre>
-<table style="border-collapse:collapse; border:none;">
-<tr>
-<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
- 
-</th>
-<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
-Sadness
-</th>
-</tr>
-<tr>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
-Predictors
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-Estimates
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-CI
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-p
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-(Intercept)
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-10.00
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-3.19 – 16.82
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.004</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-PostListening
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-1.32
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.94 – 1.71
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>&lt;0.001
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-age
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.10
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.33 – 0.13
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.388
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-Male
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.00
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.05 – 1.06
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.995
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-Non-Binary/Not Disclosed
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-2.67
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.99 – 8.32
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.356
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-valence
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.28
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.70 – 3.25
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.855
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-energy
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.61
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--4.22 – 0.99
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.226
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.54
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.76 – -0.33
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.013</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.66
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.02 – 0.69
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.340
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.82
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.01 – 0.37
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.176
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.50
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.72 – 1.72
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.425
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.27
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.55 – 1.00
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.676
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.58
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.46 – 2.61
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.580
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.17
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.81 – 0.48
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.165
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.74
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--3.25 – -0.22
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.025</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-reg.use_1
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.03
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.01 – 0.05
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.007</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-musebaq
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.06
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.02 – 0.14
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.139
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-rumination
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-1.50
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.72 – 2.29
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>&lt;0.001
-</td>
-</tr>
-<tr>
-<td colspan="4" style="font-weight:bold; text-align:left; padding-top:.8em;">
-Random Effects
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-σ<sup>2</sup>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-6.66
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-τ<sub>00</sub> <sub>id</sub>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-19.73
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-ICC
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.75
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-N <sub>id</sub>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-348
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
-Observations
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
-696
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.172 / 0.791
-</td>
-</tr>
-</table>
-<p>Finally I add the interaction term</p>
-<pre class="r"><code>ruminationint &lt;- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal + reg.use_1 + musebaq +rumination + rumination:Timepoint + (1 |id), data = s2longExplore)
-
-tab_model(ruminationint)</code></pre>
-<table style="border-collapse:collapse; border:none;">
-<tr>
-<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
- 
-</th>
-<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
-Sadness
-</th>
-</tr>
-<tr>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
-Predictors
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-Estimates
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-CI
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-p
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-(Intercept)
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-11.19
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-4.29 – 18.09
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.002</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-PostListening
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.06
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--3.22 – 1.11
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.338
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-age
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.10
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.33 – 0.13
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.388
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-Male
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.00
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.05 – 1.06
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.995
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-Non-Binary/Not Disclosed
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-2.67
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.99 – 8.32
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.356
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-valence
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.28
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.70 – 3.25
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.855
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-energy
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.61
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--4.22 – 0.99
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.226
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.54
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.76 – -0.33
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.013</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.66
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.02 – 0.69
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.340
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.82
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.01 – 0.37
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.176
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.50
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.72 – 1.72
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.425
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.27
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.55 – 1.00
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.676
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.58
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.46 – 2.61
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.580
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.17
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.81 – 0.48
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.165
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.74
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--3.25 – -0.22
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.025</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-reg.use_1
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.03
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.01 – 0.05
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.007</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-musebaq
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.06
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.02 – 0.14
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.139
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-rumination
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-1.20
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.36 – 2.03
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.005</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-TimepointPostListening:rumination
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.62
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.06 – 1.17
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.029</strong>
-</td>
-</tr>
-<tr>
-<td colspan="4" style="font-weight:bold; text-align:left; padding-top:.8em;">
-Random Effects
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-σ<sup>2</sup>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-6.59
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-τ<sub>00</sub> <sub>id</sub>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-19.76
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-ICC
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.75
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-N <sub>id</sub>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-348
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
-Observations
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
-696
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.173 / 0.793
-</td>
-</tr>
-</table>
-<div id="model-comparisons" class="section level2">
-<h2>Model comparisons</h2>
-<p>Now I want to compare these models</p>
-<pre class="r"><code>knitr::kable(anova(timepoint, demo, spotifyvar, mecscale, likelyuse, musebaqglmm, ruminationmain, ruminationint))</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th></th>
-<th align="right">Df</th>
-<th align="right">AIC</th>
-<th align="right">BIC</th>
-<th align="right">logLik</th>
-<th align="right">deviance</th>
-<th align="right">Chisq</th>
-<th align="right">Chi Df</th>
-<th align="right">Pr(&gt;Chisq)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>timepoint</td>
-<td align="right">4</td>
-<td align="right">4029.809</td>
-<td align="right">4047.990</td>
-<td align="right">-2010.904</td>
-<td align="right">4021.809</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td>demo</td>
-<td align="right">7</td>
-<td align="right">4033.665</td>
-<td align="right">4065.483</td>
-<td align="right">-2009.833</td>
-<td align="right">4019.665</td>
-<td align="right">2.1436659</td>
-<td align="right">3</td>
-<td align="right">0.5431295</td>
-</tr>
-<tr class="odd">
-<td>spotifyvar</td>
-<td align="right">9</td>
-<td align="right">4037.455</td>
-<td align="right">4078.363</td>
-<td align="right">-2009.728</td>
-<td align="right">4019.455</td>
-<td align="right">0.2102401</td>
-<td align="right">2</td>
-<td align="right">0.9002165</td>
-</tr>
-<tr class="even">
-<td>mecscale</td>
-<td align="right">17</td>
-<td align="right">4020.280</td>
-<td align="right">4097.551</td>
-<td align="right">-1993.140</td>
-<td align="right">3986.280</td>
-<td align="right">33.1751433</td>
-<td align="right">8</td>
-<td align="right">0.0000573</td>
-</tr>
-<tr class="odd">
-<td>likelyuse</td>
-<td align="right">18</td>
-<td align="right">4006.751</td>
-<td align="right">4088.567</td>
-<td align="right">-1985.375</td>
-<td align="right">3970.751</td>
-<td align="right">15.5289004</td>
-<td align="right">1</td>
-<td align="right">0.0000813</td>
-</tr>
-<tr class="even">
-<td>musebaqglmm</td>
-<td align="right">19</td>
-<td align="right">4002.440</td>
-<td align="right">4088.802</td>
-<td align="right">-1982.220</td>
-<td align="right">3964.440</td>
-<td align="right">6.3106532</td>
-<td align="right">1</td>
-<td align="right">0.0120015</td>
-</tr>
-<tr class="odd">
-<td>ruminationmain</td>
-<td align="right">20</td>
-<td align="right">3989.980</td>
-<td align="right">4080.887</td>
-<td align="right">-1974.990</td>
-<td align="right">3949.980</td>
-<td align="right">14.4603636</td>
-<td align="right">1</td>
-<td align="right">0.0001431</td>
-</tr>
-<tr class="even">
-<td>ruminationint</td>
-<td align="right">21</td>
-<td align="right">3987.189</td>
-<td align="right">4082.641</td>
-<td align="right">-1972.594</td>
-<td align="right">3945.189</td>
-<td align="right">4.7914409</td>
-<td align="right">1</td>
-<td align="right">0.0286015</td>
-</tr>
-</tbody>
-</table>
+corrplot::corrplot(corr = cor(dplyr::select(s2explore, 
+                                            rumination, strategies, ders, mesi, depression, energy, valence), use = &quot;pairwise.complete.obs&quot;), 
+                   method = &quot;number&quot;,
+                   type = &quot;lower&quot;, 
+                   p.mat = cor.mtest((dplyr::select(s2explore, 
+                                            rumination, strategies, ders, mesi, depression, energy, valence)))$p,
+                   pch.cex = .3, 
+                   tl.srt = 0)</code></pre>
+<p><img src="figure/StudyTwoExplore.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>From this we can see that trait use of music is not related to any variables in the data frame. Not is the charactertsitic of the song.</p>
 </div>
+<div id="here-is-what-people-nominated-as-listening-to-when-they-are-sad" class="section level1">
+<h1>Here is what people nominated as listening to when they are sad</h1>
+<pre class="r"><code>ggpubr::ggscatterhist(s2explore,
+                      x = &quot;valence&quot;,
+                      y = &quot;energy&quot;,
+                      palette = &quot;simpsons&quot;,
+                      color = &quot;rumsplit&quot;,
+                      fill = &quot;rumsplit&quot;,
+                      size = 3,
+                      legend = &quot;right&quot;,
+                      xlab = &quot;Spotify valence metric&quot;,
+                      ylab = &quot;Spotify energy metric&quot;,
+                      margin.params = list(fill = &quot;rumsplit&quot;),
+                      legend.title = &quot;Rumination \nScore&quot;,
+                      xlim = c(0, 1),
+                      ylim = c(0, 1),
+                      caption = &quot;Note: Margins represent desnity plots of axis&quot;, 
+                      title = &quot;Valence and Energy metrics of identified songs&quot;,
+                      subtitle = &quot;A song you listen to when you are sad&quot;, 
+                      margin.plot.size = 1
+)</code></pre>
+<pre><code>Warning: Removed 43 rows containing missing values (geom_point).</code></pre>
+<pre><code>Warning: Removed 43 rows containing non-finite values (stat_density).</code></pre>
+<pre><code>Warning: Removed 43 rows containing missing values (geom_point).</code></pre>
+<pre><code>Warning: Removed 43 rows containing non-finite values (stat_density).</code></pre>
+<p><img src="figure/StudyTwoExplore.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>here we can see there is lots of variability in what people choose. The qualtiative repsonses may provide extra information here allowing for a clustering analysis. We could also look at adding lyrics as additional information.</p>
 </div>
-<div id="automatic-model" class="section level1">
-<h1>Automatic Model</h1>
-<p>Now I am going to do an exploratory analysis to find the best fitting model</p>
-<pre class="r"><code>library(buildmer)
-saturatedformula &lt;- Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal + reg.use_1 + musebaq +rumination + rumination:Timepoint + (1 |id)
+<div id="cluster-analysis" class="section level1">
+<h1>Cluster analysis</h1>
+<pre class="r"><code>library(factoextra)
+library(NbClust)
 
-buildmer::buildmer(formula = saturatedformula, data = s2longExplore, crit = &quot;AIC&quot;)</code></pre>
-<pre><code>   grouping                 term                      block        score
-1      &lt;NA&gt;                    1                    NA NA 1           NA
-14     &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
-13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
-3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.4920548
-2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.4363422
-11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
-10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
-6      &lt;NA&gt;           Expectancy           NA NA Expectancy   -1.2430803
-8      &lt;NA&gt;               Memory               NA NA Memory   -0.7296296
-12     &lt;NA&gt;                  age                  NA NA age    0.7227618
-31     &lt;NA&gt;               energy               NA NA energy    0.5597461
-32     &lt;NA&gt;          Entrainment          NA NA Entrainment    0.5039917
-5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
-15     &lt;NA&gt;         Conditioning         NA NA Conditioning    0.9248747
-16     &lt;NA&gt;            Contagion            NA NA Contagion    1.3481773
-21     &lt;NA&gt;              Imagery              NA NA Imagery    1.4876967
-22     &lt;NA&gt;              valence              NA NA valence    1.9192190
-17     &lt;NA&gt;               gender               NA NA gender    2.4284837
-18       id                    1                    NA id 1 -280.9850613
-             AIC Iteration
-1             NA         1
-14            NA         1
-13   -5.64866584         1
-3    -4.43767183         1
-2    -3.27175267         1
-11            NA         1
-10   -0.29960994         1
-6    -0.03410082         1
-8     0.07268851         1
-12    1.21428573         1
-31    0.45894516         1
-32    1.03995224         1
-5    -2.79144091         1
-15    1.32965656         1
-16    1.67781521         1
-21    1.81624096         1
-22    1.96503919         1
-17    3.09701255         1
-18 -280.98506132         1
-   grouping                 term                      block        score
-1      &lt;NA&gt;                    1                    NA NA 1           NA
-14     &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
-13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
-3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.4920548
-2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.4363422
-11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
-10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
-6      &lt;NA&gt;           Expectancy           NA NA Expectancy   -1.2430803
-8      &lt;NA&gt;               Memory               NA NA Memory   -0.7296296
-12     &lt;NA&gt;                  age                  NA NA age    0.7227618
-31     &lt;NA&gt;               energy               NA NA energy    0.5597461
-32     &lt;NA&gt;          Entrainment          NA NA Entrainment    0.5039917
-5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
-15     &lt;NA&gt;         Conditioning         NA NA Conditioning    0.9248747
-16     &lt;NA&gt;            Contagion            NA NA Contagion    1.3481773
-21     &lt;NA&gt;              Imagery              NA NA Imagery    1.4876967
-22     &lt;NA&gt;              valence              NA NA valence    1.9192190
-18       id                    1                    NA id 1 -280.9850613
-             AIC Iteration
-1             NA         2
-14            NA         2
-13   -5.55462273         2
-3    -4.22958665         2
-2    -3.02132117         2
-11            NA         2
-10   -0.65773528         2
-6     0.02322607         2
-8     0.41057141         2
-12    1.19382012         2
-31    0.59988044         2
-32    0.95577209         2
-5    -2.79144091         2
-15    1.37200473         2
-16    1.55702522         2
-21    1.73199090         2
-22    1.95359173         2
-18 -280.50455659         2
-   grouping                 term                      block        score
-1      &lt;NA&gt;                    1                    NA NA 1           NA
-14     &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
-13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
-3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.4920548
-2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.4363422
-11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
-10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
-6      &lt;NA&gt;           Expectancy           NA NA Expectancy   -1.2430803
-8      &lt;NA&gt;               Memory               NA NA Memory   -0.7296296
-12     &lt;NA&gt;                  age                  NA NA age    0.7227618
-31     &lt;NA&gt;               energy               NA NA energy    0.5597461
-32     &lt;NA&gt;          Entrainment          NA NA Entrainment    0.5039917
-5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
-15     &lt;NA&gt;         Conditioning         NA NA Conditioning    0.9248747
-16     &lt;NA&gt;            Contagion            NA NA Contagion    1.3481773
-21     &lt;NA&gt;              Imagery              NA NA Imagery    1.4876967
-18       id                    1                    NA id 1 -280.9850613
-             AIC Iteration
-1             NA         3
-14            NA         3
-13   -5.51167024         3
-3    -4.24398472         3
-2    -3.04619037         3
-11            NA         3
-10   -0.64828615         3
-6    -0.02725521         3
-8     0.43362436         3
-12    1.21182157         3
-31    0.54584703         3
-32    0.94572818         3
-5    -2.79144091         3
-15    1.34060625         3
-16    1.52839785         3
-21    1.70570320         3
-18 -279.96611593         3
-   grouping                 term                      block        score
-1      &lt;NA&gt;                    1                    NA NA 1           NA
-14     &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
-13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
-3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.4920548
-2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.4363422
-11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
-10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
-6      &lt;NA&gt;           Expectancy           NA NA Expectancy   -1.2430803
-8      &lt;NA&gt;               Memory               NA NA Memory   -0.7296296
-12     &lt;NA&gt;                  age                  NA NA age    0.7227618
-31     &lt;NA&gt;               energy               NA NA energy    0.5597461
-32     &lt;NA&gt;          Entrainment          NA NA Entrainment    0.5039917
-5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
-15     &lt;NA&gt;         Conditioning         NA NA Conditioning    0.9248747
-16     &lt;NA&gt;            Contagion            NA NA Contagion    1.3481773
-18       id                    1                    NA id 1 -280.9850613
-             AIC Iteration
-1             NA         4
-14            NA         4
-13   -5.50887009         4
-3    -4.33377471         4
-2    -3.27505623         4
-11            NA         4
-10   -0.66716885         4
-6    -0.05072485         4
-8     0.14048561         4
-12    1.28603927         4
-31    0.57403391         4
-32    1.00599371         4
-5    -2.79144091         4
-15    1.43110933         4
-16    1.62560174         4
-18 -279.61275799         4
-   grouping                 term                      block        score
-1      &lt;NA&gt;                    1                    NA NA 1           NA
-14     &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
-13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
-3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.4920548
-2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.4363422
-11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
-10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
-6      &lt;NA&gt;           Expectancy           NA NA Expectancy   -1.2430803
-8      &lt;NA&gt;               Memory               NA NA Memory   -0.7296296
-12     &lt;NA&gt;                  age                  NA NA age    0.7227618
-31     &lt;NA&gt;               energy               NA NA energy    0.5597461
-32     &lt;NA&gt;          Entrainment          NA NA Entrainment    0.5039917
-5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
-15     &lt;NA&gt;         Conditioning         NA NA Conditioning    0.9248747
-18       id                    1                    NA id 1 -280.9850613
-            AIC Iteration
-1            NA         5
-14           NA         5
-13   -5.2377114         5
-3    -4.2968426         5
-2    -3.2319606         5
-11           NA         5
-10   -0.5693363         5
-6     0.1052707         5
-8     0.1044023         5
-12    1.2200994         5
-31    0.7441367         5
-32    1.0900015         5
-5    -2.7914409         5
-15    1.3825763         5
-18 -279.3200711         5
-   grouping                 term                      block        score
-1      &lt;NA&gt;                    1                    NA NA 1           NA
-14     &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
-13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
-3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.4920548
-2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.4363422
-11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
-10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
-6      &lt;NA&gt;           Expectancy           NA NA Expectancy   -1.2430803
-8      &lt;NA&gt;               Memory               NA NA Memory   -0.7296296
-12     &lt;NA&gt;                  age                  NA NA age    0.7227618
-31     &lt;NA&gt;               energy               NA NA energy    0.5597461
-32     &lt;NA&gt;          Entrainment          NA NA Entrainment    0.5039917
-5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
-18       id                    1                    NA id 1 -280.9850613
-            AIC Iteration
-1            NA         6
-14           NA         6
-13   -4.8875599         6
-3    -4.5649391         6
-2    -3.0620212         6
-11           NA         6
-10   -0.4266337         6
-6     0.1005930         6
-8    -0.2776541         6
-12    1.2466645         6
-31    0.7946403         6
-32    1.1395696         6
-5    -2.7914409         6
-18 -279.2086679         6
-   grouping                 term                      block        score
-1      &lt;NA&gt;                    1                    NA NA 1           NA
-14     &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
-13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
-3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.4920548
-2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.4363422
-11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
-10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
-6      &lt;NA&gt;           Expectancy           NA NA Expectancy   -1.2430803
-8      &lt;NA&gt;               Memory               NA NA Memory   -0.7296296
-31     &lt;NA&gt;               energy               NA NA energy    0.5597461
-32     &lt;NA&gt;          Entrainment          NA NA Entrainment    0.5039917
-5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
-18       id                    1                    NA id 1 -280.9850613
-             AIC Iteration
-1             NA         7
-14            NA         7
-13   -5.82378744         7
-3    -4.52665614         7
-2    -3.28896787         7
-11            NA         7
-10   -0.31408925         7
-6     0.08438749         7
-8    -0.08529517         7
-31    0.91155136         7
-32    1.03008706         7
-5    -2.79144091         7
-18 -279.19921486         7
-   grouping                 term                      block        score
-1      &lt;NA&gt;                    1                    NA NA 1           NA
-14     &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
-13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
-3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.4920548
-2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.4363422
-11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
-10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
-6      &lt;NA&gt;           Expectancy           NA NA Expectancy   -1.2430803
-8      &lt;NA&gt;               Memory               NA NA Memory   -0.7296296
-31     &lt;NA&gt;               energy               NA NA energy    0.5597461
-5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
-18       id                    1                    NA id 1 -280.9850613
-             AIC Iteration
-1             NA         8
-14            NA         8
-13   -5.94564466         8
-3    -4.78118641         8
-2    -3.75746801         8
-11            NA         8
-10   -0.54780063         8
-6     0.10837465         8
-8     0.02620235         8
-31    1.30055988         8
-5    -2.79144091         8
-18 -279.35151636         8
-   grouping                 term                      block        score
-1      &lt;NA&gt;                    1                    NA NA 1           NA
-14     &lt;NA&gt;           rumination           NA NA rumination  -44.0842499
-13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.6103892
-3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.4920548
-2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.4363422
-11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.5983856
-10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.0473074
-6      &lt;NA&gt;           Expectancy           NA NA Expectancy   -1.2430803
-8      &lt;NA&gt;               Memory               NA NA Memory   -0.7296296
-5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.7540030
-18       id                    1                    NA id 1 -280.9850613
-            AIC Iteration
-1            NA         9
-14           NA         9
-13   -6.3964544         9
-3    -4.5145561         9
-2    -3.2244421         9
-11           NA         9
-10   -0.8319954         9
-6     0.1391248         9
-8     0.4316814         9
-5    -2.7914409         9
-18 -279.3047394         9
-   grouping                 term                      block       score
-1      &lt;NA&gt;                    1                    NA NA 1          NA
-14     &lt;NA&gt;           rumination           NA NA rumination  -44.084250
-13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.610389
-3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.492055
-2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.436342
-11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.598386
-10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.047307
-6      &lt;NA&gt;           Expectancy           NA NA Expectancy   -1.243080
-5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.754003
-18       id                    1                    NA id 1 -280.985061
-            AIC Iteration
-1            NA        10
-14           NA        10
-13   -6.5454093        10
-3    -4.9936901        10
-2    -3.6902431        10
-11           NA        10
-10   -1.5462580        10
-6     0.1378652        10
-5    -2.7914409        10
-18 -279.9033965        10
-   grouping                 term                      block       score
-1      &lt;NA&gt;                    1                    NA NA 1          NA
-14     &lt;NA&gt;           rumination           NA NA rumination  -44.084250
-13     &lt;NA&gt;            reg.use_1            NA NA reg.use_1  -26.610389
-3      &lt;NA&gt;            brainstem            NA NA brainstem  -16.492055
-2      &lt;NA&gt;            Appraisal            NA NA Appraisal   -9.436342
-11     &lt;NA&gt;            Timepoint            NA NA Timepoint   -9.598386
-10     &lt;NA&gt;              musebaq              NA NA musebaq   -4.047307
-5      &lt;NA&gt; Timepoint:rumination NA NA Timepoint:rumination    0.754003
-18       id                    1                    NA id 1 -280.985061
-           AIC Iteration
-1           NA        11
-14          NA        11
-13   -6.685745        11
-3    -5.972487        11
-2    -3.607174        11
-11          NA        11
-10   -1.468864        11
-5    -2.791441        11
-18 -280.722051        11</code></pre>
-<pre><code>Linear mixed model fit by REML [&#39;lmerModLmerTest&#39;]
-Formula: Sadness ~ 1 + rumination + reg.use_1 + brainstem + Appraisal +  
-    Timepoint + musebaq + rumination:Timepoint + (1 | id)
-   Data: s2longExplore
-REML criterion at convergence: 3966.803
-Random effects:
- Groups   Name        Std.Dev.
- id       (Intercept) 4.421   
- Residual             2.567   
-Number of obs: 696, groups:  id, 348
-Fixed Effects:
-                      (Intercept)                         rumination  
-                          6.70213                            1.19110  
-                        reg.use_1                        brainstemNo  
-                          0.02842                           -1.70624  
-                      AppraisalNo             TimepointPostListening  
-                         -1.75549                           -1.05855  
-                          musebaq  rumination:TimepointPostListening  
-                          0.07017                            0.61536  </code></pre>
-<p>the best model was identifed as</p>
-<pre class="r"><code>selected &lt;- lmerTest::lmer(Sadness ~ 1 + rumination + reg.use_1 + brainstem + Appraisal + Timepoint + musebaq + rumination:Timepoint + (1 | id), data = s2longExplore)</code></pre>
-<p>It returns this</p>
-<pre class="r"><code>tab_model(selected)</code></pre>
-<table style="border-collapse:collapse; border:none;">
-<tr>
-<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
- 
-</th>
-<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
-Sadness
-</th>
-</tr>
-<tr>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
-Predictors
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-Estimates
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-CI
-</td>
-<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
-p
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-(Intercept)
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-6.70
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-2.94 – 10.46
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.001</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-rumination
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-1.19
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.38 – 2.00
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.004</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-reg.use_1
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.03
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.01 – 0.05
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.004</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.71
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--2.89 – -0.52
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.005</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-No
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.76
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--3.22 – -0.30
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.019</strong>
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-PostListening
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--1.06
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--3.22 – 1.11
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.338
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-musebaq
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.07
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
--0.00 – 0.14
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.065
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-rumination:TimepointPostListening
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.62
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-0.06 – 1.17
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-<strong>0.029</strong>
-</td>
-</tr>
-<tr>
-<td colspan="4" style="font-weight:bold; text-align:left; padding-top:.8em;">
-Random Effects
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-σ<sup>2</sup>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-6.59
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-τ<sub>00</sub> <sub>id</sub>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-19.55
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-ICC
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.75
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-N <sub>id</sub>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-348
-</td>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
-Observations
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
-696
-</td>
-</tr>
-<tr>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
-Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.161 / 0.788
-</td>
-</tr>
-</table>
-<pre class="r"><code>plot_model(selected)</code></pre>
-<p><img src="figure/StudyTwoExplore.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
-Past versions of unnamed-chunk-11-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-11-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/0b8924570344a092f9f7205eb5bb11c8fe47420e/docs/figure/StudyTwoExplore.Rmd/unnamed-chunk-11-1.png" target="_blank">0b89245</a>
-</td>
-<td>
-Joel Larwood
-</td>
-<td>
-2019-09-25
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/2e25e9c061dcb885f40eab921160bcd5015642ac/docs/figure/StudyTwoExplore.Rmd/unnamed-chunk-11-1.png" target="_blank">2e25e9c</a>
-</td>
-<td>
-Joel Larwood
-</td>
-<td>
-2019-09-25
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+s2ClusterVars &lt;- s2explore %&gt;% select(valence, energy, id) %&gt;% drop_na()
+factoextra::fviz_nbclust(NbClust(select(s2ClusterVars, -id), distance = &quot;euclidean&quot;, method = &quot;kmeans&quot;)) + theme_minimal() + ggtitle(&quot;NbClust&#39;s optimal number of clusters&quot;)</code></pre>
+<p><img src="figure/StudyTwoExplore.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>*** : The Hubert index is a graphical method of determining the number of clusters.
+                In the plot of Hubert index, we seek a significant knee that corresponds to a 
+                significant increase of the value of the measure i.e the significant peak in Hubert
+                index second differences plot. 
+ </code></pre>
+<p><img src="figure/StudyTwoExplore.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>*** : The D index is a graphical method of determining the number of clusters. 
+                In the plot of D index, we seek a significant knee (the significant peak in Dindex
+                second differences plot) that corresponds to a significant increase of the value of
+                the measure. 
+ 
+******************************************************************* 
+* Among all indices:                                                
+* 7 proposed 2 as the best number of clusters 
+* 6 proposed 3 as the best number of clusters 
+* 1 proposed 4 as the best number of clusters 
+* 1 proposed 5 as the best number of clusters 
+* 1 proposed 8 as the best number of clusters 
+* 5 proposed 12 as the best number of clusters 
+* 2 proposed 15 as the best number of clusters 
+
+                   ***** Conclusion *****                            
+ 
+* According to the majority rule, the best number of clusters is  2 
+ 
+ 
+******************************************************************* 
+Among all indices: 
+===================
+* 2 proposed  0 as the best number of clusters
+* 1 proposed  1 as the best number of clusters
+* 7 proposed  2 as the best number of clusters
+* 6 proposed  3 as the best number of clusters
+* 1 proposed  4 as the best number of clusters
+* 1 proposed  5 as the best number of clusters
+* 1 proposed  8 as the best number of clusters
+* 5 proposed  12 as the best number of clusters
+* 2 proposed  15 as the best number of clusters
+
+Conclusion
+=========================
+* According to the majority rule, the best number of clusters is  2 .</code></pre>
+<p><img src="figure/StudyTwoExplore.Rmd/unnamed-chunk-4-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>s2clusters &lt;- s2ClusterVars %&gt;% 
+  mutate(KmeansCluster = fct_recode(factor(kmeans(select(s2ClusterVars, -id), 2)$cluster)))
+
+ggpubr::ggscatter(s2clusters, 
+                  x = &quot;valence&quot;, 
+                  y = &quot;energy&quot;, 
+                  color = &quot;KmeansCluster&quot;,
+                  star.plot = TRUE,
+                  palette = &quot;simpsons&quot;,
+                  legend = &quot;right&quot;,
+                  xlab = &quot;Spotify valence metric&quot;,
+                  ylab = &quot;Spotify energy metric&quot;) +
+  scale_y_continuous(breaks = c(0, .25, .5, .75, 1)) +
+  scale_x_continuous(breaks =c(0, .25, .5, .75, 1)
+                     )</code></pre>
+<p><img src="figure/StudyTwoExplore.Rmd/unnamed-chunk-4-4.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -3512,41 +966,26 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] buildmer_1.2.1  sjPlot_2.7.0    forcats_0.4.0   stringr_1.4.0  
- [5] dplyr_0.8.3     purrr_0.3.2     readr_1.3.1     tidyr_0.8.3    
- [9] tibble_2.1.3    ggplot2_3.2.0   tidyverse_1.2.1
+ [1] NbClust_3.0      factoextra_1.0.5 corrplot_0.84    forcats_0.4.0   
+ [5] stringr_1.4.0    dplyr_0.8.3      purrr_0.3.2      readr_1.3.1     
+ [9] tidyr_0.8.3      tibble_2.1.3     ggplot2_3.2.0    tidyverse_1.2.1 
 
 loaded via a namespace (and not attached):
- [1] nlme_3.1-140        fs_1.3.1            lubridate_1.7.4    
- [4] RColorBrewer_1.1-2  insight_0.4.1       httr_1.4.1         
- [7] rprojroot_1.3-2     numDeriv_2016.8-1.1 tools_3.6.1        
-[10] TMB_1.7.15          backports_1.1.4     R6_2.4.0           
-[13] sjlabelled_1.1.0    mgcv_1.8-28         lazyeval_0.2.2     
-[16] colorspace_1.4-1    withr_2.1.2         tidyselect_0.2.5   
-[19] mnormt_1.5-5        emmeans_1.4         compiler_3.6.1     
-[22] git2r_0.26.1        performance_0.3.0   cli_1.1.0          
-[25] rvest_0.3.4         xml2_1.2.1          sandwich_2.5-1     
-[28] bayestestR_0.2.2    scales_1.0.0        mvtnorm_1.0-11     
-[31] psych_1.8.12        digest_0.6.20       foreign_0.8-71     
-[34] minqa_1.2.4         rmarkdown_1.14      pkgconfig_2.0.2    
-[37] htmltools_0.3.6     lme4_1.1-21         highr_0.8          
-[40] rlang_0.4.0         readxl_1.3.1        rstudioapi_0.10    
-[43] generics_0.0.2      zoo_1.8-6           jsonlite_1.6       
-[46] magrittr_1.5        Matrix_1.2-17       Rcpp_1.0.2         
-[49] munsell_0.5.0       stringi_1.4.3       multcomp_1.4-10    
-[52] whisker_0.3-2       yaml_2.2.0          MASS_7.3-51.4      
-[55] plyr_1.8.4          grid_3.6.1          parallel_3.6.1     
-[58] ggrepel_0.8.1       sjmisc_2.8.1        crayon_1.3.4       
-[61] lattice_0.20-38     ggeffects_0.11.0    haven_2.1.1        
-[64] splines_3.6.1       sjstats_0.17.5      hms_0.5.0          
-[67] zeallot_0.1.0       knitr_1.24          pillar_1.4.2       
-[70] boot_1.3-22         estimability_1.3    codetools_0.2-16   
-[73] glue_1.3.1          evaluate_0.14       modelr_0.1.4       
-[76] vctrs_0.2.0         nloptr_1.2.1        cellranger_1.1.0   
-[79] gtable_0.3.0        assertthat_0.2.1    xfun_0.9           
-[82] xtable_1.8-4        broom_0.5.2         coda_0.19-3        
-[85] survival_2.44-1.1   lmerTest_3.1-0      glmmTMB_0.2.3      
-[88] workflowr_1.4.0     TH.data_1.0-10     </code></pre>
+ [1] tidyselect_0.2.5 xfun_0.9         haven_2.1.1      lattice_0.20-38 
+ [5] colorspace_1.4-1 generics_0.0.2   vctrs_0.2.0      htmltools_0.3.6 
+ [9] yaml_2.2.0       rlang_0.4.0      pillar_1.4.2     ggpubr_0.2.3    
+[13] glue_1.3.1       withr_2.1.2      modelr_0.1.4     readxl_1.3.1    
+[17] munsell_0.5.0    ggsignif_0.6.0   gtable_0.3.0     workflowr_1.4.0 
+[21] cellranger_1.1.0 ggsci_2.9        rvest_0.3.4      evaluate_0.14   
+[25] labeling_0.3     knitr_1.24       broom_0.5.2      Rcpp_1.0.2      
+[29] scales_1.0.0     backports_1.1.4  jsonlite_1.6     fs_1.3.1        
+[33] hms_0.5.0        digest_0.6.20    stringi_1.4.3    ggrepel_0.8.1   
+[37] cowplot_1.0.0    grid_3.6.1       rprojroot_1.3-2  cli_1.1.0       
+[41] tools_3.6.1      magrittr_1.5     lazyeval_0.2.2   crayon_1.3.4    
+[45] whisker_0.3-2    pkgconfig_2.0.2  zeallot_0.1.0    xml2_1.2.1      
+[49] lubridate_1.7.4  assertthat_0.2.1 rmarkdown_1.14   httr_1.4.1      
+[53] rstudioapi_0.10  R6_2.4.0         nlme_3.1-140     git2r_0.26.1    
+[57] compiler_3.6.1  </code></pre>
 </div>
 </div>
 
@@ -3597,6 +1036,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 <script>
 $(document).ready(function ()  {

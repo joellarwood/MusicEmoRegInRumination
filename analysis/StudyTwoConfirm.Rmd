@@ -1,137 +1,58 @@
 ---
 title: "Study Two: Confirmatory Data Analysis"
 author: "Joel Larwood"
-date: "2019-09-23"
-output: workflowr::wflow_html
+date: "2019-09-25"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
 editor_options:
   chunk_output_type: console
 ---
 
-## Introduction
+## Load in data
 
-```{r processdata, message = FALSE}
+```{r s2loadin, message = FALSE}
+
 library(tidyverse)
-library(sjlabelled)
+library(naniar)
 
-s2raw <- read_csv("data/s2.csv")
-
-names(s2raw)
-
-
-s2 <- s2raw %>% 
-  mutate(rrq_6 = 6 - rrq_6,
-         rrq_9 = 6 - rrq_9,
-         rrq_10 = 6 - rrq_10,
-         musebaq = rowSums(dplyr::select(., musebaq_1:musebaq_9)),
-         Baseline = rowSums(dplyr::select(., deq_1_1:deq_1_4)),
-         PostInduction = rowSums(dplyr::select(., deq_2_1: deq_2_4)),
-         PostListening = rowSums(dplyr::select(., deq_3_1: deq_3_4)), 
-         dif = PostListening - PostInduction
-         ) 
-
+s2 <- read_csv("data/s2.csv") %>%  
+  naniar::replace_with_na_all(~.x == -99) %>% 
+  naniar::add_prop_miss() %>% 
+  dplyr::filter(prop_miss_all < .50)
+ 
+s2 <- s2 %>% 
+  mutate(RUM6 = 6 - RUM6,
+         RUM9 = 6 - RUM9,
+         RUM10 = 6 - RUM10,
+         )
 
 s2 <- s2 %>% 
-  mutate(rumination = rowMeans(dplyr::select(., rrq_1:rrq_12)), na.rm = FALSE)
+  mutate(rumination = rowSums(dplyr::select(., RUM1:RUM12)), 
+         clarity = rowSums(dplyr::select(., DERS1_1, DERS2_1)), 
+         goals = rowSums(dplyr::select(., DERS2_1, DERS7_1, DERS15_1)), 
+         impulse = rowSums(dplyr::select(., DERS4_1, DERS8_1, DERS11_1)), 
+         strategies = rowSums(dplyr::select(., DERS5_1, DERS6_1, DERS12_1, DERS14_1, DERS16_1)),
+         nonaccept = rowSums(dplyr::select(., DERS9_1, DERS10_1, DERS13_1)), 
+         ders = clarity + goals + impulse + strategies + nonaccept, 
+         mesi = rowSums(dplyr::select(., MESI1_1:MESI7_1)), 
+         marsneg = rowSums(dplyr::select(., MARS3_1:MARS13_1)),
+         depression = DASS2_1 + DASS5_1 + DASS10_1 + DASS13_1 + DASS16_1 + DASS17_1 + DASS21_1
+  )
 
-s2 %>% 
-  dplyr::select(Baseline,
-                PostInduction,
-                PostListening,
-                rumination,
-                musebaq,
-                hours.listen,
-                reg.use_1,
-                age) %>% 
-  psych::describe()
 
 write_csv(s2, "data/s2Processed.csv")
-
-# s2 %>% var_labels(mecscale_1 = "brainstem",
-#                         mecscale_2 = "Entrainment",
-#                         mecscale_3 = "Memory", 
-#                         mecscale_4 = "Conditioning",
-#                         mecscale_5 = "Imagery",
-#                         mecscale_6 = "Contagion", 
-#                         mecscale_7 = "Expectancy",
-#                         mecscale_8 = "Appraisal", 
-#                   reg.use_1 = "Regulatory Use Probability")
 ```
 
-All measures showed appropraite reliability 
-```{r s2alphas}
+# I hypohtesised a moderated mediation for this analysis (on later realisation it is very underpowered)
 
-psych::alpha(dplyr::select(s2, deq_1_1:deq_1_4))$total$raw_alpha
-psych::alpha(dplyr::select(s2, deq_2_1:deq_2_4))$total$raw_alpha
-psych::alpha(dplyr::select(s2, deq_3_1:deq_3_4))$total$raw_alpha
-psych::alpha(dplyr::select(s2, rrq_1:rrq_12))$total$raw_alpha
-psych::alpha(dplyr::select(s2, musebaq_1:musebaq_9))$total$raw_alpha
+```{r moderatedmediation, eval = FALSE}
+
+library(processR)
+
+model7 <- processR
+
 
 ```
 
-# Manipulation Check
-
-The manipulation/induction of sadness was succesful 
-```{r manipulationcheck}
-S2Manipulation <- t.test(s2$PostInduction, s2$Baseline, paired = TRUE) 
-
-apa::t_apa(S2Manipulation)
-
-mean(s2$Baseline)
-sd(s2$Baseline)
-mean(s2$PostInduction)
-sd(s2$PostInduction)
-```
-
-# Hypothesis Test 
-
-A significant interaction was found. 
-```{r message = FALSE}
-
-library(sjlabelled)
-s2long <- s2 %>% 
-  gather(key = Timepoint,
-         value = Sadness,
-         factor_key = TRUE,
-         PostInduction, PostListening) 
-
-write_csv(s2long, "data/s2long.csv")
-  
-
-library(lmerTest)
-library(sjPlot)
-
-S2glmm <- lmerTest::lmer(Sadness~1 + Timepoint + rumination + Timepoint*rumination + (1 |id), data = s2long)
-
-tab_model(S2glmm)
-```
-
-This interaction showed a larger increase in sadness for people higher in rumination 
-```{r s2hypothesisplot}
-sjPlot::plot_model(S2glmm,
-                   type = "int",
-                   mdrt.values = "meansd",
-                   ci.level = NULL,
-                   legend.title = "Rumination\n (- 1SD, Mean, + 1 SD)",
-                   show.values = TRUE,
-                   show.p = TRUE,
-                   order.terms = c(1,2,3)
-                   ) + 
-  ggplot2::theme(title = element_blank())+ 
-  ggpubr::theme_pubr(legend = "right")
-```
-
-The simple effects showed that sadness increased for all levels of rumunation 
-```{r simpleslopes}
-
-minusrum <- mean(s2$rumination, na.rm = TRUE)-sd(s2$rumination, na.rm = TRUE)
-plusrum <- mean(s2$rumination, na.rm = TRUE)+sd(s2$rumination, na.rm = TRUE)
-meanrum <- mean(s2$rumination, na.rm = TRUE)
-
-
-s2SimpleList <- list(rumination = c(minusrum, plusrum, meanrum), Timepoint = c("Baseline", "PostInduction", "PostListening"))
-
-s2SimpleSlopes <- emmeans::emmeans(S2glmm, ~rumination*Timepoint, at = s2SimpleList)
-
-emmeans::contrast(s2SimpleSlopes, "pairwise", by = "rumination")
-```
-
+This is not currently running (XQuatz needs to be installed) but jamovi analysis showed no over all mediation, with or without moderator. In the exploratory analysis we can see that this is likely from MESI (MUSE: Emotion regulation subscale) not predicting anything. 

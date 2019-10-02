@@ -14,7 +14,7 @@
 
 <meta name="date" content="2019-09-23" />
 
-<title>Study One: Confirmatory Tests</title>
+<title>Study One: Confirmatory Data Analysis</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,6 +26,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
@@ -251,6 +252,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -385,9 +389,17 @@ div.section {
 
 <div class="fluid-row" id="header">
 
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
 
 
-<h1 class="title toc-ignore">Study One: Confirmatory Tests</h1>
+
+<h1 class="title toc-ignore">Study One: Confirmatory Data Analysis</h1>
 <h4 class="author">Joel Larwood</h4>
 <h4 class="date">2019-09-23</h4>
 
@@ -414,7 +426,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-09-26
+<strong>Last updated:</strong> 2019-10-02
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -505,10 +517,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtreeb7f27f7811f3cf5091a7279435bf40043a0b7017targetblankb7f27f7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellarwood/MusicEmoRegInRumination/tree/b7f27f7811f3cf5091a7279435bf40043a0b7017" target="_blank">b7f27f7</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtree60315e271453edb9856e0cafcb70253b4063296ctargetblank60315e2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellarwood/MusicEmoRegInRumination/tree/60315e271453edb9856e0cafcb70253b4063296c" target="_blank">60315e2</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtreeb7f27f7811f3cf5091a7279435bf40043a0b7017targetblankb7f27f7a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtree60315e271453edb9856e0cafcb70253b4063296ctargetblank60315e2a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -516,12 +528,36 @@ Great! You are using Git for version control. Tracking code development and conn
 <pre><code>
 Ignored files:
     Ignored:    .DS_Store
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/StudyOneModelExplore_cache/
+
+Untracked files:
+    Untracked:  analysis/StudyOneModelExplore.Rmd
+    Untracked:  analysis/StudyOneMusicExplore.Rmd
+    Untracked:  data/DingelSharmanLarwood2019_Sadness_Experiement_Data/
+    Untracked:  data/s1long.csv
+    Untracked:  data/s2MechCoding.csv
+    Untracked:  docs/figure/StudyOneModelExplore.Rmd/
+    Untracked:  docs/figure/StudyOneMusicExplore.Rmd/
+    Untracked:  docs/s1correlations.doc
 
 Unstaged changes:
     Modified:   analysis/StudyOneConfirm.Rmd
-    Modified:   analysis/StudyOneExplore.Rmd
-    Modified:   analysis/_site.yml
+    Deleted:    analysis/StudyOneExplore.Rmd
+    Deleted:    analysis/StudyThreeConfirm.Rmd
+    Deleted:    analysis/StudyThreeExplore.Rmd
+    Modified:   analysis/StudyTwoConfirm.Rmd
+    Modified:   analysis/StudyTwoExplore.Rmd
+    Modified:   analysis/StudyTwoMusicExplore.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   data/s1.csv
+    Modified:   data/s1Processed.csv
+    Modified:   data/s2.csv
+    Modified:   data/s2Processed.csv
+    Deleted:    data/s2long.csv
+    Deleted:    data/s3.csv
+    Deleted:    data/s3Processed.csv
 
 </code></pre>
 <p>
@@ -560,6 +596,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/9b1db26e06b509abb3b54bca973694d07870a9ff/analysis/StudyOneConfirm.Rmd" target="_blank">9b1db26</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-09-25
+</td>
+<td>
+wrongs links for study one fixed
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/joellarwood/MusicEmoRegInRumination/9b1db26e06b509abb3b54bca973694d07870a9ff/docs/StudyOneConfirm.html" target="_blank">9b1db26</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-09-25
+</td>
+<td>
+wrongs links for study one fixed
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -669,444 +739,259 @@ build control model
 </div>
 </div>
 </div>
-<div id="introduction" class="section level2">
-<h2>Introduction</h2>
-</div>
-<div id="a-note-this-data-was-submitted-for-peer-review-the-manuscript-submitted-can-be-seen-here-.-the-paper-was-withdrawn-from-review-pending-the-collection-of-new-data-studies-two-and-three.-the-hypotheses-have-been-retained.-there-was-no-pre-registration-for-this-study" class="section level2">
-<h2>A note: This data was submitted for peer review, the manuscript submitted can be seen here: . The paper was withdrawn from review pending the collection of new data (studies two and three). The hypotheses have been retained. There was no pre-registration for this study</h2>
-<pre class="r"><code>s1raw &lt;- read_csv(&quot;data/s1.csv&quot;) 
+<div id="pre-registration" class="section level1">
+<h1>Pre-registration</h1>
+<pre class="r"><code>library(tidyverse)
+library(sjlabelled)
 
-names(s1raw)</code></pre>
-<pre><code>  [1] &quot;id&quot;                   &quot;MusicAccess&quot;          &quot;MusicAccessNo&quot;       
-  [4] &quot;Age&quot;                  &quot;Gender&quot;               &quot;Ethnicity&quot;           
-  [7] &quot;Nationality&quot;          &quot;Sample&quot;               &quot;MARS1_1&quot;             
- [10] &quot;MARS2_1&quot;              &quot;MARS3_1&quot;              &quot;MARS4_1&quot;             
- [13] &quot;MARS5_1&quot;              &quot;MARS6_1&quot;              &quot;MARS7_1&quot;             
- [16] &quot;MARS8_1&quot;              &quot;MARS9_1&quot;              &quot;MARS10_1&quot;            
- [19] &quot;MARS11_1&quot;             &quot;MARS12_1&quot;             &quot;MARS13_1&quot;            
- [22] &quot;MARS14_1&quot;             &quot;MARS15_1&quot;             &quot;POMSDSF1_1&quot;          
- [25] &quot;POMSDSF2_1&quot;           &quot;POMSDSF3_1&quot;           &quot;POMSDSF4_1&quot;          
- [28] &quot;POMSDSF5_1&quot;           &quot;POMSDSF6_1&quot;           &quot;POMSDSF7_1&quot;          
- [31] &quot;POMSDSF8_1&quot;           &quot;Sadness_MIP&quot;          &quot;MIP_timing_3&quot;        
- [34] &quot;POMSDSF1_2&quot;           &quot;POMSDSF2_2&quot;           &quot;POMSDSF3_2&quot;          
- [37] &quot;POMSDSF4_2&quot;           &quot;POMSDSF5_2&quot;           &quot;POMSDSF6_2&quot;          
- [40] &quot;POMSDSF7_2&quot;           &quot;POMSDSF8_2&quot;           &quot;Condition&quot;           
- [43] &quot;Cond_Control&quot;         &quot;Control_timing_3&quot;     &quot;Cond_Chet&quot;           
- [46] &quot;Chet_timing_3&quot;        &quot;Cond_SelfSelected&quot;    &quot;Cond_SS_Instructions&quot;
- [49] &quot;Cond_SS_Timer_3&quot;      &quot;SelfSelected_Song1&quot;   &quot;SelfSelected_Song2&quot;  
- [52] &quot;track_name&quot;           &quot;artist_name&quot;          &quot;album_name&quot;          
- [55] &quot;track_popularity&quot;     &quot;danceability&quot;         &quot;energy&quot;              
- [58] &quot;key&quot;                  &quot;loudness&quot;             &quot;mode&quot;                
- [61] &quot;speechiness&quot;          &quot;acousticness&quot;         &quot;instrumentalness&quot;    
- [64] &quot;liveness&quot;             &quot;valence&quot;              &quot;tempo&quot;               
- [67] &quot;duration_ms&quot;          &quot;time_signature&quot;       &quot;key_mode&quot;            
- [70] &quot;POMSDSF1_3&quot;           &quot;POMSDSF2_3&quot;           &quot;POMSDSF3_3&quot;          
- [73] &quot;POMSDSF4_3&quot;           &quot;POMSDSF5_3&quot;           &quot;POMSDSF6_3&quot;          
- [76] &quot;POMSDSF7_3&quot;           &quot;POMSDSF8_3&quot;           &quot;MusicInfo4_1&quot;        
- [79] &quot;RRQ1_1&quot;               &quot;RRQ2_1&quot;               &quot;RRQ3_1&quot;              
- [82] &quot;RRQ4_1&quot;               &quot;RRQ5_1&quot;               &quot;RRQ6_1&quot;              
- [85] &quot;RRQ7_1&quot;               &quot;RRQ8_1&quot;               &quot;RRQ9_1&quot;              
- [88] &quot;RRQ10_1&quot;              &quot;RRQ11_1&quot;              &quot;RRQ12_1&quot;             
- [91] &quot;RRQ13_1&quot;              &quot;RRQ14_1&quot;              &quot;RRQ15_1&quot;             
- [94] &quot;RRQ16_1&quot;              &quot;RRQ17_1&quot;              &quot;RRQ18_1&quot;             
- [97] &quot;RRQ19_1&quot;              &quot;RRQ20_1&quot;              &quot;RRQ21_1&quot;             
-[100] &quot;RRQ22_1&quot;              &quot;RRQ23_1&quot;              &quot;RRQ24_1&quot;             </code></pre>
-<pre class="r"><code>s1dat &lt;- s1raw %&gt;% 
-  mutate(Baseline = rowSums(dplyr::select(., POMSDSF1_1:POMSDSF8_1)),
-         PostInduction = rowSums(dplyr::select(., POMSDSF1_2:POMSDSF8_2)),
-         PostListening = rowSums(dplyr::select(., POMSDSF1_3:POMSDSF8_3)),
-         MARS_Pos = rowMeans(dplyr::select(., MARS1_1,
-                                           MARS2_1,
-                                           MARS6_1,
-                                           MARS7_1, 
-                                           MARS8_1,
-                                           MARS9_1,
-                                           MARS11_1,
-                                           MARS12_1,
-                                           MARS14_1,
-                                           MARS15_1)),
-         MARS_Neg = rowMeans(dplyr::select(., MARS3_1,
-                                           MARS4_1,
-                                           MARS5_1,
-                                           MARS10_1,
-                                           MARS13_1)),
-         RRQ6_1 = 6 - .$RRQ6_1,
-         RRQ9_1 = 6 - .$RRQ9_1,
-         RRQ10_1 = 6 - .$RRQ10_1, 
-         Condition = as.factor(Condition),
-         Condition = fct_recode(Condition, 
-                                &quot;Control&quot; = &quot;1&quot;, 
-                                &quot;Self Selected&quot; = &quot;2&quot;,
-                                &quot;Experimeter Selected&quot; = &quot;3&quot;))
-s1dat &lt;- s1dat %&gt;% 
-  mutate(
-    Rumination = rowMeans(dplyr::select(., RRQ1_1:RRQ12_1)),
-    RumSplit = as.factor(if_else(Rumination &lt; median(Rumination),
-                                 &quot;Low Rumination&quot;,
-                                 &quot;High Rumination&quot;))
-  )
+s1raw &lt;- read_csv(&quot;data/s1.csv&quot;)
+
+names(s1raw)
 
 
+s1 &lt;- s1raw %&gt;% 
+  mutate(rrq_6 = 6 - rrq_6,
+         rrq_9 = 6 - rrq_9,
+         rrq_10 = 6 - rrq_10,
+         musebaq = rowSums(dplyr::select(., musebaq_1:musebaq_9)),
+         Baseline = rowSums(dplyr::select(., deq_1_1:deq_1_4)),
+         PostInduction = rowSums(dplyr::select(., deq_2_1: deq_2_4)),
+         PostListening = rowSums(dplyr::select(., deq_3_1: deq_3_4)), 
+         dif = PostListening - PostInduction
+         ) 
 
-s1dat %&gt;% 
-  dplyr::select(Baseline, PostInduction, PostListening, Rumination, MARS_Pos, MARS_Neg) %&gt;%
-  skimr::skim() %&gt;% 
-  skimr::kable()</code></pre>
-<pre><code>Skim summary statistics  
- n obs: 128    
- n variables: 6    
 
-Variable type: numeric
+s1 &lt;- s1 %&gt;% 
+  mutate(rumination = rowMeans(dplyr::select(., rrq_1:rrq_12)), na.rm = FALSE)
 
-   variable       missing    complete     n     mean     sd      p0     p25     p50     p75     p100      hist   
----------------  ---------  ----------  -----  ------  ------  ------  ------  ------  ------  ------  ----------
-   Baseline          0         128       128    3.99    5.1      0       0       2       5       26     ▇▂▁▁▁▁▁▁ 
-   MARS_Neg          0         128       128    2.57    0.65    1.2     2.2     2.6      3      4.6     ▃▅▆▇▆▃▁▁ 
-   MARS_Pos          0         128       128    4.88    0.73    3.1     4.4     4.9     5.4      7      ▁▃▇▇▇▅▁▁ 
- PostInduction       0         128       128    9.48    6.7      0       4       8       13      27     ▃▇▅▃▂▁▂▁ 
- PostListening       0         128       128    5.4     6.12     0       1       4       8       30     ▇▃▂▁▁▁▁▁ 
-  Rumination         0         128       128    3.71    0.62    2.17    3.33    3.83    4.08     5      ▂▁▂▆▇▆▂▂ </code></pre>
-<pre class="r"><code>table(s1dat$RumSplit)</code></pre>
-<pre><code>
-High Rumination  Low Rumination 
-             65              63 </code></pre>
-<pre class="r"><code>write_csv(s1dat, &quot;data/s1Processed.csv&quot;)</code></pre>
+s1 %&gt;% 
+  dplyr::select(Baseline,
+                PostInduction,
+                PostListening,
+                rumination,
+                musebaq,
+                hours.listen,
+                reg.use_1,
+                age) %&gt;% 
+  psych::describe()
+
+write_csv(s1, &quot;data/s1Processed.csv&quot;)
+
+# s1 %&gt;% var_labels(mecscale_1 = &quot;brainstem&quot;,
+#                         mecscale_2 = &quot;Entrainment&quot;,
+#                         mecscale_3 = &quot;Memory&quot;, 
+#                         mecscale_4 = &quot;Conditioning&quot;,
+#                         mecscale_5 = &quot;Imagery&quot;,
+#                         mecscale_6 = &quot;Contagion&quot;, 
+#                         mecscale_7 = &quot;Expectancy&quot;,
+#                         mecscale_8 = &quot;Appraisal&quot;, 
+#                   reg.use_1 = &quot;Regulatory Use Probability&quot;)</code></pre>
 </div>
 <div id="reliabilities" class="section level1">
 <h1>Reliabilities</h1>
-<pre class="r"><code># Baseline ALpha 
-psych::alpha(dplyr::select(s1dat, POMSDSF1_1:POMSDSF8_1 ))$total$raw_alpha</code></pre>
-<pre><code>[1] 0.9242407</code></pre>
-<pre class="r"><code># Post Induction Alpha
-psych::alpha(dplyr::select(s1dat, POMSDSF1_2:POMSDSF8_2 ))$total$raw_alpha</code></pre>
-<pre><code>[1] 0.9288304</code></pre>
-<pre class="r"><code># Post Listening Alpha 
-psych::alpha(dplyr::select(s1dat, POMSDSF1_3:POMSDSF8_3 ))$total$raw_alpha</code></pre>
-<pre><code>[1] 0.9435892</code></pre>
-<pre class="r"><code># Rumination Alpha 
-psych::alpha(dplyr::select(s1dat, RRQ1_1:RRQ12_1 ))$total$raw_alpha</code></pre>
-<pre><code>[1] 0.8891114</code></pre>
-<pre class="r"><code># MARS Positive Alpha 
-psych::alpha(dplyr::select(s1dat, MARS1_1,
-                           MARS2_1,
-                           MARS6_1,
-                           MARS7_1, 
-                           MARS8_1,
-                           MARS9_1,
-                           MARS11_1,
-                           MARS12_1,
-                           MARS14_1,
-                           MARS15_1))$total$raw_alpha</code></pre>
-<pre><code>[1] 0.8405795</code></pre>
-<pre class="r"><code>#MARS Negative Alpha 
-psych::alpha(dplyr::select(s1dat, MARS3_1,
-                           MARS4_1,
-                           MARS5_1,
-                           MARS10_1,
-                           MARS13_1))$total$raw_alpha</code></pre>
-<pre><code>[1] 0.4447691</code></pre>
-<div id="anova" class="section level2">
-<h2>ANOVA</h2>
-<p>Here, we can see that there is a signifciant main efffect of timepoint and rumination group but not condition. There is also a significant timepoint*condition interaction</p>
-<pre class="r"><code>s1long &lt;- gather (
-  s1dat,
-  key = Timepoint,
-  value = Sadness,
-  Baseline, PostInduction, PostListening
-) 
+<p>The alpha for the DEQ - Sadness at Baseline was 0.8471773</p>
+<p>The alpha for the DEQ DEQ - Sadness at Post Induction was 0.8601513</p>
+<p>The alpha for the DEQ _ Sadness at post Listening was 0.8638161</p>
+<p>The alpha for rumination scores was 0.9083123</p>
+<p>The alpha for the cognitive and emotion regulation scale of the MUSEBAQ was 0.9077473</p>
+</div>
+<div id="manipulation-check" class="section level1">
+<h1>Manipulation Check</h1>
+<pre class="r"><code>s1Manipulation &lt;- t.test(s1$PostInduction, s1$Baseline, paired = TRUE) 
 
+apa::t_apa(s1Manipulation)
 
+mean(s1$Baseline)
+sd(s1$Baseline)
+mean(s1$PostInduction)
+sd(s1$PostInduction)</code></pre>
+<p>The manipulation/induction of sadness was succesful with scores rising from baseline (<em>M</em> = 9.5104712, <em>SD</em> = 5.0606448) to Post induction (<em>M</em> = 12.5602094, <em>SD</em> = 5.5999895)</p>
+</div>
+<div id="hypothesis-test" class="section level1">
+<h1>Hypothesis Test</h1>
+<p>A significant interaction was found.</p>
+<pre class="r"><code>library(sjlabelled)
+s1long &lt;- s1 %&gt;% 
+  gather(key = Timepoint,
+         value = Sadness,
+         factor_key = TRUE,
+         PostInduction, PostListening) 
 
-ANOVAs1 &lt;- afex::aov_car(
-  formula = Sadness ~ Timepoint*Condition*RumSplit + Error(id/Timepoint),
-  data = s1long,
-  type = 2,
-)
+write_csv(s1long, &quot;data/s1long.csv&quot;)
+  
 
-anova_apa(ANOVAs1, 
-          es = &quot;ges&quot;
-)</code></pre>
-<pre><code>                        Effect
-1                  (Intercept)
-2                    Condition
-3                     RumSplit
-4                    Timepoint
-5           Condition:RumSplit
-6          Condition:Timepoint
-7           RumSplit:Timepoint
-8 Condition:RumSplit:Timepoint
-                                                      
-1       F(1, 122) = 214.19, p &lt; .001, getasq =  NA ***
-2       F(2, 122) =   0.82, p = .442, getasq &lt; .01    
-3       F(1, 122) =   5.92, p = .016, getasq = .03 *  
-4 F(1.89, 230.78) =  63.31, p &lt; .001, getasq = .14 ***
-5       F(2, 122) =   1.89, p = .155, getasq = .02    
-6 F(3.78, 230.78) =   2.76, p = .031, getasq = .01 *  
-7 F(1.89, 230.78) =   0.15, p = .850, getasq &lt; .01    
-8 F(3.78, 230.78) =   0.86, p = .483, getasq &lt; .01    </code></pre>
-<p>The main effect of time is charactersied by an increase from time 1 to time two and a decrease from time 2 to time 3</p>
-<pre class="r"><code># summary(as.glht(pairs(m1)), test=adjusted(&quot;free&quot;)) code for adjusted pvalues
-maineffecttime &lt;- emmeans(ANOVAs1, ~Timepoint)
+library(lmerTest)
+library(sjPlot)
 
-summary(as.glht(pairs(maineffecttime), test=adjusted(&quot;free&quot;)))</code></pre>
-<pre><code>
-     Simultaneous Tests for General Linear Hypotheses
+s1glmm &lt;- lmerTest::lmer(Sadness~1 + Timepoint + rumination + Timepoint*rumination + (1 |id), data = s1long)
 
-Linear Hypotheses:
-                                   Estimate Std. Error t value Pr(&gt;|t|)
-Baseline - PostInduction == 0       -5.5511     0.5083 -10.920   &lt;0.001
-Baseline - PostListening == 0       -1.4037     0.5083  -2.761    0.017
-PostInduction - PostListening == 0   4.1475     0.5083   8.159   &lt;0.001
-                                      
-Baseline - PostInduction == 0      ***
-Baseline - PostListening == 0      *  
-PostInduction - PostListening == 0 ***
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-(Adjusted p values reported -- single-step method)</code></pre>
-<p>We can also see that over all TImepoints and conditions people high in rumination have higher sadness scores</p>
-<pre class="r"><code>maineffectrum &lt;- emmeans(ANOVAs1, ~ RumSplit)
-
-summary(as.glht(pairs(maineffectrum)), test = adjusted(&quot;free&quot;))</code></pre>
-<pre><code>
-     Simultaneous Tests for General Linear Hypotheses
-
-Linear Hypotheses:
-                                      Estimate Std. Error t value Pr(&gt;|t|)
-High Rumination - Low Rumination == 0   2.0972     0.8619   2.433   0.0164
-                                       
-High Rumination - Low Rumination == 0 *
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-(Adjusted p values reported -- free method)</code></pre>
-<pre class="r"><code>afex::afex_plot(ANOVAs1,
-                x = &quot;RumSplit&quot;,
-                data_plot = TRUE,
-                error = &quot;between&quot;,
-                plot_plot = TRUE,
-                error_ci = TRUE)+
-  ggplot2::theme_classic()</code></pre>
-<pre><code>Warning: Additional arguments ignored: plot_plot</code></pre>
-<p><img src="figure/StudyOneConfirm.Rmd/ANOVAs1RumSplitMainEffect-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-ANOVAs1RumSplitMainEffect-1">
-Past versions of ANOVAs1RumSplitMainEffect-1.png
-</button>
-</p>
-<div id="fig-ANOVAs1RumSplitMainEffect-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
+tab_model(s1glmm)</code></pre>
+<table style="border-collapse:collapse; border:none;">
 <tr>
-<th>
-Version
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
 </th>
-<th>
-Author
-</th>
-<th>
-Date
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+Sadness
 </th>
 </tr>
-</thead>
-<tbody>
 <tr>
-<td>
-<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/cd4829d7c748aa7dfc20056dee6673d2e7ebd554/docs/figure/StudyOneConfirm.Rmd/ANOVAs1RumSplitMainEffect-1.png" target="_blank">cd4829d</a>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
 </td>
-<td>
-Joel Larwood
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
 </td>
-<td>
-2019-09-23
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
 </td>
 </tr>
-</tbody>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+(Intercept)
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+5.25
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+2.19 – 8.31
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Post Listening
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-1.01
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-3.13 – 1.11
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.350
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+rumination
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+1.90
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+1.12 – 2.68
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+TimepointPostListening:rumination
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.58
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.04 – 1.12
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.037</strong>
+</td>
+</tr>
+<tr>
+<td colspan="4" style="font-weight:bold; text-align:left; padding-top:.8em;">
+Random Effects
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+σ<sup>2</sup>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+7.02
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+τ<sub>00</sub> <sub>id</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+22.27
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+ICC
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.76
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+N <sub>id</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+381
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+762
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.085 / 0.781
+</td>
+</tr>
 </table>
-</div>
-</div>
-<p>Following up the interaction we can see that it is qualified by each group returning to baseline levels of sadness excepted for the sad music group</p>
-<pre class="r"><code>timepointsimpleeffect &lt;- emmeans(ANOVAs1, ~ Timepoint|Condition)
+<p>This interaction showed a larger increase in sadness for people higher in rumination</p>
+<pre class="r"><code>library(sjPlot)
 
-summary(as.glht(pairs(timepointsimpleeffect)), test = adjusted(&quot;free&quot;))</code></pre>
-<pre><code>$`Condition = Control`
-
-     Simultaneous Tests for General Linear Hypotheses
-
-Linear Hypotheses:
-                                   Estimate Std. Error t value Pr(&gt;|t|)
-Baseline - PostInduction == 0       -4.5772     0.8770  -5.219 9.01e-07
-Baseline - PostListening == 0       -0.1913     0.8770  -0.218    0.828
-PostInduction - PostListening == 0   4.3859     0.8770   5.001 2.18e-06
-                                      
-Baseline - PostInduction == 0      ***
-Baseline - PostListening == 0         
-PostInduction - PostListening == 0 ***
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-(Adjusted p values reported -- free method)
+sjPlot::plot_model(s1glmm,
+                   type = &quot;int&quot;,
+                   mdrt.values = &quot;meansd&quot;,
+                   ci.level = NULL,
+                   legend.title = &quot;Rumination\n (- 1SD, Mean, + 1 SD)&quot;,
+                   show.values = TRUE,
+                   show.p = TRUE,
+                   order.terms = c(1,2,3)
+                   ) + 
+  ggplot2::theme(title = element_blank())+ 
+  ggpubr::theme_pubr(legend = &quot;right&quot;)</code></pre>
+<p><img src="figure/StudyOneConfirm.Rmd/s1hypothesisplot-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The simple effects showed that sadness increased for all levels of rumunation</p>
+<pre class="r"><code>minusrum &lt;- mean(s1$rumination, na.rm = TRUE)-sd(s1$rumination, na.rm = TRUE)
+plusrum &lt;- mean(s1$rumination, na.rm = TRUE)+sd(s1$rumination, na.rm = TRUE)
+meanrum &lt;- mean(s1$rumination, na.rm = TRUE)
 
 
-$`Condition = Self Selected`
+s1SimpleList &lt;- list(rumination = c(minusrum, plusrum, meanrum), Timepoint = c(&quot;PostInduction&quot;, &quot;PostListening&quot;))
 
-     Simultaneous Tests for General Linear Hypotheses
+s1SimpleSlopes &lt;- emmeans::emmeans(s1glmm, ~rumination*Timepoint, at = s1SimpleList)
 
-Linear Hypotheses:
-                                   Estimate Std. Error t value Pr(&gt;|t|)
-Baseline - PostInduction == 0       -6.2078     0.8751  -7.094 2.82e-11
-Baseline - PostListening == 0       -3.5963     0.8751  -4.110 0.000107
-PostInduction - PostListening == 0   2.6115     0.8751   2.984 0.003132
-                                      
-Baseline - PostInduction == 0      ***
-Baseline - PostListening == 0      ***
-PostInduction - PostListening == 0 ** 
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-(Adjusted p values reported -- free method)
+emmeans::contrast(s1SimpleSlopes, &quot;pairwise&quot;, by = &quot;rumination&quot;)</code></pre>
+<pre><code>rumination = 3.16:
+ contrast                      estimate    SE  df t.ratio p.value
+ PostInduction - PostListening   -0.817 0.272 379 -3.009  0.0028 
 
+rumination = 4.55:
+ contrast                      estimate    SE  df t.ratio p.value
+ PostInduction - PostListening   -1.624 0.272 379 -5.976  &lt;.0001 
 
-$`Condition = Experimeter Selected`
-
-     Simultaneous Tests for General Linear Hypotheses
-
-Linear Hypotheses:
-                                   Estimate Std. Error t value Pr(&gt;|t|)
-Baseline - PostInduction == 0       -5.8684     0.8893  -6.599 4.50e-10
-Baseline - PostListening == 0       -0.4233     0.8893  -0.476    0.634
-PostInduction - PostListening == 0   5.4451     0.8893   6.123 7.28e-09
-                                      
-Baseline - PostInduction == 0      ***
-Baseline - PostListening == 0         
-PostInduction - PostListening == 0 ***
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-(Adjusted p values reported -- free method)</code></pre>
-<pre class="r"><code>conditionsimpleeffect&lt;- (emmeans(ANOVAs1, ~ Condition|Timepoint))
-
-summary(as.glht(pairs(conditionsimpleeffect)))</code></pre>
-<pre><code>$`Timepoint = Baseline`
-
-     Simultaneous Tests for General Linear Hypotheses
-
-Linear Hypotheses:
-                                          Estimate Std. Error t value
-Control - Self Selected == 0                0.4794     1.2708   0.377
-Control - Experimeter Selected == 0        -0.4870     1.2811  -0.380
-Self Selected - Experimeter Selected == 0  -0.9664     1.2797  -0.755
-                                          Pr(&gt;|t|)
-Control - Self Selected == 0                 0.925
-Control - Experimeter Selected == 0          0.923
-Self Selected - Experimeter Selected == 0    0.731
-(Adjusted p values reported -- single-step method)
-
-
-$`Timepoint = PostInduction`
-
-     Simultaneous Tests for General Linear Hypotheses
-
-Linear Hypotheses:
-                                          Estimate Std. Error t value
-Control - Self Selected == 0                -1.151      1.271  -0.906
-Control - Experimeter Selected == 0         -1.778      1.281  -1.388
-Self Selected - Experimeter Selected == 0   -0.627      1.280  -0.490
-                                          Pr(&gt;|t|)
-Control - Self Selected == 0                 0.637
-Control - Experimeter Selected == 0          0.349
-Self Selected - Experimeter Selected == 0    0.876
-(Adjusted p values reported -- single-step method)
-
-
-$`Timepoint = PostListening`
-
-     Simultaneous Tests for General Linear Hypotheses
-
-Linear Hypotheses:
-                                          Estimate Std. Error t value
-Control - Self Selected == 0               -2.9256     1.2708  -2.302
-Control - Experimeter Selected == 0        -0.7191     1.2811  -0.561
-Self Selected - Experimeter Selected == 0   2.2066     1.2797   1.724
-                                          Pr(&gt;|t|)  
-Control - Self Selected == 0                0.0574 .
-Control - Experimeter Selected == 0         0.8408  
-Self Selected - Experimeter Selected == 0   0.1983  
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-(Adjusted p values reported -- single-step method)</code></pre>
-<pre class="r"><code>afex::afex_plot(ANOVAs1,
-x = &quot;Timepoint&quot;,
-trace = &quot;Condition&quot;, 
-mapping = &quot;color&quot;,
-data_plot = FALSE) +
-ggplot2::theme_classic() + 
-ggplot2::scale_x_discrete(labels = c(&quot;Baselie&quot;, &quot;Post Induction&quot;, &quot;Post Listening&quot;)) +
-ggplot2::ylim(0, 15) +
-ggplot2::theme(legend.title = element_blank())</code></pre>
-<pre><code>Warning: Panel(s) show a mixed within-between-design.
-Error bars do not allow comparisons across all means.
-Suppress error bars with: error = &quot;none&quot;</code></pre>
-<p><img src="figure/StudyOneConfirm.Rmd/ANOVAs1plot-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-ANOVAs1plot-1">
-Past versions of ANOVAs1plot-1.png
-</button>
-</p>
-<div id="fig-ANOVAs1plot-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/cd4829d7c748aa7dfc20056dee6673d2e7ebd554/docs/figure/StudyOneConfirm.Rmd/ANOVAs1plot-1.png" target="_blank">cd4829d</a>
-</td>
-<td>
-Joel Larwood
-</td>
-<td>
-2019-09-23
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>s1dat %&gt;% 
-dplyr::select(&quot;Rumination&quot;, &quot;MARS_Neg&quot;, &quot;MARS_Pos&quot;) %&gt;% 
-apaTables::apa.cor.table(filename = &quot;docs/s1MARScor.txt&quot;,
-landscape = FALSE)</code></pre>
-<pre><code>
-
-Means, standard deviations, and correlations with confidence intervals
- 
-
-  Variable      M    SD   1           2           
-  1. Rumination 3.71 0.62                         
-                                                  
-  2. MARS_Neg   2.57 0.65 -.01                    
-                          [-.18, .17]             
-                                                  
-  3. MARS_Pos   4.88 0.73 .15         -.25**      
-                          [-.03, .31] [-.41, -.08]
-                                                  
-
-Note. M and SD are used to represent mean and standard deviation, respectively.
-Values in square brackets indicate the 95% confidence interval.
-The confidence interval is a plausible range of population correlations 
-that could have caused the sample correlation (Cumming, 2014).
-* indicates p &lt; .05. ** indicates p &lt; .01.
- </code></pre>
+rumination = 3.86:
+ contrast                      estimate    SE  df t.ratio p.value
+ PostInduction - PostListening   -1.220 0.192 379 -6.357  &lt;.0001 </code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1130,48 +1015,42 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] ggridges_0.5.1    multcomp_1.4-10   TH.data_1.0-10   
- [4] MASS_7.3-51.4     survival_2.44-1.1 mvtnorm_1.0-11   
- [7] psych_1.8.12      skimr_1.0.7       sjmisc_2.8.1     
-[10] sjPlot_2.7.0      emmeans_1.4       visdat_0.5.3     
-[13] apaTables_2.0.5   apa_0.3.2         forcats_0.4.0    
-[16] stringr_1.4.0     dplyr_0.8.3       purrr_0.3.2      
-[19] readr_1.3.1       tidyr_0.8.3       tibble_2.1.3     
-[22] ggplot2_3.2.0     tidyverse_1.2.1  
+ [1] sjPlot_2.7.0     lmerTest_3.1-0   lme4_1.1-21      Matrix_1.2-17   
+ [5] sjlabelled_1.1.0 forcats_0.4.0    stringr_1.4.0    dplyr_0.8.3     
+ [9] purrr_0.3.2      readr_1.3.1      tidyr_0.8.3      tibble_2.1.3    
+[13] ggplot2_3.2.0    tidyverse_1.2.1 
 
 loaded via a namespace (and not attached):
- [1] ggbeeswarm_0.6.0    minqa_1.2.4         colorspace_1.4-1   
- [4] rio_0.5.16          sjlabelled_1.1.0    rprojroot_1.3-2    
- [7] estimability_1.3    fs_1.3.1            rstudioapi_0.10    
-[10] glmmTMB_0.2.3       ggrepel_0.8.1       lubridate_1.7.4    
-[13] xml2_1.2.1          codetools_0.2-16    splines_3.6.1      
-[16] mnormt_1.5-5        knitr_1.24          zeallot_0.1.0      
-[19] afex_0.24-1         jsonlite_1.6        workflowr_1.4.0    
-[22] nloptr_1.2.1        ggeffects_0.11.0    broom_0.5.2        
-[25] compiler_3.6.1      httr_1.4.1          sjstats_0.17.5     
-[28] backports_1.1.4     assertthat_0.2.1    Matrix_1.2-17      
-[31] lazyeval_0.2.2      cli_1.1.0           htmltools_0.3.6    
-[34] tools_3.6.1         lmerTest_3.1-0      coda_0.19-3        
-[37] gtable_0.3.0        glue_1.3.1          reshape2_1.4.3     
-[40] Rcpp_1.0.2          carData_3.0-2       cellranger_1.1.0   
-[43] vctrs_0.2.0         nlme_3.1-140        insight_0.4.1      
-[46] xfun_0.9            openxlsx_4.1.0.1    lme4_1.1-21        
-[49] rvest_0.3.4         zoo_1.8-6           scales_1.0.0       
-[52] hms_0.5.0           parallel_3.6.1      sandwich_2.5-1     
-[55] TMB_1.7.15          yaml_2.2.0          curl_4.0           
-[58] stringi_1.4.3       highr_0.8           bayestestR_0.2.2   
-[61] boot_1.3-22         zip_2.0.3           rlang_0.4.0        
-[64] pkgconfig_2.0.2     evaluate_0.14       lattice_0.20-38    
-[67] labeling_0.3        tidyselect_0.2.5    plyr_1.8.4         
-[70] magrittr_1.5        R6_2.4.0            generics_0.0.2     
-[73] pillar_1.4.2        haven_2.1.1         whisker_0.3-2      
-[76] foreign_0.8-71      withr_2.1.2         abind_1.4-5        
-[79] performance_0.3.0   modelr_0.1.4        crayon_1.3.4       
-[82] car_3.0-3           rmarkdown_1.14      grid_3.6.1         
-[85] readxl_1.3.1        data.table_1.12.2   git2r_0.26.1       
-[88] digest_0.6.20       xtable_1.8-4        numDeriv_2016.8-1.1
-[91] munsell_0.5.0       beeswarm_0.2.3      vipor_0.4.5        </code></pre>
-</div>
+ [1] nlme_3.1-140        pbkrtest_0.4-7      fs_1.3.1           
+ [4] lubridate_1.7.4     RColorBrewer_1.1-2  insight_0.4.1      
+ [7] httr_1.4.1          rprojroot_1.3-2     numDeriv_2016.8-1.1
+[10] tools_3.6.1         TMB_1.7.15          backports_1.1.4    
+[13] R6_2.4.0            lazyeval_0.2.2      colorspace_1.4-1   
+[16] withr_2.1.2         tidyselect_0.2.5    mnormt_1.5-5       
+[19] emmeans_1.4         compiler_3.6.1      git2r_0.26.1       
+[22] performance_0.3.0   cli_1.1.0           rvest_0.3.4        
+[25] xml2_1.2.1          sandwich_2.5-1      labeling_0.3       
+[28] bayestestR_0.2.2    scales_1.0.0        mvtnorm_1.0-11     
+[31] psych_1.8.12        digest_0.6.20       foreign_0.8-71     
+[34] minqa_1.2.4         rmarkdown_1.14      pkgconfig_2.0.2    
+[37] htmltools_0.3.6     rlang_0.4.0         readxl_1.3.1       
+[40] rstudioapi_0.10     generics_0.0.2      zoo_1.8-6          
+[43] jsonlite_1.6        magrittr_1.5        apa_0.3.2          
+[46] Rcpp_1.0.2          munsell_0.5.0       stringi_1.4.3      
+[49] multcomp_1.4-10     whisker_0.3-2       yaml_2.2.0         
+[52] snakecase_0.11.0    MASS_7.3-51.4       plyr_1.8.4         
+[55] grid_3.6.1          parallel_3.6.1      ggrepel_0.8.1      
+[58] sjmisc_2.8.1        crayon_1.3.4        lattice_0.20-38    
+[61] ggeffects_0.11.0    haven_2.1.1         splines_3.6.1      
+[64] sjstats_0.17.5      hms_0.5.0           zeallot_0.1.0      
+[67] knitr_1.24          pillar_1.4.2        ggpubr_0.2.3       
+[70] boot_1.3-22         ggsignif_0.6.0      estimability_1.3   
+[73] codetools_0.2-16    glue_1.3.1          evaluate_0.14      
+[76] modelr_0.1.4        vctrs_0.2.0         nloptr_1.2.1       
+[79] cellranger_1.1.0    gtable_0.3.0        assertthat_0.2.1   
+[82] xfun_0.9            xtable_1.8-4        broom_0.5.2        
+[85] coda_0.19-3         survival_2.44-1.1   glmmTMB_0.2.3      
+[88] workflowr_1.4.0     TH.data_1.0-10     </code></pre>
 </div>
 </div>
 
@@ -1222,6 +1101,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 <script>
 $(document).ready(function ()  {

@@ -1,0 +1,152 @@
+---
+title: "Study One: Exploratorty Data Analysis (Timepoints)"
+author: "Joel Larwood"
+date: "2019-09-23"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+editor_options:
+  chunk_output_type: console
+---
+
+# An exploratory saturdated model
+```{r echo = FALSE}
+knitr::opts_chunk$set(autodep = TRUE, message = FALSE, warnings = FALSE)
+```
+
+
+In the dataset we also collected data about the BRECVEMA mechanism occuring during listening, demogrpahics and how likely they were to use the song for regulation. 
+
+```{r loads1data, message = FALSE}
+library(tidyverse)
+s1longExplore <- read_csv("data/s1long.csv") %>% 
+  dplyr::select(id, 
+                Sadness,
+                Timepoint, 
+                rumination, 
+                Baseline,
+                age,
+                gender, 
+                contains("mec"), 
+                musebaq, 
+                reg.use_1, 
+                valence, 
+                energy) %>% 
+  drop_na()  %>% 
+   mutate_at(.vars = vars(mecscale_1:mecscale_8), 
+              factor) %>% 
+   mutate_at(.vars = vars (mecscale_1:mecscale_8),
+             .funs = forcats::fct_recode, 
+             "No" = "2", 
+             "Yes" = "1") %>% 
+    dplyr::rename(brainstem = mecscale_1,
+                        Entrainment = mecscale_2,
+                        Memory = mecscale_3, 
+                        Conditioning = mecscale_4,
+                        Imagery = mecscale_5, 
+                        Contagion = mecscale_6, 
+                        Expectancy = mecscale_7,
+                        Appraisal = mecscale_8)
+```
+
+So I want to build some models with control mechanisms coming in at each point 
+
+## Model 1 is the timepoint only model 
+```{r timepointonly, message=FALSE}
+library(sjPlot)
+timepoint <- lmerTest::lmer(Sadness~1 + Timepoint + (1 |id), data = s1longExplore)
+tab_model(timepoint)
+
+```
+
+## Model 2 I add demographics 
+
+```{r message=FALSE}
+demo <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + (1 |id), data = s1longExplore)
+tab_model(demo)
+```
+
+## Model 3 I add spotify data 
+ 
+```{r message=FALSE}
+spotifyvar <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy +  (1 |id), data = s1longExplore)
+tab_model(spotifyvar)
+```
+
+## Model 4 I add the BRECVEMA mechanisms 
+
+```{r message=FALSE}
+mecscale <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal + (1 |id), data = s1longExplore)
+
+tab_model(mecscale)
+```
+
+## Model 5 I add how likely they are to listen to the song when they are sad  
+
+```{r message=FALSE}
+likelyuse <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal + reg.use_1 + (1 |id), data = s1longExplore)
+
+tab_model (likelyuse)
+```
+
+## Model 6 I add the MUSEBAQ 
+
+```{r message=FALSE}
+musebaqglmm <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal+ reg.use_1 + musebaq + (1 |id), data = s1longExplore)
+
+tab_model(musebaqglmm)
+```
+
+## Model 7 I add rumiation 
+
+```{r message=FALSE}
+ruminationmain <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal+ reg.use_1 + musebaq + rumination +  (1 |id), data = s1longExplore)
+
+tab_model(ruminationmain)
+```
+
+## Finally I add the interaction term 
+```{r message=FALSE}
+ruminationint <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal + reg.use_1 + musebaq +rumination + rumination:Timepoint + (1 |id), data = s1longExplore)
+
+tab_model(ruminationint)
+```
+
+# Model comparisons 
+Now I want to compare these models 
+```{r message=FALSE}
+knitr::kable(anova(timepoint, demo, spotifyvar, mecscale, likelyuse, musebaqglmm, ruminationmain, ruminationint))
+```
+
+# Automatic Model 
+
+Now I am going to do an exploratory analysis to find the best fitting model
+
+```{r message = FALSE, results = "hide", cache = TRUE}
+library(buildmer)
+saturatedformula <- Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal + reg.use_1 + musebaq +rumination + rumination:Timepoint + (1 |id)
+
+buildmer::buildmer(formula = saturatedformula, data = s1longExplore, crit = "AIC")
+
+```
+
+
+the best model was identifed as containing </br>
+- rumination </br>
+- Timepoint </br>
+- The interaction of rumination and timepoint </br>
+- The likehood of the song being used for emotion regulation </br>
+- Brainstem reflex </br>
+- Aprraisal </br>
+- Trat use of music for emotional and cognitive regulation
+
+
+## The model results are 
+```{r, message=FALSE}
+
+selected <- lmerTest::lmer(Sadness ~ 1 + rumination + reg.use_1 + brainstem + Appraisal + Timepoint + musebaq + rumination:Timepoint + (1 | id), data = s1longExplore)
+
+tab_model(selected)
+
+plot_model(selected)
+```

@@ -1,201 +1,155 @@
 ---
-title: "Study One: Confirmatory Tests"
+title: "Study One: Confirmatory Data Analysis"
 author: "Joel Larwood"
 date: "2019-09-23"
-output: workflowr::wflow_html
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+editor_options:
+  chunk_output_type: console
 ---
 
-## Introduction
+# Pre-registration 
 
 
-## A note: This data was submitted for peer review, the manuscript submitted can be seen here: . The paper was withdrawn from review pending the collection of new data (studies two and three). The hypotheses have been retained. There was no pre-registration for this study 
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r processdata, message = FALSE, results = "hide", warning = FALSE}
 library(tidyverse)
-library(apa)
-library(apaTables)
-library(visdat)
-library(emmeans)
-library(sjPlot)
-library(sjmisc)
-library(skimr)
-library(psych)
-library(multcomp)
-library(ggridges)
-```
+library(sjlabelled)
 
-```{r loadS1, message=FALSE, warning = FALSE}
-s1raw <- read_csv("data/s1.csv") 
+s1raw <- read_csv("data/s1.csv")
 
 names(s1raw)
-```
 
 
-```{r scores, message=FALSE}
-s1dat <- s1raw %>% 
-  mutate(Baseline = rowSums(dplyr::select(., POMSDSF1_1:POMSDSF8_1)),
-         PostInduction = rowSums(dplyr::select(., POMSDSF1_2:POMSDSF8_2)),
-         PostListening = rowSums(dplyr::select(., POMSDSF1_3:POMSDSF8_3)),
-         MARS_Pos = rowMeans(dplyr::select(., MARS1_1,
-                                           MARS2_1,
-                                           MARS6_1,
-                                           MARS7_1, 
-                                           MARS8_1,
-                                           MARS9_1,
-                                           MARS11_1,
-                                           MARS12_1,
-                                           MARS14_1,
-                                           MARS15_1)),
-         MARS_Neg = rowMeans(dplyr::select(., MARS3_1,
-                                           MARS4_1,
-                                           MARS5_1,
-                                           MARS10_1,
-                                           MARS13_1)),
-         RRQ6_1 = 6 - .$RRQ6_1,
-         RRQ9_1 = 6 - .$RRQ9_1,
-         RRQ10_1 = 6 - .$RRQ10_1, 
-         Condition = as.factor(Condition),
-         Condition = fct_recode(Condition, 
-                                "Control" = "1", 
-                                "Self Selected" = "2",
-                                "Experimeter Selected" = "3"))
-s1dat <- s1dat %>% 
-  mutate(
-    Rumination = rowMeans(dplyr::select(., RRQ1_1:RRQ12_1)),
-    RumSplit = as.factor(if_else(Rumination < median(Rumination),
-                                 "Low Rumination",
-                                 "High Rumination"))
-  )
+s1 <- s1raw %>% 
+  mutate(rrq_6 = 6 - rrq_6,
+         rrq_9 = 6 - rrq_9,
+         rrq_10 = 6 - rrq_10,
+         musebaq = rowSums(dplyr::select(., musebaq_1:musebaq_9)),
+         Baseline = rowSums(dplyr::select(., deq_1_1:deq_1_4)),
+         PostInduction = rowSums(dplyr::select(., deq_2_1: deq_2_4)),
+         PostListening = rowSums(dplyr::select(., deq_3_1: deq_3_4)), 
+         dif = PostListening - PostInduction
+         ) 
 
 
+s1 <- s1 %>% 
+  mutate(rumination = rowMeans(dplyr::select(., rrq_1:rrq_12)), na.rm = FALSE)
 
-s1dat %>% 
-  dplyr::select(Baseline, PostInduction, PostListening, Rumination, MARS_Pos, MARS_Neg) %>%
-  skimr::skim() %>% 
-  skimr::kable()
+s1 %>% 
+  dplyr::select(Baseline,
+                PostInduction,
+                PostListening,
+                rumination,
+                musebaq,
+                hours.listen,
+                reg.use_1,
+                age) %>% 
+  psych::describe()
 
-table(s1dat$RumSplit)
+write_csv(s1, "data/s1Processed.csv")
 
-write_csv(s1dat, "data/s1Processed.csv")
-
+# s1 %>% var_labels(mecscale_1 = "brainstem",
+#                         mecscale_2 = "Entrainment",
+#                         mecscale_3 = "Memory", 
+#                         mecscale_4 = "Conditioning",
+#                         mecscale_5 = "Imagery",
+#                         mecscale_6 = "Contagion", 
+#                         mecscale_7 = "Expectancy",
+#                         mecscale_8 = "Appraisal", 
+#                   reg.use_1 = "Regulatory Use Probability")
 ```
 
 # Reliabilities 
-```{r alphas, message=FALSE}
-# Baseline ALpha 
-psych::alpha(dplyr::select(s1dat, POMSDSF1_1:POMSDSF8_1 ))$total$raw_alpha
 
-# Post Induction Alpha
-psych::alpha(dplyr::select(s1dat, POMSDSF1_2:POMSDSF8_2 ))$total$raw_alpha
+```{r s1alphas, echo = FALSE}
 
-# Post Listening Alpha 
-psych::alpha(dplyr::select(s1dat, POMSDSF1_3:POMSDSF8_3 ))$total$raw_alpha
-
-# Rumination Alpha 
-psych::alpha(dplyr::select(s1dat, RRQ1_1:RRQ12_1 ))$total$raw_alpha
-
-# MARS Positive Alpha 
-psych::alpha(dplyr::select(s1dat, MARS1_1,
-                           MARS2_1,
-                           MARS6_1,
-                           MARS7_1, 
-                           MARS8_1,
-                           MARS9_1,
-                           MARS11_1,
-                           MARS12_1,
-                           MARS14_1,
-                           MARS15_1))$total$raw_alpha
-
-
-#MARS Negative Alpha 
-psych::alpha(dplyr::select(s1dat, MARS3_1,
-                           MARS4_1,
-                           MARS5_1,
-                           MARS10_1,
-                           MARS13_1))$total$raw_alpha
+baseline <- psych::alpha(dplyr::select(s1, deq_1_1:deq_1_4))$total$raw_alpha
+postinduction <- psych::alpha(dplyr::select(s1, deq_2_1:deq_2_4))$total$raw_alpha
+postlistening <- psych::alpha(dplyr::select(s1, deq_3_1:deq_3_4))$total$raw_alpha
+rumalpha <- psych::alpha(dplyr::select(s1, rrq_1:rrq_12))$total$raw_alpha
+musebaqalpha<- psych::alpha(dplyr::select(s1, musebaq_1:musebaq_9))$total$raw_alpha
 
 ```
 
-## ANOVA 
-Here, we can see that there is a signifciant main efffect of timepoint and rumination group but not condition. There is also a significant timepoint*condition interaction 
-```{r ANOVAs1, message=FALSE}
+The alpha for the DEQ - Sadness at Baseline was `r baseline`
 
-s1long <- gather (
-  s1dat,
-  key = Timepoint,
-  value = Sadness,
-  Baseline, PostInduction, PostListening
-) 
+The alpha for the DEQ DEQ - Sadness at Post Induction  was `r postinduction`
 
+The alpha for the DEQ _ Sadness at post Listening was `r postlistening`
+
+The alpha for rumination scores was `r rumalpha`
+
+The alpha for the cognitive and emotion regulation scale of the MUSEBAQ was `r musebaqalpha`
 
 
-ANOVAs1 <- afex::aov_car(
-  formula = Sadness ~ Timepoint*Condition*RumSplit + Error(id/Timepoint),
-  data = s1long,
-  type = 2,
-)
+# Manipulation Check
 
-anova_apa(ANOVAs1, 
-          es = "ges"
-)
+```{r manipulationcheck, results = 'hide'}
+s1Manipulation <- t.test(s1$PostInduction, s1$Baseline, paired = TRUE) 
 
+apa::t_apa(s1Manipulation)
+
+mean(s1$Baseline)
+sd(s1$Baseline)
+mean(s1$PostInduction)
+sd(s1$PostInduction)
+```
+The manipulation/induction of sadness was succesful `r apa::t_apa(s1Manipulation)` with scores rising from baseline (*M* = `r mean(s1$Baseline)`, *SD* = `r sd(s1$Baseline)`) to Post induction (*M* = `r mean(s1$PostInduction)`, *SD* = `r sd(s1$PostInduction)`)
+
+# Hypothesis Test 
+
+A significant interaction was found. 
+```{r message = FALSE}
+
+library(sjlabelled)
+s1long <- s1 %>% 
+  gather(key = Timepoint,
+         value = Sadness,
+         factor_key = TRUE,
+         PostInduction, PostListening) 
+
+write_csv(s1long, "data/s1long.csv")
+  
+
+library(lmerTest)
+library(sjPlot)
+
+s1glmm <- lmerTest::lmer(Sadness~1 + Timepoint + rumination + Timepoint*rumination + (1 |id), data = s1long)
+
+tab_model(s1glmm)
 ```
 
-The main effect of time is charactersied by an increase from time 1 to time two and a decrease from time 2 to time 3
-```{r ANOVAs1TimeMainEffect, message=FALSE}
-# summary(as.glht(pairs(m1)), test=adjusted("free")) code for adjusted pvalues
-maineffecttime <- emmeans(ANOVAs1, ~Timepoint)
+This interaction showed a larger increase in sadness for people higher in rumination 
+```{r s1hypothesisplot}
 
-summary(as.glht(pairs(maineffecttime), test=adjusted("free")))
+library(sjPlot)
+
+sjPlot::plot_model(s1glmm,
+                   type = "int",
+                   mdrt.values = "meansd",
+                   ci.level = NULL,
+                   legend.title = "Rumination\n (- 1SD, Mean, + 1 SD)",
+                   show.values = TRUE,
+                   show.p = TRUE,
+                   order.terms = c(1,2,3)
+                   ) + 
+  ggplot2::theme(title = element_blank())+ 
+  ggpubr::theme_pubr(legend = "right")
 ```
 
-We can also see that over all TImepoints and conditions people high in rumination have higher sadness scores 
-```{r ANOVAs1RumSplitMainEffect, message=FALSE}
+The simple effects showed that sadness increased for all levels of rumunation 
+```{r simpleslopes}
 
-maineffectrum <- emmeans(ANOVAs1, ~ RumSplit)
+minusrum <- mean(s1$rumination, na.rm = TRUE)-sd(s1$rumination, na.rm = TRUE)
+plusrum <- mean(s1$rumination, na.rm = TRUE)+sd(s1$rumination, na.rm = TRUE)
+meanrum <- mean(s1$rumination, na.rm = TRUE)
 
-summary(as.glht(pairs(maineffectrum)), test = adjusted("free"))
 
+s1SimpleList <- list(rumination = c(minusrum, plusrum, meanrum), Timepoint = c("PostInduction", "PostListening"))
 
-afex::afex_plot(ANOVAs1,
-                x = "RumSplit",
-                data_plot = TRUE,
-                error = "between",
-                plot_plot = TRUE,
-                error_ci = TRUE)+
-  ggplot2::theme_classic()
+s1SimpleSlopes <- emmeans::emmeans(s1glmm, ~rumination*Timepoint, at = s1SimpleList)
+
+emmeans::contrast(s1SimpleSlopes, "pairwise", by = "rumination")
 ```
 
-
-Following up the interaction we can see that it is qualified by each group returning to baseline levels of sadness excepted for the sad music group
-```{r ANOVAs1interaction, message=FALSE}
-timepointsimpleeffect <- emmeans(ANOVAs1, ~ Timepoint|Condition)
-
-summary(as.glht(pairs(timepointsimpleeffect)), test = adjusted("free"))
-
-conditionsimpleeffect<- (emmeans(ANOVAs1, ~ Condition|Timepoint))
-
-summary(as.glht(pairs(conditionsimpleeffect)))
-```
-
-```{r ANOVAs1plot, message=FALSE}
-afex::afex_plot(ANOVAs1,
-x = "Timepoint",
-trace = "Condition", 
-mapping = "color",
-data_plot = FALSE) +
-ggplot2::theme_classic() + 
-ggplot2::scale_x_discrete(labels = c("Baselie", "Post Induction", "Post Listening")) +
-ggplot2::ylim(0, 15) +
-ggplot2::theme(legend.title = element_blank())
-
-```
-
-
-```{r RumCor, message=FALSE}
-s1dat %>% 
-dplyr::select("Rumination", "MARS_Neg", "MARS_Pos") %>% 
-apaTables::apa.cor.table(filename = "docs/s1MARScor.txt",
-landscape = FALSE)
-```

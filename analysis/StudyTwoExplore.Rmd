@@ -1,135 +1,101 @@
 ---
-title: "Study Two: Exploratorty Data Analysis (Timepoints)"
+title: "Study Two: Exploratory Data Analysis"
 author: "Joel Larwood"
-date: "2019-09-23"
-output: workflowr::wflow_html
+date: "2019-09-25"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
 editor_options:
   chunk_output_type: console
 ---
 
-# An exploratory saturdated model
+```{r echo = FALSE}
+knitr::opts_chunk$set(autodep = TRUE, message = FALSE, warnings = FALSE)
+```
 
-In the dataset we also collected data about the BRECVEMA mechanism occuring during listening, demogrpahics and how likely they were to use the song for regulation. 
+```{r loadexploredata, message = FALSE}
 
-```{r loadS2data, message = FALSE}
 library(tidyverse)
-s2longExplore <- read_csv("data/s2long.csv") %>% 
-  dplyr::select(id, 
-                Sadness,
-                Timepoint, 
-                rumination, 
-                Baseline,
-                age,
-                gender, 
-                contains("mec"), 
-                musebaq, 
-                reg.use_1, 
-                valence, 
-                energy) %>% 
-  drop_na()  %>% 
-   mutate_at(.vars = vars(mecscale_1:mecscale_8), 
-              factor) %>% 
-   mutate_at(.vars = vars (mecscale_1:mecscale_8),
-             .funs = forcats::fct_recode, 
-             "No" = "2", 
-             "Yes" = "1") %>% 
-    dplyr::rename(brainstem = mecscale_1,
-                        Entrainment = mecscale_2,
-                        Memory = mecscale_3, 
-                        Conditioning = mecscale_4,
-                        Imagery = mecscale_5, 
-                        Contagion = mecscale_6, 
-                        Expectancy = mecscale_7,
-                        Appraisal = mecscale_8)
+
+s2explore <- read_csv("data/s2Processed.csv") %>% 
+  mutate(rumsplit = if_else(.$rumination < median(rumination, na.rm = TRUE), 
+                            "Low", "High")) %>% 
+  rowid_to_column("id") %>% 
+  add_column(JL_Mech = NA, DV_Mech = NA) %>% 
+  select(id, track_name, artist_name, track_uri, SadSong, SadSongWhy, contains("MECH"), valence, energy, rumination:depression, rumsplit)
+
+write_csv(s2explore, "data/s2MechCoding.csv")
 ```
 
-So I want to build some models with control mechanisms coming in at each point 
-
-Model 1 is the timepoint only model 
-```{r timepointonly, message=FALSE}
-library(sjPlot)
-timepoint <- lmerTest::lmer(Sadness~1 + Timepoint + (1 |id), data = s2longExplore)
-tab_model(timepoint)
-
-```
-
-Model 2 I add demographics 
+# To begin with I'm interested in the correaltions between the variables
 
 ```{r message=FALSE}
-demo <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + (1 |id), data = s2longExplore)
-tab_model(demo)
+library(corrplot)
+
+corrplot::corrplot(corr = cor(dplyr::select(s2explore, 
+                                            rumination, strategies, ders, mesi, depression, energy, valence), use = "pairwise.complete.obs"), 
+                   method = "number",
+                   type = "lower", 
+                   p.mat = cor.mtest((dplyr::select(s2explore, 
+                                            rumination, strategies, ders, mesi, depression, energy, valence)))$p,
+                   pch.cex = .3, 
+                   tl.srt = 0)
+
 ```
-Model 3 I add spotify data 
- 
+
+
+From this we can see that trait use of music is not related to any variables in the data frame. Not is the charactertsitic of the song. 
+
+# Here is what people nominated as listening to when they are sad
 ```{r message=FALSE}
-spotifyvar <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy +  (1 |id), data = s2longExplore)
-tab_model(spotifyvar)
+ggpubr::ggscatterhist(s2explore,
+                      x = "valence",
+                      y = "energy",
+                      palette = "simpsons",
+                      color = "rumsplit",
+                      fill = "rumsplit",
+                      size = 3,
+                      legend = "right",
+                      xlab = "Spotify valence metric",
+                      ylab = "Spotify energy metric",
+                      margin.params = list(fill = "rumsplit"),
+                      legend.title = "Rumination \nScore",
+                      xlim = c(0, 1),
+                      ylim = c(0, 1),
+                      caption = "Note: Margins represent desnity plots of axis", 
+                      title = "Valence and Energy metrics of identified songs",
+                      subtitle = "A song you listen to when you are sad", 
+                      margin.plot.size = 1
+)
 ```
 
-model 4 I add the brecvema mechanisms 
-```{r message=FALSE}
-mecscale <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal + (1 |id), data = s2longExplore)
+here we can see there is lots of variability in what people choose. The qualtiative repsonses may provide extra information here allowing for a clustering analysis. We could also look at adding lyrics as additional information. 
 
-tab_model(mecscale)
+# Cluster analysis 
+
+```{r}
+
+library(factoextra)
+library(NbClust)
+
+s2ClusterVars <- s2explore %>% select(valence, energy, id) %>% drop_na()
+factoextra::fviz_nbclust(NbClust(select(s2ClusterVars, -id), distance = "euclidean", method = "kmeans")) + theme_minimal() + ggtitle("NbClust's optimal number of clusters")
+
+
+s2clusters <- s2ClusterVars %>% 
+  mutate(KmeansCluster = fct_recode(factor(kmeans(select(s2ClusterVars, -id), 2)$cluster)))
+
+ggpubr::ggscatter(s2clusters, 
+                  x = "valence", 
+                  y = "energy", 
+                  color = "KmeansCluster",
+                  star.plot = TRUE,
+                  palette = "simpsons",
+                  legend = "right",
+                  xlab = "Spotify valence metric",
+                  ylab = "Spotify energy metric") +
+  scale_y_continuous(breaks = c(0, .25, .5, .75, 1)) +
+  scale_x_continuous(breaks =c(0, .25, .5, .75, 1)
+                     )
 ```
 
-model 5 I add how likely they are to listen to the song when they are sad  
-```{r message=FALSE}
-likelyuse <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal + reg.use_1 + (1 |id), data = s2longExplore)
-
-tab_model (likelyuse)
-```
-model 6 I add the MUSEBAQ 
-
-```{r message=FALSE}
-musebaqglmm <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal+ reg.use_1 + musebaq + (1 |id), data = s2longExplore)
-
-tab_model(musebaqglmm)
-```
-
-model 7 I add rumiation 
-```{r message=FALSE}
-ruminationmain <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal+ reg.use_1 + musebaq + rumination +  (1 |id), data = s2longExplore)
-
-tab_model(ruminationmain)
-```
-
-Finally I add the interaction term 
-```{r message=FALSE}
-ruminationint <- lmerTest::lmer(Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal + reg.use_1 + musebaq +rumination + rumination:Timepoint + (1 |id), data = s2longExplore)
-
-tab_model(ruminationint)
-```
-## Model comparisons 
-
-Now I want to compare these models 
-```{r message=FALSE}
-knitr::kable(anova(timepoint, demo, spotifyvar, mecscale, likelyuse, musebaqglmm, ruminationmain, ruminationint))
-```
-
-# Automatic Model 
-
-Now I am going to do an exploratory analysis to find the best fitting model
-
-```{r message = FALSE}
-library(buildmer)
-saturatedformula <- Sadness~1 + Timepoint + age + gender + valence + energy + brainstem + Entrainment + Memory + Conditioning + Imagery + Contagion + Expectancy + Appraisal + reg.use_1 + musebaq +rumination + rumination:Timepoint + (1 |id)
-
-buildmer::buildmer(formula = saturatedformula, data = s2longExplore, crit = "AIC")
-
-```
-
-
-the best model was identifed as 
-
-
-```{r, message=FALSE}
-selected <- lmerTest::lmer(Sadness ~ 1 + rumination + reg.use_1 + brainstem + Appraisal + Timepoint + musebaq + rumination:Timepoint + (1 | id), data = s2longExplore)
-```
-
-It returns this 
-```{r, message=FALSE}
-tab_model(selected)
-
-plot_model(selected)
-```
