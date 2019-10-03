@@ -16,7 +16,7 @@ knitr::opts_chunk$set(autodep = TRUE, message = FALSE, warnings = FALSE)
 ```{r loadexploredata, message = FALSE}
 
 library(tidyverse)
-
+library(papaja)
 s2explore <- read_csv("data/s2Processed.csv") %>% 
   mutate(rumsplit = if_else(.$rumination < median(rumination, na.rm = TRUE), 
                             "Low", "High")) %>% 
@@ -42,9 +42,9 @@ corrplot::corrplot(corr = cor(dplyr::select(s2explore,
                    tl.srt = 0)
 ```
 
-```{r s2apacorrealtions, echo = FALSE}
+```{r s2apacorrealtions, echo = FALSE, eval = FALSE}
 
-apa::cor_apa(cor.test(s2explore$rumination, s2explore$mesi), format = "rmarkdown")
+cortest <- print(apa::cor_apa(cor.test(s2explore$rumination, s2explore$mesi), format = "rmarkdown"))
 apa::cor_apa(cor.test(s2explore$ders, s2explore$mesi), "rmarkdown")
 apa::cor_apa(cor.test(s2explore$rumination, s2explore$valence), "rmarkdown")
 apa::cor_apa(cor.test(s2explore$rumination, s2explore$energy), "rmarkdown")
@@ -52,24 +52,24 @@ apa::cor_apa(cor.test(s2explore$mesi, s2explore$valence), "rmarkdown")
 apa::cor_apa(cor.test(s2explore$mesi, s2explore$energy), "rmarkdown")
 ```
 
-There was no correlation between rumination and music use for emotion regulation *r*(164) = .11, *p* = .162
+There was no correlation between rumination and music use for emotion regulation `r apa_print(cor.test(~rumination + mesi, data = s2explore))$full_result`
 
 
-There was no correlation between music for emotion regulation and difficulties in regulating emotions *r*(164) = .06, *p* = .419
+There was no correlation between music for emotion regulation and difficulties in regulating emotions, `r apa_print(cor.test(~ders + mesi, data = s2explore))$full_result`
 
 
-There was no correlation between rumination and expressed song valence, *r*(121) = .04, *p* = .671
+There was no correlation between rumination and expressed song valence,  `r apa_print(cor.test(~rumination + valence, data = s2explore))$full_result`
 
 
 
-There was no correlation between rumination and expressed song energy *r*(121) = -.08, *p* = .381
+There was no correlation between rumination and expressed song energy `r apa_print(cor.test(~rumination + energy, data = s2explore))$full_result`
 
 
-There was no correlation between music use for emotion regulation and expressed song valence, *r*(121) = .00, *p* = .997
+There was no correlation between music use for emotion regulation and expressed song valence, `r apa_print(cor.test(~mesi + valence, data = s2explore))$full_result`
  
 
 
-There was no correlation between music use for emotion regulation and expressed song energy *r*(121) = .01, *p* = .930
+There was no correlation between music use for emotion regulation and expressed song energy `r apa_print(cor.test(~mesi + energy, data = s2explore))$full_result`
 
 
 From this we can see that trait use of music is not related to any variables in the data frame. Not is the charactertsitic of the song. 
@@ -132,18 +132,18 @@ ggpubr::ggscatter(s2clusters,
 
 # Comparing rumination and music for emotion regulation across clusters 
 
-```{r apafomratttest, echo = FALSE}
-apa::t_apa(t.test(s2clusters$rumination~s2clusters$KmeansCluster, var.equal = TRUE), format = "rmarkdown")
+```{r apafomratttest, echo = FALSE, eval = FALSE}
+ruminationcluster <- (t.test(s2clusters$rumination~s2clusters$KmeansCluster, var.equal = TRUE))
 apa::t_apa(t.test(s2clusters$mesi~s2clusters$KmeansCluster, var.equal = TRUE), format = "rmarkdown")
 ```
 
-The was no difference in rumination scores across clusters *t*(121) = 0.86, *p* = .390, *d* = 0.16
+The was no difference in rumination scores across clusters, `r apa_print((t.test(s2clusters$rumination~s2clusters$KmeansCluster, var.equal = TRUE)))$full_result` 
 
-Nor was there anyd difference in music for emotion regulation across scores *t*(121) = 0.25, *p* = .801, *d* = 0.05
+Nor was there anyd difference in music for emotion regulation across scores r `r apa_print((t.test(s2clusters$mesi~s2clusters$KmeansCluster, var.equal = TRUE)))$full_result`
 
-#Qualitative coding 
+# Qualitative coding 
 
-see [here](s2QualitativeCoiding.html) for coding description
+see [here](StudyTwoQualCoding.html) for coding description
 ```{r}
 
 ```
