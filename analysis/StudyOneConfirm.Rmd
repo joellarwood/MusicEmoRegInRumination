@@ -11,10 +11,9 @@ editor_options:
 
 # Pre-registration 
 
-
 ```{r processdata, message = FALSE, results = "hide", warning = FALSE}
 library(tidyverse)
-library(sjlabelled)
+library(papaja)
 
 s1raw <- read_csv("data/s1.csv")
 
@@ -91,12 +90,8 @@ s1Manipulation <- t.test(s1$PostInduction, s1$Baseline, paired = TRUE)
 apa::t_apa(s1Manipulation)
 apa::t_apa(s1Manipulation, format = "rmarkdown")
 
-mean(s1$Baseline)
-sd(s1$Baseline)
-mean(s1$PostInduction)
-sd(s1$PostInduction)
 ```
-The manipulation/induction of sadness was succesful *t*(381) = 14.01, *p* < .001, *d* = 0.72, with scores rising from baseline (*M* = `r mean(s1$Baseline)`, *SD* = `r sd(s1$Baseline)`) to Post induction (*M* = `r mean(s1$PostInduction)`, *SD* = `r sd(s1$PostInduction)`)
+The manipulation/induction of sadness was succesful, `r apa_print(t.test(s1$PostInduction, s1$Baseline, paired = TRUE))$full_result *t*(381)` = 14.01, *p* < .001, *d* = 0.72, with scores rising from baseline (*M* `r printnum(mean(s1$Baseline))`, *SD* = `r printnum(sd(s1$Baseline))` to Post induction (*M* = `r printnum(mean(s1$PostInduction))`, *SD* = `r printnum(sd(s1$PostInduction))`)
 
 # Hypothesis Test 
 
@@ -116,10 +111,18 @@ write_csv(s1long, "data/s1long.csv")
 library(lmerTest)
 library(sjPlot)
 
-s1glmm <- lmerTest::lmer(Sadness~1 + Timepoint + rumination + Timepoint*rumination + (1 |id), data = s1long)
+s1glmm <- lmerTest::lmer(Sadness~1 + Timepoint + rumination + Timepoint:rumination + (1 |id), data = s1long)
 
+s1ancova <- afex::aov_ez(id = "id",
+                         dv = "Sadness", 
+                         within = "Timepoint", 
+                         covariates = "rumination", 
+                         data = s1long)
 tab_model(s1glmm)
 ```
+
+Here a main effect of timepoint was found `r apa_print(s1ancova)$full_result$Timepoint ` withs scores increasing from post induction (*M* `r printnum(mean(s1$PostInduction))`, *SD* = `r printnum(sd(s1$PostInduction))`) to post listening (*M* `r printnum(mean(s1$PostListening))`, *SD* = `r printnum(sd(s1$PostListening))`). This increase was qualified by an interaction with rumination, `r apa_print(s1ancova)$full_result$Timepoint:rumination`, such that greater increases in sadness were seen in participants higher in rumination. 
+
 
 This interaction showed a larger increase in sadness for people higher in rumination 
 ```{r s1hypothesisplot}
