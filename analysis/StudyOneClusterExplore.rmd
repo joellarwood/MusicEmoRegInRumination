@@ -1,0 +1,246 @@
+---
+title: "StudtOneClusterExplore"
+author: "Joel Larwood"
+date: "2019-10-04"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Import cluter variables
+
+```{r s1MusicClusterExploreLoadIn}
+library(tidyverse) 
+s1clusters <- read_csv("data/s1clusters.csv") %>% 
+  mutate(spotifycluster = if_else(KmeansCluster == 1, 
+                                  "Postive Valence/High Energy", 
+                                    if_else(KmeansCluster == 2, 
+                                            "Negative Valence/Low Energy", 
+                                            "Negative Valence/High Energy")), 
+         spotifycluster = as_factor(spotifycluster))
+
+```
+
+# Plot clusters 
+```{r plotcluster}
+library(ggpubr)
+ggpubr::ggscatter(s1clusters, 
+                  x = "valence", 
+                  y = "energy", 
+                  color = "spotifycluster",
+                  star.plot = TRUE,
+                  palette = "simpsons",
+                  legend = "right",
+                  legend.title = "Cluster",
+                  xlab = "Spotify valence metric",
+                  ylab = "Spotify energy metric", 
+                  ggtheme = theme_pubr(base_family = "Times New Roman")) +
+  scale_y_continuous(breaks = c(0, .25, .5, .75, 1)) +
+  scale_x_continuous(breaks =c(0, .25, .5, .75, 1)
+                     )
+
+```
+
+# Describe clusters 
+
+## Number in cluster 
+```{r CompareS1ClusterN}
+library(RVAideMemoire)
+
+s1clusterN <- count(s1clusters, spotifycluster)  
+chisq.test(s1clusterN$n)
+chisq.multcomp(s1clusterN$n)
+
+ggpubr::ggbarplot(data = s1clusterN, 
+                  x = "spotifycluster",
+                  color = "spotifycluster", 
+                  fill = "spotifycluster", 
+                  legend = "none",
+                  y = "n", 
+                  palette = "simpsons", 
+                  ylab = "Participants per cluster", 
+                  xlab = "Spotify cluster") 
+                     
+```
+
+
+```{r clustercomparison}
+
+MechPropSummary <- s1clusters %>% 
+    drop_na(spotifycluster) %>% 
+  group_by(spotifycluster) %>% 
+  summarize(Brainstem=sum(brainstem=="Yes", na.rm = TRUE)/n(),
+            Entrainment = sum(Entrainment=="Yes", na.rm = TRUE)/n(),
+            Memory = sum(Memory=="Yes", na.rm = TRUE)/n(),
+            Conditioning = sum(Conditioning == "Yes", na.rm = TRUE)/n(),
+            Imagery = sum(Imagery == "Yes", na.rm = TRUE)/n(),
+            Contagion = sum(Contagion == "Yes", na.rm = TRUE)/n(),
+            Expectancy = sum(Expectancy == "Yes", na.rm = TRUE)/n(),
+            Appraisal = sum(Appraisal == "Yes", na.rm = TRUE)/n() 
+  ) 
+
+SpreadContingencys1 <- MechPropSummary %>% 
+  mutate(cluster = spotifycluster) %>% 
+  gather(key = spotifycluster, 
+         value = proportion, 
+        Brainstem:Appraisal) %>% 
+  mutate(Mechanism = spotifycluster)
+library(tableone)
+
+tableone::CreateCatTable(vars = c("brainstem"  ,  
+                                  "Entrainment"  ,
+                                  "Memory"     ,   
+                                  "Conditioning"  ,
+                                  "Imagery"  ,
+                                  "Contagion"    , 
+                                  "Expectancy"   , 
+                                  "Appraisal"), 
+                         strata = "KmeansCluster", 
+                         data = s1clusters)
+
+
+fisher.multcomp(xtabs(~Entrainment + KmeansCluster, data = s1clusters))$p.value
+fisher.multcomp(xtabs(~Memory + KmeansCluster, data = s1clusters))$p.value
+fisher.multcomp(xtabs(~Conditioning + KmeansCluster, data = s1clusters))$p.value
+fisher.multcomp(xtabs(~Contagion + KmeansCluster, data = s1clusters))$p.value
+fisher.multcomp(xtabs(~Appraisal + KmeansCluster, data = s1clusters))$p.value
+
+ggpubr::ggbarplot(data = SpreadContingencys1, 
+                  x = "Mechanism", 
+                  y = "proportion", 
+                  color = "cluster", 
+                  fill = "cluster", 
+                  position = position_dodge(0.9), 
+                  palette = "simpsons",
+                  legend = "top", 
+                  xtickslab.rt = 45, 
+                  ggtheme = theme_pubr(base_family = "Times New Roman")) +
+ggplot2::scale_y_continuous(breaks=c(0, .2,.4,.6,.8,1)) + 
+  ggplot2::ylim(0, 1) +
+  ggplot2::ylab("Proportion of yes response")
+
+```
+
+
+## Rumination
+```{r S1ClusterCompareRum}
+ggpubr::ggviolin(drop_na(s1clusters), 
+                  x = "spotifycluster",
+                  y = "rumination", 
+                  fill ="spotifycluster",
+                  palette = "simpsons",
+                  legend = "none", 
+                 add = "boxplot", 
+                  xtickslab.rt = 35, 
+                 ) + 
+  ggplot2::scale_y_continuous(breaks = c(1,2,3,4,5))
+
+library(afex)
+apa::anova_apa(afex::aov_ez(id = "id", 
+             dv = "rumination", 
+             data = s1clusters, 
+             between = "spotifycluster", 
+             #covariate = "musebaq", 
+             type = 3), 
+             es = "ges"
+             )
+
+```
+
+##MUSEBAQ 
+
+```{r S1ClusterCompareMuse}
+ggpubr::ggviolin(drop_na(s1clusters), 
+                  x = "spotifycluster",
+                  y = "musebaq", 
+                  fill ="spotifycluster",
+                  palette = "simpsons",
+                  legend = "none", 
+                 add = "boxplot", 
+                 xtickslab.rt = 35 
+                 ) 
+
+apa::anova_apa(afex::aov_ez(id = "id", 
+             dv = "musebaq", 
+             data = s1clusters, 
+             between = "spotifycluster", 
+             type = 3), 
+             es = "ges"
+             )
+```
+
+##Likely regulation use 
+```{r S1ClusterCompareUse}
+ggpubr::ggviolin(drop_na(s1clusters), 
+                  x = "spotifycluster",
+                  y = "reg.use_1", 
+                  fill ="spotifycluster",
+                  palette = "simpsons",
+                  legend = "none", 
+                 add = "boxplot",            
+                 xtickslab.rt = 35, 
+                 ) 
+
+kruskal.test(reg.use_1 ~ spotifycluster, data = s1clusters)
+
+```
+
+## Clusters and Sadness changes 
+How do the three different clusters predict sadness 
+
+```{r S1ClustetrTimepointModel}
+s1ClusterLong <- s1clusters %>% 
+  gather(key = Timepoint, 
+         value = Sadness, 
+         PostInduction,PostListening)
+
+library(lmerTest)
+library(sjPlot)
+
+s1ClusterSadness <- lmerTest::lmer(Sadness~1+Timepoint*spotifycluster + (1 |id), data = s1ClusterLong)
+tab_model(s1ClusterSadness)
+anova(s1ClusterSadness)
+plot_model(s1ClusterSadness, 
+           type = "int")
+
+emmeans::contrast(emmeans::emmeans(s1ClusterSadness, ~Timepoint*spotifycluster), "pairwise", by = "spotifycluster")
+```
+
+# Looking at lyric information 
+
+## Data organisation
+I need to create a tibble with unique artist and song names. 
+Some songs appear multiple times so I want to make sure I only have each song once for when I `group_by` for sentimment later
+```{r S1lyricPullPrep}
+library(genius)
+
+TrackTibbleS1 <- s1clusters %>% 
+  distinct(track_uri, .keep_all = TRUE) %>% 
+  select(track_name, artist_name, spotifycluster, track_uri)
+
+```
+
+This script pulls the lyrics on a ine by line basis for all songs that can be found on [Genius](http://genius.com)
+```{r PullS1lyrics, cahce = TRUE}
+S1Lyrics <- TrackTibbleS1 %>% 
+  genius::add_genius(artist = artist_name, 
+                     title = track_name, 
+                     type = "lyrics") %>% 
+  unite(track_artist, 
+        track_name, artist_name, 
+        sep = "_", 
+        remove = FALSE) %>% 
+  drop_na(lyric)
+
+dplyr::n_distinct(S1Lyrics$track_artist)
+```
+
+The script found `r print(dplyr::n_distinct(S1Lyrics$track_artist))` tracks out of the `r print (dplyr::n_distinct(TrackTibbleS1$track_uri))`
+
+Now that I have the lyrics I need to put them into a [tidytext](https://www.tidytextmining.com/tidytext.html) fromat where there is a single word for every row. From this I can group by the song and calculate a sentiment. 
+```{r UnnestS1Lyrics}
+library(tidytext)
+S1LyricsUnnest <- S1Lyric %>% 
+  tidytext::unnest_tokens(word, lyric)
+```
+

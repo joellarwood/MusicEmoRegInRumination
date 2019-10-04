@@ -13,6 +13,7 @@ This site provides the script and some insight into my thoughts as writing/seein
 ### [Confirmatory Tests](StudyOneConfirm.html)
 ### [Exploratory Tests of Time Effect](StudyOneModelExplore.html)
 ### [Exploratory Test of Music](StudyOneMusicExplore.html)
+### [Exploratory Cluster Analysis of Music and Lyrics](StudyOneClusterExplore.html)
 
 ## Study Two 
 ### [Confirmatory Tests](StudyTwoConfirm.html)
