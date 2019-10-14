@@ -8,6 +8,10 @@ editor_options:
 ---
 
 ## Import cluter variables
+```{r echo = FALSE}
+knitr::opts_chunk$set(autodep = TRUE, warnings = FALSE, message = FALSE)
+```
+
 
 ```{r s1MusicClusterExploreLoadIn}
 library(tidyverse) 
@@ -59,7 +63,10 @@ ggpubr::ggbarplot(data = s1clusterN,
                   y = "n", 
                   palette = "simpsons", 
                   ylab = "Participants per cluster", 
-                  xlab = "Spotify cluster") 
+                  xlab = "Spotify cluster", 
+                  xtickslab.rt = 45, 
+                  ggtheme = theme_pubr(base_family = "Times New Roman")
+) 
                      
 ```
 
@@ -221,7 +228,7 @@ TrackTibbleS1 <- s1clusters %>%
 ```
 
 This script pulls the lyrics on a ine by line basis for all songs that can be found on [Genius](http://genius.com)
-```{r PullS1lyrics, cahce = TRUE}
+```{r PullS1lyrics, cache = TRUE, warnings = FALSE}
 S1Lyrics <- TrackTibbleS1 %>% 
   genius::add_genius(artist = artist_name, 
                      title = track_name, 
@@ -232,15 +239,69 @@ S1Lyrics <- TrackTibbleS1 %>%
         remove = FALSE) %>% 
   drop_na(lyric)
 
-dplyr::n_distinct(S1Lyrics$track_artist)
+songsreturned <- dplyr::n_distinct(S1Lyrics$track_artist)
+songsinput <- dplyr::n_distinct(TrackTibbleS1$track_uri)
+
+
+
 ```
 
-The script found `r print(dplyr::n_distinct(S1Lyrics$track_artist))` tracks out of the `r print (dplyr::n_distinct(TrackTibbleS1$track_uri))`
+The script found `r songsreturned` tracks out of the `r songsinput`
 
 Now that I have the lyrics I need to put them into a [tidytext](https://www.tidytextmining.com/tidytext.html) fromat where there is a single word for every row. From this I can group by the song and calculate a sentiment. 
-```{r UnnestS1Lyrics}
+```{r S1sentiment}
 library(tidytext)
-S1LyricsUnnest <- S1Lyric %>% 
-  tidytext::unnest_tokens(word, lyric)
+library(textdata)
+data(stop_words)
+get_sentiments("afinn")
+
+S1LyricsUnnest <- S1Lyrics %>% 
+  tidytext::unnest_tokens(word, lyric) %>% 
+  anti_join(stop_words) 
+
+afinnS1 <- S1LyricsUnnest %>% 
+  inner_join(get_sentiments("afinn")) %>% 
+  group_by(track_artist) %>% 
+  summarise(sentiment = mean(value)) %>% 
+  mutate(method = "AFINN")
+
+
+s1clustersLyrics <- s1clusters %>%
+  unite(track_artist, 
+        track_name, artist_name, 
+        sep = "_", 
+        remove = FALSE) %>%  
+  full_join(afinnS1, by = "track_artist") %>%  
+  select(track_uri, 
+         track_preview_url, 
+         track_name, 
+         artist_name,
+         valence, 
+         energy,
+         spotifycluster,
+         sentiment, 
+         method, 
+         brainstem:LikelyUse) %>% 
+  mutate(NormSent = (sentiment-min(sentiment, na.rm = TRUE))/(max(sentiment, na.rm = TRUE)-min(sentiment, na.rm = TRUE)))
+
+ggpubr::gghistogram(s1clustersLyrics, 
+                    x ="NormSent", 
+                    facet = "spotifycluster",
+                    color = "spotifycluster", 
+                    fill = "spotifycluster", 
+                    palette = "simpsons",
+                    xlab = "Normalised sentiment using Afinn lexicon", 
+                    bins = 50, 
+                    xtickslab.rt = 30,
+                    legend = "hide",
+                    rug = T) 
+```
+
+```{r s1sentimentcluster}
+library(factoextra)
+library(NbClust)
+factoextra::fviz_nbclust(NbClust(select(s1clustersLyrics, valence, energy, sentiment), distance = "euclidean", method = "kmeans")) + theme_minimal() + ggtitle("NbClust's optimal number of clusters")
+
+
 ```
 

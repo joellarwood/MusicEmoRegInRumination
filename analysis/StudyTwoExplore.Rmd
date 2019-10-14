@@ -54,23 +54,15 @@ apa::cor_apa(cor.test(s2explore$mesi, s2explore$energy), "rmarkdown")
 
 There was no correlation between rumination and music use for emotion regulation `r apa_print(cor.test(~rumination + mesi, data = s2explore))$full_result`
 
-
 There was no correlation between music for emotion regulation and difficulties in regulating emotions, `r apa_print(cor.test(~ders + mesi, data = s2explore))$full_result`
-
 
 There was no correlation between rumination and expressed song valence,  `r apa_print(cor.test(~rumination + valence, data = s2explore))$full_result`
 
-
-
 There was no correlation between rumination and expressed song energy `r apa_print(cor.test(~rumination + energy, data = s2explore))$full_result`
-
 
 There was no correlation between music use for emotion regulation and expressed song valence, `r apa_print(cor.test(~mesi + valence, data = s2explore))$full_result`
  
-
-
 There was no correlation between music use for emotion regulation and expressed song energy `r apa_print(cor.test(~mesi + energy, data = s2explore))$full_result`
-
 
 From this we can see that trait use of music is not related to any variables in the data frame. Not is the charactertsitic of the song. 
 
@@ -109,12 +101,17 @@ library(NbClust)
 
 s2ClusterVars <- s2explore %>% select(valence, energy, id) %>% drop_na()
 factoextra::fviz_nbclust(NbClust(select(s2ClusterVars, -id), distance = "euclidean", method = "kmeans")) + theme_minimal() + ggtitle("NbClust's optimal number of clusters")
+```
+Here a 2 cluster solution is preferred
 
-
+```{r}
 s2clusters <- s2ClusterVars %>% 
   mutate(KmeansCluster = fct_recode(factor(kmeans(select(s2ClusterVars, -id), 2)$cluster)))
 
 s2clusters <- full_join(select(s2explore, -energy, -valence), s2clusters, by = "id")
+
+
+write_csv("data/s2clusters")
 
 ggpubr::ggscatter(s2clusters, 
                   x = "valence", 
@@ -128,6 +125,8 @@ ggpubr::ggscatter(s2clusters,
   scale_y_continuous(breaks = c(0, .25, .5, .75, 1)) +
   scale_x_continuous(breaks =c(0, .25, .5, .75, 1)
                      )
+
+
 ```
 
 # Comparing rumination and music for emotion regulation across clusters 
