@@ -90,7 +90,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -420,10 +419,10 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-10-06
+<strong>Last updated:</strong> 2019-10-14
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 2
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>MusicEmoRegInRumination/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -468,7 +467,7 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 </div>
 <div id="strongSeedstrongcodesetseed20190920code" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20190920)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20190920)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
 </div>
 </div>
 </div>
@@ -487,18 +486,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongdetected"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>Cache:</strong> detected </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
-<div id="strongCachestrongdetected" class="panel-collapse collapse">
+<div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-The following chunks had caches available:
-<ul>
-<li>
-PullS1lyrics
-</li>
-</ul>
-<p>To ensure reproducibility of the results, delete the cache directory <code>StudyOneClusterExplore_cache</code> and re-run the analysis. To have workflowr automatically delete the cache directory prior to building the file, set <code>delete_cache = TRUE</code> when running <code>wflow_build()</code> or <code>wflow_publish()</code>.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
 </div>
 </div>
 </div>
@@ -517,27 +510,24 @@ PullS1lyrics
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong397c571"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 397c571 </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtreeb23a8c3c3474aa6bbd3d99adc62196ff5c1f320ftargetblankb23a8c3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/joellarwood/MusicEmoRegInRumination/tree/b23a8c3c3474aa6bbd3d99adc62196ff5c1f320f" target="_blank">b23a8c3</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong397c571" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjoellarwoodMusicEmoRegInRuminationtreeb23a8c3c3474aa6bbd3d99adc62196ff5c1f320ftargetblankb23a8c3a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/StudyOneClusterExplore_cache/
+    Ignored:    analysis/StudyOneModelExplore_cache/
     Ignored:    analysis/figure/
-
-Untracked files:
-    Untracked:  docs/figure/StudyOneClusterExplore.rmd/
 
 Unstaged changes:
     Modified:   analysis/StudyOneClusterExplore.rmd
-    Deleted:    analysis/StudyOneLyricsCluster.rmd
 
 </code></pre>
 <p>
@@ -581,7 +571,41 @@ Message
 rmd
 </td>
 <td>
-397c571
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/b23a8c3c3474aa6bbd3d99adc62196ff5c1f320f/analysis/StudyOneClusterExplore.rmd" target="_blank">b23a8c3</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-14
+</td>
+<td>
+lyric pull
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/joellarwood/MusicEmoRegInRumination/b23a8c3c3474aa6bbd3d99adc62196ff5c1f320f/docs/StudyOneClusterExplore.html" target="_blank">b23a8c3</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-14
+</td>
+<td>
+lyric pull
+</td>
+</tr>
+<tr>
+<td>
+rmd
+</td>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/397c5716a3c0a8c6098a840f43b5044786600314/analysis/StudyOneClusterExplore.rmd" target="_blank">397c571</a>
 </td>
 <td>
 Joel Larwood
@@ -629,6 +653,43 @@ ggpubr::ggscatter(s1clusters,
   scale_x_continuous(breaks =c(0, .25, .5, .75, 1)
                      )</code></pre>
 <p><img src="figure/StudyOneClusterExplore.rmd/plotcluster-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plotcluster-1">
+Past versions of plotcluster-1.png
+</button>
+</p>
+<div id="fig-plotcluster-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/b23a8c3c3474aa6bbd3d99adc62196ff5c1f320f/docs/figure/StudyOneClusterExplore.rmd/plotcluster-1.png" target="_blank">b23a8c3</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="describe-clusters" class="section level1">
 <h1>Describe clusters</h1>
@@ -667,6 +728,43 @@ P value adjustment method: fdr </code></pre>
                   ggtheme = theme_pubr(base_family = &quot;Times New Roman&quot;)
 ) </code></pre>
 <p><img src="figure/StudyOneClusterExplore.rmd/CompareS1ClusterN-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-CompareS1ClusterN-1">
+Past versions of CompareS1ClusterN-1.png
+</button>
+</p>
+<div id="fig-CompareS1ClusterN-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/b23a8c3c3474aa6bbd3d99adc62196ff5c1f320f/docs/figure/StudyOneClusterExplore.rmd/CompareS1ClusterN-1.png" target="_blank">b23a8c3</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>MechPropSummary &lt;- s1clusters %&gt;% 
     drop_na(spotifycluster) %&gt;% 
   group_by(spotifycluster) %&gt;% 
@@ -738,6 +836,43 @@ ggplot2::scale_y_continuous(breaks=c(0, .2,.4,.6,.8,1)) +
   ggplot2::ylim(0, 1) +
   ggplot2::ylab(&quot;Proportion of yes response&quot;)</code></pre>
 <p><img src="figure/StudyOneClusterExplore.rmd/clustercomparison-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustercomparison-1">
+Past versions of clustercomparison-1.png
+</button>
+</p>
+<div id="fig-clustercomparison-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/b23a8c3c3474aa6bbd3d99adc62196ff5c1f320f/docs/figure/StudyOneClusterExplore.rmd/clustercomparison-1.png" target="_blank">b23a8c3</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="rumination" class="section level2">
 <h2>Rumination</h2>
@@ -752,6 +887,43 @@ ggplot2::scale_y_continuous(breaks=c(0, .2,.4,.6,.8,1)) +
                  ) + 
   ggplot2::scale_y_continuous(breaks = c(1,2,3,4,5))</code></pre>
 <p><img src="figure/StudyOneClusterExplore.rmd/S1ClusterCompareRum-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-S1ClusterCompareRum-1">
+Past versions of S1ClusterCompareRum-1.png
+</button>
+</p>
+<div id="fig-S1ClusterCompareRum-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/b23a8c3c3474aa6bbd3d99adc62196ff5c1f320f/docs/figure/StudyOneClusterExplore.rmd/S1ClusterCompareRum-1.png" target="_blank">b23a8c3</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>library(afex)
 apa::anova_apa(afex::aov_ez(id = &quot;id&quot;, 
              dv = &quot;rumination&quot;, 
@@ -778,6 +950,43 @@ Removing those cases from the analysis.</code></pre>
                  xtickslab.rt = 35 
                  ) </code></pre>
 <p><img src="figure/StudyOneClusterExplore.rmd/S1ClusterCompareMuse-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-S1ClusterCompareMuse-1">
+Past versions of S1ClusterCompareMuse-1.png
+</button>
+</p>
+<div id="fig-S1ClusterCompareMuse-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/b23a8c3c3474aa6bbd3d99adc62196ff5c1f320f/docs/figure/StudyOneClusterExplore.rmd/S1ClusterCompareMuse-1.png" target="_blank">b23a8c3</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>apa::anova_apa(afex::aov_ez(id = &quot;id&quot;, 
              dv = &quot;musebaq&quot;, 
              data = s1clusters, 
@@ -799,6 +1008,43 @@ Removing those cases from the analysis.</code></pre>
                  xtickslab.rt = 35, 
                  ) </code></pre>
 <p><img src="figure/StudyOneClusterExplore.rmd/S1ClusterCompareUse-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-S1ClusterCompareUse-1">
+Past versions of S1ClusterCompareUse-1.png
+</button>
+</p>
+<div id="fig-S1ClusterCompareUse-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/b23a8c3c3474aa6bbd3d99adc62196ff5c1f320f/docs/figure/StudyOneClusterExplore.rmd/S1ClusterCompareUse-1.png" target="_blank">b23a8c3</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>kruskal.test(reg.use_1 ~ spotifycluster, data = s1clusters)</code></pre>
 <pre><code>
     Kruskal-Wallis rank sum test
@@ -858,7 +1104,7 @@ p
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
-PostListening
+Post Listening
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
 1.51
@@ -987,6 +1233,43 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 <pre class="r"><code>plot_model(s1ClusterSadness, 
            type = &quot;int&quot;)</code></pre>
 <p><img src="figure/StudyOneClusterExplore.rmd/S1ClustetrTimepointModel-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-S1ClustetrTimepointModel-1">
+Past versions of S1ClustetrTimepointModel-1.png
+</button>
+</p>
+<div id="fig-S1ClustetrTimepointModel-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/joellarwood/MusicEmoRegInRumination/blob/b23a8c3c3474aa6bbd3d99adc62196ff5c1f320f/docs/figure/StudyOneClusterExplore.rmd/S1ClustetrTimepointModel-1.png" target="_blank">b23a8c3</a>
+</td>
+<td>
+Joel Larwood
+</td>
+<td>
+2019-10-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>emmeans::contrast(emmeans::emmeans(s1ClusterSadness, ~Timepoint*spotifycluster), &quot;pairwise&quot;, by = &quot;spotifycluster&quot;)</code></pre>
 <pre><code>spotifycluster = Negative Valence/Low Energy:
  contrast                      estimate    SE  df t.ratio p.value
@@ -1126,13 +1409,154 @@ Warning in request_GET(session, url): Not Found (HTTP 404).
 Warning in request_GET(session, url): Not Found (HTTP 404).
 
 Warning in request_GET(session, url): Not Found (HTTP 404).</code></pre>
+<pre><code>Warning: `cols` is now required.
+Please use `cols = c(lyrics)`</code></pre>
 <pre class="r"><code>songsreturned &lt;- dplyr::n_distinct(S1Lyrics$track_artist)
 songsinput &lt;- dplyr::n_distinct(TrackTibbleS1$track_uri)</code></pre>
 <p>The script found 230 tracks out of the 286</p>
 <p>Now that I have the lyrics I need to put them into a <a href="https://www.tidytextmining.com/tidytext.html">tidytext</a> fromat where there is a single word for every row. From this I can group by the song and calculate a sentiment.</p>
 <pre class="r"><code>library(tidytext)
-S1LyricsUnnest &lt;- S1Lyrics %&gt;% 
-  tidytext::unnest_tokens(word, lyric)</code></pre>
+library(textdata)
+data(stop_words)
+get_sentiments(&quot;afinn&quot;)</code></pre>
+<pre><code># A tibble: 2,477 x 2
+   word       value
+   &lt;chr&gt;      &lt;dbl&gt;
+ 1 abandon       -2
+ 2 abandoned     -2
+ 3 abandons      -2
+ 4 abducted      -2
+ 5 abduction     -2
+ 6 abductions    -2
+ 7 abhor         -3
+ 8 abhorred      -3
+ 9 abhorrent     -3
+10 abhors        -3
+# … with 2,467 more rows</code></pre>
+<pre class="r"><code>S1LyricsUnnest &lt;- S1Lyrics %&gt;% 
+  tidytext::unnest_tokens(word, lyric) %&gt;% 
+  anti_join(stop_words) 
+
+afinnS1 &lt;- S1LyricsUnnest %&gt;% 
+  inner_join(get_sentiments(&quot;afinn&quot;)) %&gt;% 
+  group_by(track_artist) %&gt;% 
+  summarise(sentiment = mean(value)) %&gt;% 
+  mutate(method = &quot;AFINN&quot;)
+
+
+s1clustersLyrics &lt;- s1clusters %&gt;%
+  unite(track_artist, 
+        track_name, artist_name, 
+        sep = &quot;_&quot;, 
+        remove = FALSE) %&gt;%  
+  full_join(afinnS1, by = &quot;track_artist&quot;) %&gt;%  
+  select(track_uri, 
+         track_preview_url, 
+         track_name, 
+         artist_name,
+         valence, 
+         energy,
+         spotifycluster,
+         sentiment, 
+         method, 
+         brainstem:LikelyUse) %&gt;% 
+  mutate(NormSent = (sentiment-min(sentiment, na.rm = TRUE))/(max(sentiment, na.rm = TRUE)-min(sentiment, na.rm = TRUE)))
+
+ggpubr::gghistogram(s1clustersLyrics, 
+                    x =&quot;sentiment&quot;, 
+                    facet = &quot;spotifycluster&quot;,
+                    color = &quot;spotifycluster&quot;, 
+                    fill = &quot;spotifycluster&quot;, 
+                    palette = &quot;simpsons&quot;,
+                    xlab = &quot;Lyric sentiment using Afinn lexicon /n Negative values indicate negative valenced sentiment&quot;, 
+                    bins = 50, 
+                    xtickslab.rt = 30,
+                    legend = &quot;hide&quot;,
+                    rug = T) </code></pre>
+<pre><code>Warning: Removed 76 rows containing non-finite values (stat_bin).</code></pre>
+<p><img src="figure/StudyOneClusterExplore.rmd/S1sentiment-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>S1clustersentimentaov &lt;- afex::aov_ez(id = &quot;track_uri&quot;, 
+             dv = &quot;sentiment&quot;, 
+             data = drop_na(s1clustersLyrics, sentiment), 
+             between = &quot;spotifycluster&quot;, 
+             type = 3)</code></pre>
+<pre><code>Warning: More than one observation per cell, aggregating the data using
+mean (i.e, fun_aggregate = mean)!</code></pre>
+<pre class="r"><code>knitr::kable(nice(S1clustersentimentaov))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Effect</th>
+<th align="left">df</th>
+<th align="left">MSE</th>
+<th align="left">F</th>
+<th align="left">ges</th>
+<th align="left">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">spotifycluster</td>
+<td align="left">2, 224</td>
+<td align="left">1.16</td>
+<td align="left">5.41 **</td>
+<td align="left">.05</td>
+<td align="left">.005</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>knitr::kable(pairs(emmeans::emmeans(S1clustersentimentaov, ~ spotifycluster)), digits = 3)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">contrast</th>
+<th align="right">estimate</th>
+<th align="right">SE</th>
+<th align="right">df</th>
+<th align="right">t.ratio</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Negative Valence/Low Energy - Negative Valence/High Energy</td>
+<td align="right">0.525</td>
+<td align="right">0.163</td>
+<td align="right">224</td>
+<td align="right">3.213</td>
+<td align="right">0.004</td>
+</tr>
+<tr class="even">
+<td align="left">Negative Valence/Low Energy - Postive Valence/High Energy</td>
+<td align="right">0.391</td>
+<td align="right">0.189</td>
+<td align="right">224</td>
+<td align="right">2.072</td>
+<td align="right">0.098</td>
+</tr>
+<tr class="odd">
+<td align="left">Negative Valence/High Energy - Postive Valence/High Energy</td>
+<td align="right">-0.134</td>
+<td align="right">0.186</td>
+<td align="right">224</td>
+<td align="right">-0.716</td>
+<td align="right">0.754</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>stattests1lyrics &lt;- ggpubr::compare_means(formula = sentiment ~ spotifycluster, 
+                      data = drop_na(s1clustersLyrics, sentiment), 
+                      method = &quot;t.test&quot;)
+ggpubr::ggviolin(drop_na(s1clustersLyrics), 
+                  x = &quot;spotifycluster&quot;,
+                  y = &quot;sentiment&quot;, 
+                  fill =&quot;spotifycluster&quot;,
+                  palette = &quot;simpsons&quot;,
+                  legend = &quot;none&quot;, 
+                 add = &quot;boxplot&quot;,            
+                 xtickslab.rt = 35, 
+                 )</code></pre>
+<p><img src="figure/StudyOneClusterExplore.rmd/S1sentiment-2.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1156,50 +1580,52 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] tidytext_0.2.2       genius_2.2.0         sjPlot_2.7.0        
- [4] lmerTest_3.1-0       afex_0.24-1          lme4_1.1-21         
- [7] Matrix_1.2-17        tableone_0.10.0      RVAideMemoire_0.9-73
-[10] ggpubr_0.2.3         magrittr_1.5         forcats_0.4.0       
-[13] stringr_1.4.0        dplyr_0.8.3          purrr_0.3.2         
-[16] readr_1.3.1          tidyr_0.8.3          tibble_2.1.3        
-[19] ggplot2_3.2.0        tidyverse_1.2.1     
+ [1] textdata_0.3.0       tidytext_0.2.2       genius_2.2.0        
+ [4] sjPlot_2.7.0         lmerTest_3.1-0       afex_0.24-1         
+ [7] lme4_1.1-21          Matrix_1.2-17        tableone_0.10.0     
+[10] RVAideMemoire_0.9-73 ggpubr_0.2.3         magrittr_1.5        
+[13] forcats_0.4.0        stringr_1.4.0        dplyr_0.8.3         
+[16] purrr_0.3.2          readr_1.3.1          tidyr_1.0.0         
+[19] tibble_2.1.3         ggplot2_3.2.0        tidyverse_1.2.1     
 
 loaded via a namespace (and not attached):
   [1] TH.data_1.0-10      minqa_1.2.4         colorspace_1.4-1   
-  [4] selectr_0.4-1       ggsignif_0.6.0      ellipsis_0.2.0.1   
+  [4] selectr_0.4-1       ggsignif_0.6.0      ellipsis_0.3.0     
   [7] rio_0.5.16          sjlabelled_1.1.0    rprojroot_1.3-2    
- [10] estimability_1.3    fs_1.3.1            rstudioapi_0.10    
- [13] glmmTMB_0.2.3       SnowballC_0.6.0     ggrepel_0.8.1      
- [16] mvtnorm_1.0-11      lubridate_1.7.4     xml2_1.2.1         
- [19] codetools_0.2-16    splines_3.6.1       mnormt_1.5-5       
- [22] knitr_1.24          sjmisc_2.8.1        zeallot_0.1.0      
- [25] jsonlite_1.6        workflowr_1.4.0     nloptr_1.2.1       
- [28] ggeffects_0.11.0    pbkrtest_0.4-7      broom_0.5.2        
- [31] compiler_3.6.1      httr_1.4.0          sjstats_0.17.5     
- [34] emmeans_1.4         backports_1.1.4     assertthat_0.2.1   
- [37] lazyeval_0.2.2      survey_3.36         cli_1.1.0          
- [40] htmltools_0.3.6     tools_3.6.1         gtable_0.3.0       
- [43] glue_1.3.1          reshape2_1.4.3      Rcpp_1.0.2         
- [46] carData_3.0-2       apa_0.3.2           cellranger_1.1.0   
- [49] vctrs_0.2.0         nlme_3.1-140        psych_1.8.12       
- [52] insight_0.4.1       xfun_0.8            openxlsx_4.1.0.1   
- [55] rvest_0.3.4         MASS_7.3-51.4       zoo_1.8-6          
- [58] scales_1.0.0        hms_0.5.0           parallel_3.6.1     
- [61] sandwich_2.5-1      RColorBrewer_1.1-2  TMB_1.7.15         
- [64] yaml_2.2.0          curl_4.0            stringi_1.4.3      
- [67] bayestestR_0.2.2    tokenizers_0.2.1    boot_1.3-23        
- [70] zip_2.0.3           rlang_0.4.0         pkgconfig_2.0.2    
- [73] evaluate_0.14       lattice_0.20-38     labeling_0.3       
- [76] tidyselect_0.2.5    ggsci_2.9           plyr_1.8.4         
- [79] R6_2.4.0            generics_0.0.2      multcomp_1.4-10    
- [82] DBI_1.0.0           pillar_1.4.2        haven_2.1.1        
- [85] whisker_0.3-2       foreign_0.8-71      withr_2.1.2        
- [88] survival_2.44-1.1   abind_1.4-5         performance_0.2.0  
- [91] janeaustenr_0.1.5   modelr_0.1.4        crayon_1.3.4       
- [94] car_3.0-3           rmarkdown_1.14      grid_3.6.1         
- [97] readxl_1.3.1        data.table_1.12.2   git2r_0.26.1       
-[100] digest_0.6.20       xtable_1.8-4        numDeriv_2016.8-1.1
-[103] munsell_0.5.0       mitools_2.4        </code></pre>
+ [10] snakecase_0.11.0    estimability_1.3    fs_1.3.1           
+ [13] rstudioapi_0.10     glmmTMB_0.2.3       SnowballC_0.6.0    
+ [16] ggrepel_0.8.1       fansi_0.4.0         mvtnorm_1.0-11     
+ [19] lubridate_1.7.4     xml2_1.2.1          codetools_0.2-16   
+ [22] splines_3.6.1       mnormt_1.5-5        knitr_1.25         
+ [25] sjmisc_2.8.1        zeallot_0.1.0       jsonlite_1.6       
+ [28] workflowr_1.4.0     nloptr_1.2.1        ggeffects_0.11.0   
+ [31] pbkrtest_0.4-7      broom_0.5.2         compiler_3.6.1     
+ [34] httr_1.4.1          sjstats_0.17.5      emmeans_1.4        
+ [37] backports_1.1.5     assertthat_0.2.1    lazyeval_0.2.2     
+ [40] survey_3.36         cli_1.1.0           htmltools_0.3.6    
+ [43] tools_3.6.1         coda_0.19-3         gtable_0.3.0       
+ [46] glue_1.3.1          reshape2_1.4.3      rappdirs_0.3.1     
+ [49] Rcpp_1.0.2          carData_3.0-2       apa_0.3.2          
+ [52] cellranger_1.1.0    vctrs_0.2.0         nlme_3.1-140       
+ [55] psych_1.8.12        insight_0.4.1       xfun_0.10          
+ [58] openxlsx_4.1.0.1    rvest_0.3.4         lifecycle_0.1.0    
+ [61] MASS_7.3-51.4       zoo_1.8-6           scales_1.0.0       
+ [64] hms_0.5.0           parallel_3.6.1      sandwich_2.5-1     
+ [67] RColorBrewer_1.1-2  TMB_1.7.15          yaml_2.2.0         
+ [70] curl_4.0            stringi_1.4.3       highr_0.8          
+ [73] bayestestR_0.2.2    tokenizers_0.2.1    boot_1.3-22        
+ [76] zip_2.0.3           rlang_0.4.0         pkgconfig_2.0.3    
+ [79] evaluate_0.14       lattice_0.20-38     labeling_0.3       
+ [82] tidyselect_0.2.5    ggsci_2.9           plyr_1.8.4         
+ [85] R6_2.4.0            generics_0.0.2      multcomp_1.4-10    
+ [88] DBI_1.0.0           pillar_1.4.2        haven_2.1.1        
+ [91] whisker_0.3-2       foreign_0.8-71      withr_2.1.2        
+ [94] survival_2.44-1.1   abind_1.4-5         performance_0.3.0  
+ [97] janeaustenr_0.1.5   modelr_0.1.4        crayon_1.3.4       
+[100] car_3.0-3           utf8_1.1.4          rmarkdown_1.16     
+[103] grid_3.6.1          readxl_1.3.1        data.table_1.12.2  
+[106] git2r_0.26.1        digest_0.6.21       xtable_1.8-4       
+[109] numDeriv_2016.8-1.1 munsell_0.5.0       mitools_2.4        </code></pre>
 </div>
 </div>
 </div>

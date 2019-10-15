@@ -249,7 +249,7 @@ songsinput <- dplyr::n_distinct(TrackTibbleS1$track_uri)
 The script found `r songsreturned` tracks out of the `r songsinput`
 
 Now that I have the lyrics I need to put them into a [tidytext](https://www.tidytextmining.com/tidytext.html) fromat where there is a single word for every row. From this I can group by the song and calculate a sentiment. 
-```{r S1sentiment}
+```{r S1sentiment, cache = TRUE}
 library(tidytext)
 library(textdata)
 data(stop_words)
@@ -285,23 +285,40 @@ s1clustersLyrics <- s1clusters %>%
   mutate(NormSent = (sentiment-min(sentiment, na.rm = TRUE))/(max(sentiment, na.rm = TRUE)-min(sentiment, na.rm = TRUE)))
 
 ggpubr::gghistogram(s1clustersLyrics, 
-                    x ="NormSent", 
+                    x ="sentiment", 
                     facet = "spotifycluster",
                     color = "spotifycluster", 
                     fill = "spotifycluster", 
                     palette = "simpsons",
-                    xlab = "Normalised sentiment using Afinn lexicon", 
+                    xlab = "Lyric sentiment using Afinn lexicon /n Negative values indicate negative valenced sentiment", 
                     bins = 50, 
                     xtickslab.rt = 30,
                     legend = "hide",
                     rug = T) 
+
+S1clustersentimentaov <- afex::aov_ez(id = "track_uri", 
+             dv = "sentiment", 
+             data = drop_na(s1clustersLyrics, sentiment), 
+             between = "spotifycluster", 
+             type = 3)
+
+knitr::kable(nice(S1clustersentimentaov))
+knitr::kable(pairs(emmeans::emmeans(S1clustersentimentaov, ~ spotifycluster)), digits = 3)
+
+
+stattests1lyrics <- ggpubr::compare_means(formula = sentiment ~ spotifycluster, 
+                      data = drop_na(s1clustersLyrics, sentiment), 
+                      method = "t.test")
+ggpubr::ggviolin(drop_na(s1clustersLyrics), 
+                  x = "spotifycluster",
+                  y = "sentiment", 
+                  fill ="spotifycluster",
+                  palette = "simpsons",
+                  legend = "none", 
+                 add = "boxplot",            
+                 xtickslab.rt = 35, 
+                 )
 ```
 
-```{r s1sentimentcluster}
-library(factoextra)
-library(NbClust)
-factoextra::fviz_nbclust(NbClust(select(s1clustersLyrics, valence, energy, sentiment), distance = "euclidean", method = "kmeans")) + theme_minimal() + ggtitle("NbClust's optimal number of clusters")
 
-
-```
 
