@@ -1,5 +1,5 @@
 ---
-title: "Study One: Exploratorty Data Analysis (Music)"
+title: "Study Two: Exploratorty Data Analysis (Music)"
 author: "joellarwood"
 date: "2019-09-30"
 output: workflowr::wflow_html
@@ -15,7 +15,7 @@ library(tidyverse)
 
 takeone <- function(x, na.rm = TRUE)(x - 1)
 
-s1explore <- read_csv("data/s1Processed.csv") %>% 
+s2explore <- read_csv(here::here("data", "MusicEmotionRegulation_November18_Prolific_Processed.csv")) %>% 
   mutate(rumsplit = if_else(.$rumination < median(rumination, na.rm = TRUE), 
                             "Low", "High")) %>%   
   mutate_at(.vars = vars(mecscale_1:mecscale_8), 
@@ -41,7 +41,7 @@ s1explore <- read_csv("data/s1Processed.csv") %>%
 
 library(apaTables)
 
-apaTables::apa.cor.table(data = select(s1explore, 
+apaTables::apa.cor.table(data = select(s2explore, 
                                        rumination, 
                                        musebaq, 
                                        valence, 
@@ -56,7 +56,7 @@ apaTables::apa.cor.table(data = select(s1explore,
 library(ggsci)
 library(ggpubr)
 
-ggpubr::ggscatterhist(s1explore,
+ggpubr::ggscatterhist(s2explore,
                       x = "valence",
                       y = "energy",
                       palette = "simpsons",
@@ -75,24 +75,24 @@ ggpubr::ggscatterhist(s1explore,
 
 ```
 
-# Cluster analysis 
+<!-- # Cluster analysis  -->
 
-K means - valence and energy
+<!-- K means - valence and energy -->
 
-Number of clusters indicated as 3
-NOTE: Cluster labels will change on each
-```{r s1cluster}
-library(NbClust)
-library(factoextra)
+<!-- Number of clusters indicated as 3 -->
+<!-- NOTE: Cluster labels will change on each -->
+<!-- ```{r s1cluster} -->
+<!-- library(NbClust) -->
+<!-- library(factoextra) -->
 
-VA <- drop_na(select(s1explore, valence, energy, id))
+<!-- VA <- drop_na(select(s2explore, valence, energy, id)) -->
 
-factoextra::fviz_nbclust(NbClust(select(VA, -id), distance = "euclidean", method = "kmeans")) + theme_minimal() + ggtitle("NbClust's optimal number of clusters")
+<!-- factoextra::fviz_nbclust(NbClust(select(VA, -id), distance = "euclidean", method = "kmeans")) + theme_minimal() + ggtitle("NbClust's optimal number of clusters") -->
 
-VAclust <- VA %>% 
-  mutate(KmeansCluster = fct_recode(factor(kmeans(select(VA, -id), 3)$cluster)))
+<!-- VAclust <- VA %>%  -->
+<!--   mutate(KmeansCluster = fct_recode(factor(kmeans(select(VA, -id), 3)$cluster))) -->
 
-s1clusters <- full_join(s1explore, select(VAclust, id, KmeansCluster), by = "id") %>% drop_na(KmeansCluster)
+<!-- s1clusters <- full_join(s1explore, select(VAclust, id, KmeansCluster), by = "id") %>% drop_na(KmeansCluster) -->
 
-write_csv(s1clusters, "data/s1clusters.csv")
-```
+<!-- write_csv(s1clusters, "data/s1clusters.csv") -->
+<!-- ``` -->

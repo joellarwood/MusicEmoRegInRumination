@@ -7,16 +7,24 @@ output:
 editor_options:
   chunk_output_type: console
 ---
-This site provides the script and some insight into my thoughts as writing/seeing the results. I have broken the site into 6 sections, one section of confirmatory tests adn one section of exploratory tests for each of the three studies. 
+Studies were completed to look at the relationship between trait rumination and the use of music to regulate sadness. 
+
+Study One was a cross sectional study looking at musical choices during sadness. 
+
+Study Two added an experimental element and considered changes in sadness when listening to self nominated sad music and any moderating effect of rumination. 
+
+Exploratory analysis were conducted for both studies and can be seen at the relevant pages
 
 ## Study One 
-### [Confirmatory Tests](StudyOneConfirm.html)
-### [Exploratory Tests of Time Effect](StudyOneModelExplore.html)
-### [Exploratory Test of Music](StudyOneMusicExplore.html)
-### [Exploratory Cluster Analysis of Music and Lyrics](StudyOneClusterExplore.html)
+### [Confirmatory Tests](StudyOneConfirm.html) These were not conducted due to fatal flaws in pre-registrtation and design
+### [Exploratory Tests](StudyOneExplore.html)
 
-## Study Two 
+## Study One 
 ### [Confirmatory Tests](StudyTwoConfirm.html)
-### [Exploratory Tests](StudyTwoExplore.html)
+### [Exploratory Tests of Time Effect](StudyTwoModelExplore.html)
+### [Exploratory Test of Music](StudyTwoMusicExplore.html)
+### [Exploratory Cluster Analysis of Music and Lyrics](StudyTwoClusterExplore.html)
+
+
 
 ## Study Three

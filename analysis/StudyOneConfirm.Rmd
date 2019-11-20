@@ -1,7 +1,7 @@
 ---
-title: "Study One: Confirmatory Data Analysis"
+title: "Study Two: Confirmatory Data Analysis"
 author: "Joel Larwood"
-date: "2019-09-23"
+date: "2019-09-25"
 output:
   workflowr::wflow_html:
     code_folding: hide
@@ -9,151 +9,41 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Pre-registration 
+## Load in data
 
-```{r processdata, message = FALSE, results = "hide", warning = FALSE}
+```{r S1loadin, message = FALSE}
+
 library(tidyverse)
-library(papaja)
+library(here)
+library(naniar)
+library(ProcessR)
 
-s1raw <- read_csv("data/s1.csv")
-
-names(s1raw)
-
-
-s1 <- s1raw %>% 
-  mutate(rrq_6 = 6 - rrq_6,
-         rrq_9 = 6 - rrq_9,
-         rrq_10 = 6 - rrq_10,
-         musebaq = rowSums(dplyr::select(., musebaq_1:musebaq_9)),
-         Baseline = rowSums(dplyr::select(., deq_1_1:deq_1_4)),
-         PostInduction = rowSums(dplyr::select(., deq_2_1: deq_2_4)),
-         PostListening = rowSums(dplyr::select(., deq_3_1: deq_3_4)), 
-         dif = PostListening - PostInduction
-         ) 
-
+s1 <- read_csv(here::here("data", "MusicEmotionRegulation_November17_Prolifc.csv")) %>%  
+  naniar::replace_with_na_all(~.x == -99) %>% 
+  naniar::add_prop_miss() %>% 
+  dplyr::filter(prop_miss_all < .50) 
+ 
+s1 <- s1 %>% 
+  mutate(RUM6 = 6 - RUM6,
+         RUM9 = 6 - RUM9,
+         RUM10 = 6 - RUM10,
+         )
 
 s1 <- s1 %>% 
-  mutate(rumination = rowMeans(dplyr::select(., rrq_1:rrq_12), na.rm = FALSE))
+  mutate(rumination = rowMeans(dplyr::select(., RUM1:RUM12)), 
+         clarity = rowSums(dplyr::select(., DERS1_1, DERS2_1)), 
+         goals = rowSums(dplyr::select(., DERS2_1, DERS7_1, DERS15_1)), 
+         impulse = rowSums(dplyr::select(., DERS4_1, DERS8_1, DERS11_1)), 
+         strategies = rowSums(dplyr::select(., DERS5_1, DERS6_1, DERS12_1, DERS14_1, DERS16_1)),
+         nonaccept = rowSums(dplyr::select(., DERS9_1, DERS10_1, DERS13_1)), 
+         ders = clarity + goals + impulse + strategies + nonaccept, 
+         mesi = rowSums(dplyr::select(., MESI1_1:MESI7_1)), 
+         marsneg = rowSums(dplyr::select(., MARS3_1:MARS13_1)),
+         depression = DASS2_1 + DASS5_1 + DASS10_1 + DASS13_1 + DASS16_1 + DASS17_1 + DASS21_1
+  )
 
-s1 %>% 
-  dplyr::select(Baseline,
-                PostInduction,
-                PostListening,
-                rumination,
-                musebaq,
-                hours.listen,
-                reg.use_1,
-                age) %>% 
-  psych::describe()
 
-write_csv(s1, "data/s1Processed.csv")
-
-# s1 %>% var_labels(mecscale_1 = "brainstem",
-#                         mecscale_2 = "Entrainment",
-#                         mecscale_3 = "Memory", 
-#                         mecscale_4 = "Conditioning",
-#                         mecscale_5 = "Imagery",
-#                         mecscale_6 = "Contagion", 
-#                         mecscale_7 = "Expectancy",
-#                         mecscale_8 = "Appraisal", 
-#                   reg.use_1 = "Regulatory Use Probability")
+write_csv(s1, here::here("data", "MusicEmotionRegulation_November17_Prolifc_Processed.csv"))
 ```
 
-# Reliabilities 
-
-```{r s1alphas, echo = FALSE}
-
-baseline <- psych::alpha(dplyr::select(s1, deq_1_1:deq_1_4))$total$raw_alpha
-postinduction <- psych::alpha(dplyr::select(s1, deq_2_1:deq_2_4))$total$raw_alpha
-postlistening <- psych::alpha(dplyr::select(s1, deq_3_1:deq_3_4))$total$raw_alpha
-rumalpha <- psych::alpha(dplyr::select(s1, rrq_1:rrq_12))$total$raw_alpha
-musebaqalpha<- psych::alpha(dplyr::select(s1, musebaq_1:musebaq_9))$total$raw_alpha
-
-```
-
-The alpha for the DEQ - Sadness at Baseline was `r baseline`
-
-The alpha for the DEQ DEQ - Sadness at Post Induction  was `r postinduction`
-
-The alpha for the DEQ _ Sadness at post Listening was `r postlistening`
-
-The alpha for rumination scores was `r rumalpha`
-
-The alpha for the cognitive and emotion regulation scale of the MUSEBAQ was `r musebaqalpha`
-
-
-# Manipulation Check
-
-```{r manipulationcheck, results = 'hide'}
-s1Manipulation <- t.test(s1$PostInduction, s1$Baseline, paired = TRUE) 
-
-apa::t_apa(s1Manipulation)
-apa::t_apa(s1Manipulation, format = "rmarkdown")
-
-```
-The manipulation/induction of sadness was succesful, `r apa_print(t.test(s1$PostInduction, s1$Baseline, paired = TRUE))$full_result *t*(381)` = 14.01, *p* < .001, *d* = 0.72, with scores rising from baseline (*M* `r printnum(mean(s1$Baseline))`, *SD* = `r printnum(sd(s1$Baseline))` to Post induction (*M* = `r printnum(mean(s1$PostInduction))`, *SD* = `r printnum(sd(s1$PostInduction))`)
-
-# Hypothesis Test 
-
-A significant interaction was found. 
-```{r message = FALSE}
-
-library(sjlabelled)
-s1long <- s1 %>% 
-  gather(key = Timepoint,
-         value = Sadness,
-         factor_key = TRUE,
-         PostInduction, PostListening) 
-
-write_csv(s1long, "data/s1long.csv")
-  
-
-library(lmerTest)
-library(sjPlot)
-
-s1glmm <- lmerTest::lmer(Sadness~1 + Timepoint + rumination + Timepoint:rumination + (1 |id), data = s1long)
-
-s1ancova <- afex::aov_ez(id = "id",
-                         dv = "Sadness", 
-                         within = "Timepoint", 
-                         covariates = "rumination", 
-                         data = s1long)
-tab_model(s1glmm)
-```
-
-Here a main effect of timepoint was found `r apa_print(s1ancova)$full_result$Timepoint ` withs scores increasing from post induction (*M* `r printnum(mean(s1$PostInduction))`, *SD* = `r printnum(sd(s1$PostInduction))`) to post listening (*M* `r printnum(mean(s1$PostListening))`, *SD* = `r printnum(sd(s1$PostListening))`). This increase was qualified by an interaction with rumination, `r apa_print(s1ancova)$full_result$Timepoint:rumination`, such that greater increases in sadness were seen in participants higher in rumination. 
-
-
-This interaction showed a larger increase in sadness for people higher in rumination 
-```{r s1hypothesisplot}
-
-library(sjPlot)
-
-sjPlot::plot_model(s1glmm,
-                   type = "int",
-                   mdrt.values = "meansd",
-                   ci.level = NULL,
-                   legend.title = "Rumination\n (- 1SD, Mean, + 1 SD)",
-                   show.values = TRUE,
-                   show.p = TRUE,
-                   order.terms = c(1,2,3)
-                   ) + 
-  ggplot2::theme(title = element_blank())+ 
-  ggpubr::theme_pubr(legend = "right")
-```
-
-The simple effects showed that sadness increased for all levels of rumunation 
-```{r simpleslopes}
-
-minusrum <- mean(s1$rumination, na.rm = TRUE)-sd(s1$rumination, na.rm = TRUE)
-plusrum <- mean(s1$rumination, na.rm = TRUE)+sd(s1$rumination, na.rm = TRUE)
-meanrum <- mean(s1$rumination, na.rm = TRUE)
-
-
-s1SimpleList <- list(rumination = c(minusrum, plusrum, meanrum), Timepoint = c("PostInduction", "PostListening"))
-
-s1SimpleSlopes <- emmeans::emmeans(s1glmm, ~rumination*Timepoint, at = s1SimpleList)
-
-emmeans::contrast(s1SimpleSlopes, "pairwise", by = "rumination")
-```
 

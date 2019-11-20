@@ -1,0 +1,198 @@
+---
+title: "Study One: Exploratory Data Analysis"
+author: "Joel Larwood"
+date: "2019-09-25"
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+editor_options:
+  chunk_output_type: console
+---
+
+```{r echo = FALSE, message = FALSE, warnings = FALSE}
+knitr::opts_chunk$set(autodep = TRUE, message = FALSE, warnings = FALSE)
+options(scipen = 999)
+
+library(tidyverse)
+library(Hmisc)
+library(xtable)
+library(sjPlot)
+library(tidytext)
+library(ggridges)
+```
+
+```{r loadexploredata, message = FALSE}
+
+
+s1Explore <- read_csv(here::here("data", "MusicEmotionRegulation_November17_Prolifc_Processed.csv")) %>% 
+  rowid_to_column("id")
+
+s1Explore %>% 
+  select(rumination:depression, valence, energy) %>% 
+  psych::describe() %>% 
+  knitr::kable()
+```
+
+The correlation matrix below suggests minimal no correlation between rumination, depression or emotion regulation and any of the musical variables. 
+```{r S1ExploreCor}
+corstars <-function(x, method=c("pearson", "spearman"), removeTriangle=c("upper", "lower"),
+                     result=c("none", "html", "latex")){
+    #Compute correlation matrix
+    require(Hmisc)
+    x <- as.matrix(x)
+    correlation_matrix<-rcorr(x, type=method[1])
+    R <- correlation_matrix$r # Matrix of correlation coeficients
+    p <- correlation_matrix$P # Matrix of p-value 
+    
+    ## Define notions for significance levels; spacing is important.
+    mystars <- ifelse(p < .0001, "****", ifelse(p < .001, "*** ", ifelse(p < .01, "**  ", ifelse(p < .05, "*   ", "    "))))
+    
+    ## trunctuate the correlation matrix to two decimal
+    R <- format(round(cbind(rep(-1.11, ncol(x)), R), 2))[,-1]
+    
+    ## build a new matrix that includes the correlations with their apropriate stars
+    Rnew <- matrix(paste(R, mystars, sep=""), ncol=ncol(x))
+    diag(Rnew) <- paste(diag(R), " ", sep="")
+    rownames(Rnew) <- colnames(x)
+    colnames(Rnew) <- paste(colnames(x), "", sep="")
+    
+    ## remove upper triangle of correlation matrix
+    if(removeTriangle[1]=="upper"){
+      Rnew <- as.matrix(Rnew)
+      Rnew[upper.tri(Rnew, diag = TRUE)] <- ""
+      Rnew <- as.data.frame(Rnew)
+    }
+    
+    ## remove lower triangle of correlation matrix
+    else if(removeTriangle[1]=="lower"){
+      Rnew <- as.matrix(Rnew)
+      Rnew[lower.tri(Rnew, diag = TRUE)] <- ""
+      Rnew <- as.data.frame(Rnew)
+    }
+    
+    ## remove last column and return the correlation matrix
+    Rnew <- cbind(Rnew[1:length(Rnew)-1])
+    if (result[1]=="none") return(Rnew)
+    else{
+      if(result[1]=="html") print(xtable(Rnew), type="html")
+      else print(xtable(Rnew), type="latex") 
+    }
+} 
+
+s1Explore %>% 
+  select(rumination:depression, valence, energy) %>%
+  as.matrix() %>% 
+  corstars() %>% 
+  knitr::kable()
+  
+```
+
+While the correaltion suggests there isn't a relationship between music listened to (in terms of valence and arousal) it may still be interesting to look at it further. 
+
+In terms of modelling a regression can be done to control for difficulties in emotion regulation and depression predicting valence and arousal. As can be seen in the table the measures have little predictive use.  
+
+```{r RegressionS1ValenceArousal}
+
+tab_model(lm(valence~rumination+depression+mesi, data = s1Explore),
+          (lm(energy~rumination+depression+mesi, data = s1Explore)), 
+          title = "Predictors of Musical valence and energy")
+```
+
+From the plot we can see that this cannot be attributed to a lack of linear trend. 
+```{r PlotRuminationValenceArousal} 
+
+s1Explore %>%
+  select(id, rumination, energy, valence) %>% 
+  pivot_longer(cols = energy:valence, 
+                names_to = "SpotifyMetric") %>% 
+  ggplot2::ggplot(aes(x = rumination, 
+                     y = value, 
+                     color = SpotifyMetric)) +
+    ggplot2::geom_point() + 
+  ggplot2::facet_wrap(vars(SpotifyMetric)) + 
+  ggplot2::xlim(1, 5) +
+  ggplot2::theme_classic()
+
+```
+
+However, we also know that lyrics are important in sad music. Subsequently, I have passed the data through the [genius](https://github.com/josiahparry/genius) package in this [script](code/s1LyricsGet.R) and drew on work by [Charlie Thompson](https://www.rcharlie.com/post/fitter-happier/). In this section I am interested in the proportion of sad lyrics used in the text. I have taken a bag of words approach, as has been done in the million song dataset. 
+
+The code for this can be expanded using the code button to the right. 
+
+```{r s1lyric}
+s1Lyrics <- read_csv(here::here("data", "MusicEmotionRegulation_November17_Prolifc_Lyrics.csv")) %>% 
+  drop_na(lyric) %>% 
+  tidytext::unnest_tokens(word, lyric) %>% 
+  anti_join(stop_words) %>% #only include meaningful words 
+  mutate(StemWord = SnowballC::wordStem(word)) # this gets the stems of the word, I might want it later on but here for reference at the moment 
+
+sadwords <- get_sentiments(lexicon = "nrc") %>% 
+  filter(sentiment == "sadness") %>% 
+  mutate(sad = T, 
+         StemWord = SnowballC::wordStem(word)) # this gets the stems of the word, I might want it later on but here for reference at the moment 
+
+S1SentimentJoin <- s1Lyrics %>% 
+  left_join(sadwords, by = "word")
+
+
+S1LyricSadness <- S1SentimentJoin %>%  
+  group_by(track_uri) %>% 
+  summarise(wordcount = n(), 
+            sadwords = sum(sad, na.rm = T)) %>% 
+  mutate(sadproportion = sadwords/wordcount)
+            
+
+
+S1ExploreMusicSentimentJoined <- s1Explore %>%
+  select(track_uri, 
+         artist_name, 
+         track_name, 
+         danceability:time_signature, 
+         rumination:depression) %>% 
+  left_join(S1LyricSadness, by = "track_uri") %>% 
+  drop_na(track_uri) %>% 
+  mutate(DummyMode = if_else(mode == "major", 1, 0), 
+         Song_Artist = glue::glue("{track_name} by {artist_name}"))
+  
+```
+
+Below the density plots for each of the musical characteristics can be seen 
+```{r}
+
+range<- function(x){
+  (x-min(x))/(max(x)-min(x))
+}
+
+plothist <- function(x)
+
+
+S1ExploreMusicSentimentJoined %>% 
+  select(danceability, 
+         energy, 
+         instrumentalness, 
+         valence, 
+         tempo, 
+         duration_ms, 
+         sadproportion) %>% 
+  psych::describe() %>% 
+  knitr::kable()
+
+table(S1ExploreMusicSentimentJoined$mode)
+
+```
+
+as well as the correlations between the variables 
+```{r}
+S1ExploreMusicSentimentJoined %>% 
+  select(danceability, 
+         energy, 
+         instrumentalness, 
+         valence, 
+         tempo, 
+         duration_ms, 
+         sadproportion, 
+         ) %>% 
+  corstars() %>% 
+  knitr::kable()
+```
+

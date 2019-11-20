@@ -1,7 +1,7 @@
 name: "MusicEmoRegInRumination"
 output_dir: ../docs
 navbar:
-  title: "The influence of trtait rumination is the musically based regulation of sadness"
+  title: "Trait rumination and musical emotion regulation"
   left:
   - text: Home
     href: index.html
