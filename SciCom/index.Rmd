@@ -1,0 +1,80 @@
+---
+title: "Sadness In Music"
+author: "Joel Larwood"
+date: "20/11/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(tidytext)
+```
+
+
+Musical emotions are of interest across scientific domains of enquire. From history where the emotional sentiment of a time is studied, to clinical psychology where the impact of musical emotions on mental health are investigated, to artifical intelligence where researchers and companies are interesested in modelling emotional preferences of listeners. 
+
+A dominent perspective in music emotion research is russels 2 dimensions of affect. Where a songs emotional tone is made up of how pleasant and energising (or arousing) it sounds (in terms of conveyed feelings). Sadness for instance is seen as an emotion that is low (or negative) in valence and low in energy (or arousal). However, other theoriests propose that musical emotions are not just a sum of their sonic elements and that linguistic concepts of emotions allow a song to be seen as sad even when it's musical features aren't prototypically low in pleasantness and energy. Yet anotehr perspecitive exists that proposes the *gloom index*. Proposed by data scientist [Myles Harrison](https://www.r-bloggers.com/everything-in-its-right-place-visualization-and-content-analysis-of-radiohead-lyrics/) and also used by Spotify analyst [Charlie Thomson](https://www.rcharlie.com/post/fitter-happier/) the gloom index gives the sadness of the song using the following formula: <br><br> 
+<center>$lyricaldesnity = \frac{wordcount}{duration_ms}*1000$ </center><br><br>
+<center>$gloomindex = \frac{(1-valence) + Percentage  Of  Sad Words * (1 + lyricaldensity)}{2}$ </center> <br><br><br>
+
+# Affect Based View 
+
+Within the affect based view I have access to two datasets. The first data set asked people to nominate a song they listen to when they are sad and the second asked participants to nominate a song that made them sad. 
+
+Looking at the songs nominated it appears that people tend to listen to songs that are negatively valenced(where negative is below .5) when they are feeling sad. Likewise, looking at the second plot it seems that the majority of songs that induce sadness are negative in valence. <br>
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+read_csv(here::here("data", "MusicEmotionRegulation_November17_Prolifc_Processed.csv")) %>% 
+  ggplot2::ggplot(aes(x = valence, 
+                      y = energy)) +
+  ggplot2::geom_point() + 
+  ggplot2::geom_hline(yintercept = .5, linetype = "dashed") + 
+  ggplot2::geom_vline(xintercept = .5, linetype = "dashed") + 
+  ggplot2::theme_classic() + 
+  ggplot2::labs(title = "Affect of songs listened to when feeling sad") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r echo = FALSE, message = FALSE, warning=FALSE}
+
+read_csv(here::here("data", "MusicEmotionRegulation_November18_Prolific_Processed.csv")) %>% 
+  ggplot2::ggplot(aes(x = valence, 
+                      y = energy)) +
+  ggplot2::geom_point() + 
+  ggplot2::geom_hline(yintercept = .5, linetype = "dashed") + 
+  ggplot2::geom_vline(xintercept = .5, linetype = "dashed") + 
+  ggplot2::theme_classic() + 
+  ggplot2::labs(title = "Affect of songs nominated as inducing sadness") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+<br> What is interesting is that not all songs that induce sadness are negative valenced. This may indicat something beyond valence and arousal as predictors of the impact of a song. We can add the lyrics of a song here to invesitgate the gloom index. 
+
+# Gloom Index
+
+## Songs listened to when feeling sad
+
+To test the relationshipbetween the gloom index and valence (an indactor of pleasantness) we will visualise the gloom index against valence for songs listened to when sad. Using this dataset is preferable to using the songs that make people sad as there is likely more variation in these data. 
+
+From the plot we can see that the gloom index and valence measures are largely independent from each other. From this a way to quasi-validated the gloom index would be to look at how it relates to changes in sadness in listeners from pre to post listening. 
+
+```{r echo = FALSE, message = FALSE, warning=FALSE}
+read_csv(here::here("data", "MusicEmotionRegulation_November17_Prolific_MusicFeatures.csv")) %>%  
+  mutate(pctsad = sadproportion * 100, 
+         density = (wordcount/duration_ms) * 1000, 
+         gloomIndex = ((1 - valence) + pctsad *(1+density)/2)) %>% 
+  ggplot2::ggplot(aes(x = valence, 
+                      y = gloomIndex)) +
+  ggplot2::geom_point() + 
+  ggplot2::stat_smooth(method = "lm") + 
+  ggplot2::theme_classic() +
+  ggplot2::labs(title = "Relationship between gloom index and expressed valence") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r}
+
+```
+
+

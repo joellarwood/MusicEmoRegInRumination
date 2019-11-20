@@ -190,9 +190,23 @@ S1ExploreMusicSentimentJoined %>%
          valence, 
          tempo, 
          duration_ms, 
-         sadproportion, 
+         sadproportion
          ) %>% 
   corstars() %>% 
   knitr::kable()
+```
+
+```{r export music infomation}
+S1ExploreMusicSentimentJoined %>% 
+  select(danceability, 
+         energy, 
+         instrumentalness, 
+         valence, 
+         tempo, 
+         duration_ms, 
+         sadproportion, 
+         wordcount
+         ) %>%
+  write_csv(here::here("data", "MusicEmotionRegulation_November17_Prolific_MusicFeatures.csv"))
 ```
 
