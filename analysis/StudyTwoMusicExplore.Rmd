@@ -12,6 +12,7 @@ editor_options:
 
 ```{r rumcor, message = FALSE}
 library(tidyverse)
+library(tidytext)
 
 takeone <- function(x, na.rm = TRUE)(x - 1)
 
@@ -72,6 +73,69 @@ ggpubr::ggscatterhist(s2explore,
                       xlim = c(0, 1),
                       ylim = c(0, 1),
                       mean.point = FALSE) 
+
+```
+
+
+
+
+# Analyse Lyrics
+```{r study2JoinLyrics}
+
+
+S2Lyrics <- read_csv(here::here("data", "MusicEmotionRegulation_November18_Prolific_Lyrics.csv")) %>% 
+  drop_na(lyric) %>% 
+  tidytext::unnest_tokens(word, lyric) %>% 
+  anti_join(stop_words) %>% #only include meaningful words 
+  mutate(StemWord = SnowballC::wordStem(word)) # this gets the stems of the word, I might want it later on but here for reference at the moment 
+
+sadwords <- get_sentiments(lexicon = "nrc") %>% 
+  filter(sentiment == "sadness") %>% 
+  mutate(sad = T, 
+         StemWord = SnowballC::wordStem(word)) # this gets the stems of the word, I might want it later on but here for reference at the moment 
+
+
+S2SentimentJoin <- S2Lyrics %>% 
+  left_join(sadwords, by = "word")
+
+S2LyricSadness <- S2SentimentJoin %>%  
+  group_by(track_uri) %>% 
+  summarise(wordcount = n(), 
+            sadwords = sum(sad, na.rm = T)) %>% 
+  mutate(sadproportion = sadwords/wordcount)
+
+
+s2ExploreMusicSentimentJoined <- s2explore  %>% 
+  left_join(S2LyricSadness, by = "track_uri") %>% 
+  drop_na(track_uri) %>% 
+  mutate(DummyMode = if_else(mode == "major", 1, 0), 
+         Song_Artist = glue::glue("{track_name} by {artist_name}"))
+
+s2ExploreMusicSentimentJoined %>% 
+  select(danceability, 
+         energy, 
+         instrumentalness, 
+         valence, 
+         tempo, 
+         duration_ms, 
+         sadproportion, 
+         wordcount
+         ) %>%
+  write_csv(here::here("data", "MusicEmotionRegulation_November18_Prolific_MusicFeatures.csv"))
+
+s2ExploreMusicSentimentJoined %>% 
+  select(danceability, 
+         energy, 
+         instrumentalness, 
+         valence, 
+         tempo, 
+         duration_ms, 
+         sadproportion, 
+         wordcount, 
+         Baseline:PostListening, 
+         rumination:LikelyUse
+         ) %>%
+  write_csv(here::here("data", "MusicEmotionRegulation_November18_Prolific_MusicFeatures_SelfReport.csv"))
 
 ```
 

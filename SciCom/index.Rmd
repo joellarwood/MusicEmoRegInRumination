@@ -73,8 +73,19 @@ read_csv(here::here("data", "MusicEmotionRegulation_November17_Prolific_MusicFea
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-```{r}
-
+```{r echo = FALSE, message = FALSE, warning=FALSE}
+read_csv(here::here("data", "MusicEmotionRegulation_November18_Prolific_MusicFeatures.csv")) %>%  
+  mutate(pctsad = sadproportion * 100, 
+         density = (wordcount/duration_ms) * 1000, 
+         gloomIndex = ((1 - valence) + pctsad *(1+density)/2)) %>% 
+  ggplot2::ggplot(aes(x = valence, 
+                      y = gloomIndex)) +
+  ggplot2::geom_point() + 
+  ggplot2::stat_smooth(method = "lm") + 
+  ggplot2::theme_classic() +
+  ggplot2::labs(title = "Relationship between gloom index and expressed valence") +
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  ggpubr::stat_regline_equation()
 ```
 
 
