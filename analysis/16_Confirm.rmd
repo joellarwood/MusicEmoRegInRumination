@@ -1,0 +1,83 @@
+---
+title: "16_Confirm"
+author: "joellarwood"
+date: "2019-12-07"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r processdata, message = FALSE, results = "hide", warning = FALSE}
+library(tidyverse)
+library(lmerTest)
+library(sjPlot)
+library(emmeans)
+library(here)
+knitr::opts_chunk$set(autodep = TRUE, message = FALSE, warnings = FALSE)
+```
+
+```{r loadin}
+Dat16 <- read_csv(here::here("data", "MusicEmotionRegulation_2016.csv"))
+
+names(Dat16)
+
+```
+
+```{r Create Scores}
+
+
+# Rumination items 6, 9, 10 are reverse coded
+Clean16 <- Dat16 %>% 
+  mutate(RRQ6_1 = 6 - RRQ6_1, 
+         RRQ9_1 = 6 - RRQ9_1, 
+         RRQ9_1 = 6 - RRQ9_1)
+
+Clean16 <- Dat16 %>% 
+  mutate(Baseline = rowSums(select(Dat16, POMSDSF1_1:POMSDSF8_1)), 
+         PostInduction = rowSums(select(Dat16, POMSDSF1_2:POMSDSF8_2)), 
+         PostListening = rowSums(select(Dat16, POMSDSF1_3:POMSDSF8_3)), 
+         Rum = rowMeans(select(Dat16, contains("RRQ"))), 
+         # MARS Negative = 3, 4,5,10, 13
+         MarsNeg = rowMeans(select(Dat16, MARS3_1, MARS4_1, MARS5_1, MARS10_1, MARS13_1)),
+         #MARS Positive = 1, 2, 6,7,8, 11, 12, 14, 15
+         MarsPos = rowMeans(select(Dat16, MARS1_1, MARS2_1, MARS6_1, MARS7_1, MARS8_1, MARS9_1, MARS11_1, MARS12_1, MARS14_1, MARS15_1))
+         )
+```
+
+```{r KeyDescriptives}
+Clean16 %>% 
+  summarise_at(vars(Baseline, PostInduction, PostListening, Rum, MarsPos, MarsNeg), 
+   list(mean, sd)
+  ) %>% 
+  pivot_longer(everything(), 
+               names_to = c(".value", "stat"), 
+               names_sep = "_"
+               ) %>% 
+  as.tibble() %>% 
+  recode(stat, 
+         "fn1" = "Mean")
+  
+  
+  
+  
+Clean16 %>% 
+  select(Baseline, PostInduction, PostListening, Rum, MarsNeg, MarsPos) %>% 
+  summarise(Baseline_Mean = round(mean(Baseline), 3), 
+            Baseline_SD = round(sd(Baseline),3), 
+            Baseline_Alpha = round(psych::alpha(select(Clean16, POMSDSF1_1:POMSDSF8_1))$total$std.alpha, 3), 
+            PostInduction_Mean = round(mean(PostInduction), 3), 
+            PostInduction_SD = round(sd(PostInduction),3), 
+            PostInduction_Alpha = round(psych::alpha(select(Clean16, POMSDSF1_2:POMSDSF8_2))$total$std.alpha, 3), 
+            PostListening_Mean = round(mean(PostInduction), 3), 
+            PostListening_SD = round(sd(PostListening), 3),
+            PostListening_Alpha = round(psych::alpha(select(Clean16, POMSDSF1_3:POMSDSF8_3))$total$raw_alpha, 3)
+  ) %>% 
+  pivot_longer(everything(), 
+               names_to = c(".value", "stat"), 
+               names_sep = "_"
+  )
+```
+
+
+
+
